@@ -1,0 +1,35 @@
+{
+    "name": "najs",
+    "version": "1.0.0",
+    "description": "A NA parser",
+    "main": "index.js",
+    "author": "Felix Rilling",
+    "license": "MIT",
+    "scripts": {
+        "start": "npm run lint && npm run test",
+        "lint": "./node_modules/.bin/eslint ./**/*.js",
+        "test": "./node_modules/.bin/jasmine"
+    },
+    "keywords": [
+        "na",
+        "parser",
+        "npm"
+    ],
+    "homepage": "https://github.com/FelixRilling/node_module-stack#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/FelixRilling/node_module-stack.git"
+    },
+    "bugs": {
+        "url": "https://github.com/FelixRilling/node_module-stack/issues"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "eslint": "^3.15.0",
+        "jasmine": "^2.5.3"
+    },
+    "optionalDependencies": {},
+    "engines": {
+        "node": ">=0.10.0"
+    }
+}
