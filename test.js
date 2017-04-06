@@ -8,9 +8,7 @@ const tag = fs.readFileSync("tags/simple.yna", {
     encoding: "utf8"
 });
 const instance = new Na(tag);
-//const result = instance.run("foo");
+const result = instance.run("foo");
 
-console.log(util.inspect(instance.tree, {
-    showHidden: false,
-    depth: null
-}));
+
+console.log(result)

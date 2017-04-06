@@ -1,6 +1,7 @@
 "use strict";
 
 const parse = require("./lib/parser/index");
+const run = require("./lib/run/index");
 
 module.exports = class {
     constructor(na) {
@@ -10,7 +11,18 @@ module.exports = class {
         _this.na = na;
         _this.tree = tree;
     }
-    run(args) {
-        //return runNa(this.optimized, args);
+    /**
+     * Returns tree of command
+     */
+    tree() {
+        return this.tree;
+    }
+    /**
+     * Runs command
+     * @param {Array} args
+     * @param {Object} ctx
+     */
+    run(args, ctx) {
+        return run(this.tree, args, ctx);
     }
 };
