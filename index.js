@@ -4,13 +4,22 @@ const parse = require("./lib/parser/index");
 const run = require("./lib/run/index");
 
 module.exports = class {
-    constructor(na, creator) {
+    constructor(name, na, creator) {
         const _this = this;
-        const tree = parse(na);
 
+        _this.name = name;
         _this.na = na;
-        _this.tree = tree;
         _this.creator = creator;
+
+        _this.tree = parse(na);
+    }
+    /**
+     * Runs command
+     * @param {Array} args
+     * @param {Object} ctx
+     */
+    run(args, mentions, ctx) {
+        return run(this, args, mentions, ctx);
     }
     /**
      * Returns tree of command
@@ -19,11 +28,14 @@ module.exports = class {
         return this.tree;
     }
     /**
-     * Runs command
-     * @param {Array} args
-     * @param {Object} ctx
+     * Returns info
      */
-    run(args, mentions, ctx) {
-        return run(this.tree, this.creator, args,mentions, ctx);
+    info() {
+        const _this = this;
+
+        return {
+            name: _this.name,
+            creator: _this.name
+        };
     }
 };

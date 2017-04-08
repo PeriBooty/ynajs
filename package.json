@@ -1,6 +1,6 @@
 {
     "name": "najs",
-    "version": "1.2.0",
+    "version": "0.3.0",
     "description": "A NA parser",
     "main": "index.js",
     "author": "Felix Rilling",
