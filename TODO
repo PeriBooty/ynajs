@@ -1,5 +1,10 @@
 TODO
 - Discord.js -> Discord.py obj
+    mention
+    caller,
+    server,
+    channel,
+    me
 
 TOTEST
 
