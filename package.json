@@ -23,11 +23,11 @@
     "bugs": {
         "url": "https://github.com/FelixRilling/node_module-stack/issues"
     },
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
         "eslint": "^3.19.0",
-        "jasmine": "^2.5.3"
+        "jasmine": "^2.5.3",
+        "moment": "^2.18.1"
     },
     "optionalDependencies": {},
     "engines": {

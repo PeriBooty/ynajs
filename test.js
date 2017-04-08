@@ -1,7 +1,7 @@
 "use strict";
 
 const fs = require("fs");
-const util = require("util");
+//const util = require("util");
 const Na = require("./index");
 
 //Tag setup
@@ -33,15 +33,12 @@ const run_server = {
 const result = instance.run(run_args, run_mentions, {
     tag: "simple",
     meid: tag_creator.id,
-    caller: run_caller.name,
-    callerid: run_caller.name,
-    channel: run_channel.name,
-    channelid: run_channel.id,
-    server: run_server.name,
-    serverid: run_server.id,
+    caller: run_caller,
+    channel: run_channel,
+    server: run_server,
     time: Date.now(),
     uses: 23,
-    newrep: "false"
+    newrep: false
 });
 
 
