@@ -1,7 +1,7 @@
 {
-    "name": "najs",
+    "name": "ynajs",
     "version": "1.0.0",
-    "description": "A NA parser",
+    "description": "A YNA parser",
     "main": "index.js",
     "author": "Felix Rilling",
     "license": "MIT",
@@ -15,13 +15,13 @@
         "parser",
         "npm"
     ],
-    "homepage": "https://github.com/FelixRilling/node_module-stack#readme",
+    "homepage": "https://github.com/FelixRilling/ynajs#readme",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/FelixRilling/node_module-stack.git"
+        "url": "git+https://github.com/FelixRilling/ynajs.git"
     },
     "bugs": {
-        "url": "https://github.com/FelixRilling/node_module-stack/issues"
+        "url": "https://github.com/FelixRilling/ynajs/issues"
     },
     "dependencies": {
         "moment": "^2.18.1"
