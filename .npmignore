@@ -6,3 +6,7 @@ node_modules/
 .DS_Store
 .editorconfig
 npm-debug.*
+test_run.js
+test_parser.js
+tags/
+
