@@ -1,5 +1,6 @@
 "use strict";
 
+const toUser = require("./lib/convert/toUser");
 const parse = require("./lib/parser/index");
 const run = require("./lib/run/index");
 
@@ -9,7 +10,10 @@ module.exports = class {
 
         _this.name = name;
         _this.na = na;
-        _this.creator = creator;
+        _this.creator = toUser(creator);
+
+        //_this.usedKeys=new Set();
+        //_this.usedCommands=new Set();
 
         _this.tree = parse(na);
     }
