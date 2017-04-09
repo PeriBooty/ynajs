@@ -1,16 +1,44 @@
 "use strict";
 
-const parseNa = require("./lib/parseNa");
-const runNa = require("./lib/runNa");
+const parse = require("./lib/parser/index");
+const run = require("./lib/run/index");
 
 module.exports = class {
-    constructor(na) {
+    constructor(name, na, creator) {
         const _this = this;
 
+        _this.name = name;
         _this.na = na;
-        _this.tree = parseNa(na);
+        _this.creator = creator;
+
+        //_this.usedKeys=new Set();
+        //_this.usedCommands=new Set();
+
+        _this.tree = parse(na);
     }
-    run(args) {
-        return runNa(this.tree, args);
+    /**
+     * Runs command
+     * @param {Array} args
+     * @param {Object} ctx
+     */
+    run(args, mentions, ctx) {
+        return run(this, args, mentions, ctx);
+    }
+    /**
+     * Returns tree of command
+     */
+    tree() {
+        return this.tree;
+    }
+    /**
+     * Returns info
+     */
+    info() {
+        const _this = this;
+
+        return {
+            name: _this.name,
+            creator: _this.name
+        };
     }
 };
