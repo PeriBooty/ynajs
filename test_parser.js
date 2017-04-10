@@ -1,7 +1,7 @@
 "use strict";
 
 const fs = require("fs");
-const util = require("util");
+//const util = require("util");
 const Na = require("./index");
 const exampleData = {
     user: {
@@ -17,8 +17,8 @@ const exampleData = {
         created_at: "2016-04-07 15:23:01.000000",
         display_name: "Nobeon"
     }
-}
-	
+};
+
 //Tag setup
 const tag_content = fs.readFileSync("yna/simple.yna", {
     encoding: "utf8"
