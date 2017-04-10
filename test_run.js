@@ -59,6 +59,8 @@ const exampleData = {
 const instance = new Yna(tag_content, {
     name: "simple_tag",
     creator: exampleData.user
+},{
+    debug:true
 });
 const result = instance.run(["foo", "bar"], [exampleData.user], { //Tag execution
     caller: exampleData.user,

@@ -1,4 +1,4 @@
-{func:random;{wchoose:1;10;2;5;5;1;};}
-
-
-{random} {random} {random}
+{oneline:
+    {set:name1;Nothing;}
+    Here goes {name1}
+;}

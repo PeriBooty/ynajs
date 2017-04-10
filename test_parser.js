@@ -9,7 +9,7 @@ const tag_content = fs.readFileSync("yna/simple.yna", {
     encoding: "utf8"
 });
 const tag = new Yna(tag_content, {}, {
-    debug: false
+    debug: true
 });
 
 console.log(util.inspect(tag.tree,{depth:null}));
