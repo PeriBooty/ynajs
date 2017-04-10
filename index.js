@@ -1,20 +1,32 @@
 "use strict";
 
 const parse = require("./lib/parser/index");
-const run = require("./lib/run/index");
+const run = require("./lib/runner/index");
+const Options = require("options");
 
 module.exports = class {
-    constructor(name, na/*, creator*/) {
+    constructor(na, info, options) {
         const _this = this;
+        const infoDefault = new Options({
+            name: "anonymous"
+        });
+        const optionsDefault = new Options({
+            debug: false,
+            parser: {
+                dropComments: true
+            },
+            runner: {
 
-        _this.name = name;
-        _this.na = na;
-        //_this.creator = creator;
+            }
+        });
+
+        _this.info = infoDefault.merge(info).value;
+        _this.options = optionsDefault.merge(options).value;
+
+        _this.tree = parse(na, _this.options);
 
         //_this.usedKeys=new Set();
         //_this.usedCommands=new Set();
-
-        _this.tree = parse(na);
     }
     /**
      * Runs command
@@ -22,23 +34,8 @@ module.exports = class {
      * @param {Object} ctx
      */
     run(args, mentions, ctx) {
-        return run(this, args, mentions, ctx);
-    }
-    /**
-     * Returns tree of command
-     */
-    tree() {
-        return this.tree;
-    }
-    /**
-     * Returns info
-     */
-    info() {
         const _this = this;
 
-        return {
-            name: _this.name,
-            creator: _this.name
-        };
+        return run(_this.tree, _this.info, _this.options, args, mentions, ctx);
     }
 };

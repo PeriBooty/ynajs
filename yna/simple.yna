@@ -1,4 +1,6 @@
-{oneline:
-    {! Recipe }
-    {arg1}, {arg2}
-;}
+
+    {set:name1;Nothding;}
+    {set:name2;Nobo;}
+
+    {name2} {name1}
+
