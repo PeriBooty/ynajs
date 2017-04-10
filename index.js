@@ -4,12 +4,12 @@ const parse = require("./lib/parser/index");
 const run = require("./lib/run/index");
 
 module.exports = class {
-    constructor(name, na, creator) {
+    constructor(name, na/*, creator*/) {
         const _this = this;
 
         _this.name = name;
         _this.na = na;
-        _this.creator = creator;
+        //_this.creator = creator;
 
         //_this.usedKeys=new Set();
         //_this.usedCommands=new Set();

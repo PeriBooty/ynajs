@@ -1,0 +1,6 @@
+{oneline:
+    {set:name1;{when:{arglen};gt;0;{arg1};Nothing;};}
+    {set:name2;{when:{arglen};gt;1;{arg2};Nobody;};}
+
+    {slice:,3;{name1};}{lower:{slice:3,;{name2};};}
+;}
