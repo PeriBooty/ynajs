@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 //const util = require("util");
-const Na = require("./index");
+const Yna = require("./index");
 
 //Tag setup
 const tag_content = fs.readFileSync("yna/simple.yna", {
@@ -56,7 +56,12 @@ const exampleData = {
     }
 };
 
-const instance = new Na("simple_tag", tag_content, exampleData.user);
+const instance = new Yna(tag_content, {
+    name: "simple_tag",
+    creator: exampleData.user
+},{
+    debug:true
+});
 const result = instance.run(["foo", "bar"], [exampleData.user], { //Tag execution
     caller: exampleData.user,
     channel: exampleData.channel,

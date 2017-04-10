@@ -1,4 +1,4 @@
 {oneline:
-    {! Recipe }
-    {arg1}, {arg2}
+    {set:name1;Nothing;}
+    Here goes {name1}
 ;}
