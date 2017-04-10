@@ -1,6 +1,6 @@
 {oneline:
     {! Recipe }
-    {set:foo;1}
+    {set:foo;1;}
 
     {foo}
 ;}
