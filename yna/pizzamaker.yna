@@ -1,0 +1,12 @@
+{oneline:
+    {! Recipe }
+    {func:ingredient;{choose::lemon:;:banana:;:pineapple:;:tomato:;:avocado:;:eggplant:;:potato:;:corn:;:hot_pepper:;:mushroom:;:peanuts:;:cheese:;:poultry_leg:;:bacon:;:sweet_potato:;:fried_shrimp:;:fish:;:egg:;:fries:;:spaghetti:;:sushi:;:curry:;:rice:;};}
+    {set:recipe;We should make a pizza with {ingredient} And {ingredient}!;}
+
+    {! Ingredient list }
+    {set:ingredients;:lemon:, :banana:, :pineapple:, :tomato:, :avocado:, :eggplant:, :potato:, :corn:, :hot_pepper:, :mushroom:, :peanuts:, :cheese:, :poultry_leg:, :bacon:, :sweet_potato:, :fried_shrimp:, :fish:, :egg:, :fries:, :spaghetti:, :sushi:, :curry:, :rice:;}
+    {set:ingredient_list; We currently offer the following: {ingredients};}
+
+    {! Mode Selection}
+    {when:{arg1};eq;ingredients;{ingredient_list};{recipe};}
+;}
