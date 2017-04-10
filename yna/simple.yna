@@ -1,6 +1,8 @@
 {oneline:
     {! Recipe }
-    {set:foo;1;}
+    {func:foo;{choose:1;5;10;};}
 
+    {foo}
+    {foo}
     {foo}
 ;}
