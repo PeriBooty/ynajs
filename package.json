@@ -3,26 +3,26 @@
     "version": "1.2.0",
     "description": "A YNA parser",
     "main": "index.js",
-    "author": "Felix Rilling",
-    "license": "MIT",
     "scripts": {
         "start": "npm run lint && npm run test",
         "lint": "./node_modules/.bin/eslint ./**/*.js",
         "test": "./node_modules/.bin/jasmine"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/FelixRilling/ynajs.git"
     },
     "keywords": [
         "na",
         "parser",
         "npm"
     ],
-    "homepage": "https://github.com/FelixRilling/ynajs#readme",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/FelixRilling/ynajs.git"
-    },
+    "author": "Felix Rilling",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/FelixRilling/ynajs/issues"
     },
+    "homepage": "https://github.com/FelixRilling/ynajs#readme",
     "dependencies": {
         "moment": "^2.18.1",
         "options": "^0.0.6"
@@ -30,9 +30,5 @@
     "devDependencies": {
         "eslint": "^3.19.0",
         "jasmine": "^2.5.3"
-    },
-    "optionalDependencies": {},
-    "engines": {
-        "node": ">=0.10.0"
     }
 }
