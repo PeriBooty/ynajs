@@ -17,8 +17,6 @@
         0,{sli};{name1}
     ;}
     {lower:
-        {slice:
-            {sli},;{name2}
-        ;}
+        {slice:{sli},;{name2};}
     ;}
 ;}
