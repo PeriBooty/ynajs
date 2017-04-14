@@ -1,22 +1,8 @@
 {oneline:
-	{! Thanks to the great Ululu for massively improving this! <3}
+	{set:moji_hand;{choose:/;\\;\_/;\\\_;\_;7;<;=;>;\~;ლ;–;—;∩;┌;┐;╯;つ;ノ;ヘ;};}
+	{set:moji_eye;{choose:n;u;o;v;O;U;V;#;$;';\*;+;-;.;0;<;=;>;@;^;~;¤;©;«;°;·;º;×;ò;ƍ;Ǫ;ǫ;Ǭ;ǭ;˄;˅;ˉ;˜;ͻ;ͼ;ͽ;ϖ;Ϙ;ϙ;Ϛ;ϛ;Ϭ;ϴ;Ͼ;Ͽ;ಠ;ಥ;–;—;•;⁄•⁄;ↀ;⊙;╹;▔;▼;◉;◕;◔;★;・;︶;ｏ;￣;⁄>⁄;⁄<⁄;ꈍ;ຈ;≧;≦;};}
+	{set:moji_mouth;{choose:#;+;.;6;<;=;-;>;O;U;V;W;\_;o;u;v;w;~;×;ʖ;Δ;Ω;ε;λ;ω;ϖ;ϴ;ᴥ;–;—;•;…;‿;▂;◡;ゝ;︿;︿;﹏;Ｏ;◇;};}
 
-    {set:name1;{when:{arglen};gt;0;{arg1};{slice:,-5;{user;};};};}
-    {set:name2;{when:{arglen};gt;1;{arg2};{slice:,-5;{user;};};};}
-    {set:sli;
-        {when:
-            {len:{name1};};
-            gt;
-            {len:{name2};};
-            {num:1;{len:{name2};};};
-            {num:1;{len:{name1};};}
-        ;}
-    ;}
-
-    {slice:
-        0,{sli};{name1}
-    ;}
-    {lower:
-        {slice:{sli},;{name2};}
-    ;}
+	{moji_hand}({moji_eye}{moji_mouth}{moji_eye}){moji_hand}
+    {! foo }
 ;}

@@ -60,15 +60,15 @@ const instance = new Yna(tag_content, {
     name: "simple_tag",
     creator: exampleData.user
 },{
-    debug:true
+    runner:{debug:true}
 });
 const result = instance.run(["foo", "bar"], [exampleData.user], { //Tag execution
-    caller: exampleData.user,
-    channel: exampleData.channel,
-    server: exampleData.server,
+    //caller: exampleData.user,
+    //channel: exampleData.channel,
+    //server: exampleData.server,
     time: Date.now(),
-    uses: 23,
-    newrep: false
+    //uses: 23,
+    //newrep: false
 });
 
 

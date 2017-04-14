@@ -1,24 +1,25 @@
 "use strict";
 
+const Options = require("options");
 const parse = require("./lib/parser/index");
 const run = require("./lib/runner/index");
-const Options = require("options");
+
+const infoDefault = new Options({
+    name: "anonymous"
+});
+const optionsDefault = new Options({
+    parser: {
+        debug: false,
+        dropComments: true
+    },
+    runner: {
+        debug: false
+    }
+});
 
 module.exports = class {
     constructor(na, info, options) {
         const _this = this;
-        const infoDefault = new Options({
-            name: "anonymous"
-        });
-        const optionsDefault = new Options({
-            debug: false,
-            parser: {
-                dropComments: true
-            },
-            runner: {
-
-            }
-        });
 
         _this.info = infoDefault.merge(info).value;
         _this.options = optionsDefault.merge(options).value;
