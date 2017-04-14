@@ -34,9 +34,9 @@ module.exports = class {
      * @param {Array} args
      * @param {Object} ctx
      */
-    run(args, mentions, ctx) {
+    run(args, ctx) {
         const _this = this;
 
-        return run(_this.tree, _this.info, _this.options, args, mentions, ctx);
+        return run(_this.tree, _this.info, _this.options, args, ctx);
     }
 };
