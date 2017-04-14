@@ -1,0 +1,18 @@
+{oneline:
+    {!
+        Edgy names by:
+        - Nobo
+        - Cuz
+        - Omni
+        - Shadowjonathan
+        - Ululu
+        - Dalai
+        - Ange
+    }
+
+    {func:edgeWord;{choose:Assassin;Badass;Battle;Black;Blade;Blood;Chopper;Dark;Deadly;Death;Destroyer;Devil;Dragon;Evil;Fear;Fire;Flesh;Grinder;Gun;Inferno;Katana;Killer;King;Knife;Knight;Lightning;Lord;MLG;Master;Murder;Murderous;Night;Ninja;Pawner;Plasma;Pro;Quantum;Raider;Rain;Reaper;Sadist;Sadistic;Samurai;Satan;Scarred;Scary;Shadow;Slayer;Sniper;Sword;Thunder;Twisted;War;X;Y;Z;Zombie;};}
+    {set:edgeNumber;{choose:2k18;2k17;2k16;2k15;1;007;7;27;42;64;69;99;123;235;365;404;420;666;777;1024;1337;2048;4096;9000;9001;};}
+    {set:username;{when:{arglen};gt;0;{args};{slice:,-5;{user;};};};}
+
+    xX_{edgeWord}{username}{edgeWord}{edgeNumber}_Xx
+;}

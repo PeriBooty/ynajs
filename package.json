@@ -24,6 +24,7 @@
     },
     "homepage": "https://github.com/FelixRilling/ynajs#readme",
     "dependencies": {
+        "lodash": "^4.17.4",
         "moment": "^2.18.1",
         "options": "^0.0.6"
     },
