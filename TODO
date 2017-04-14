@@ -1,12 +1,11 @@
 TODO
-- Discord.js -> Discord.py obj
-    mention
-    user,
-    server,
-    channel,
+- Parse validation
+
 - Only retrieve keys that exist in the tag
+
 - Minify tags by making objects array, indicated by id; maybe gzip after
 - Add options: loadMinified
+
 TOTEST
 
 TOFIX
