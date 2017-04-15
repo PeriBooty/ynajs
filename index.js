@@ -1,13 +1,15 @@
 "use strict";
 
-const Options = require("options");
+const merge = require("lodash/merge");
 const parse = require("./lib/parser/index");
 const run = require("./lib/runner/index");
+const initCommands = require("./lib/init/initCommands");
+const initKeys = require("./lib/init/initKeys");
 
-const infoDefault = new Options({
+const infoDefault = {
     name: "anonymous"
-});
-const optionsDefault = new Options({
+};
+const optionsDefault = {
     parser: {
         debug: false,
         dropComments: true
@@ -15,28 +17,39 @@ const optionsDefault = new Options({
     runner: {
         debug: false
     }
-});
+};
 
+/**
+ * YNA command class
+ * @class
+ */
 module.exports = class {
+    /**
+     * Command contructor
+     * @param {String} na
+     * @param {Object} info
+     * @param {Object} options
+     */
     constructor(na, info, options) {
         const _this = this;
 
-        _this.info = infoDefault.merge(info).value;
-        _this.options = optionsDefault.merge(options).value;
+        _this.info = merge(infoDefault, info);
+        _this.options = merge(optionsDefault, options);
+
+        _this.commands = initCommands();
 
         _this.tree = parse(na, _this.options);
-
-        //_this.usedKeys=new Set();
-        //_this.usedCommands=new Set();
     }
     /**
      * Runs command
      * @param {Array} args
      * @param {Object} ctx
+     * @returns {String}
      */
     run(args, ctx) {
         const _this = this;
+        const keys = initKeys(_this.info, args, ctx);
 
-        return run(_this.tree, _this.info, _this.options, args, ctx);
+        return run(_this.tree, _this.commands, keys, _this.options);
     }
 };
