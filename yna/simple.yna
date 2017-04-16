@@ -1,1 +1,9 @@
-{when:foo;eq;bar;Yes!;No...;}
+SINGLE {time;}
+
+ONE EMPTY {time:;}
+
+ONE FILL {time:foo;}
+
+MORE {time:foo;bar;}
+
+MORE {time;foo;bar;}
