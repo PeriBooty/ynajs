@@ -11,6 +11,7 @@ npm-debug.*
 test_parser.js
 test_runner.js
 test/
+yna/
 spec/
 TODO
 
