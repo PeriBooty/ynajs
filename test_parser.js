@@ -11,7 +11,7 @@ const tag_content = fs.readFileSync("yna/simple.yna", {
 const tag = new Yna(tag_content, {},
     {
         parser: {
-            debug: false
+            debug: true
         }
     }
 );
