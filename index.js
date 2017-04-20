@@ -11,6 +11,7 @@ const infoDefault = {
 };
 const optionsDefault = {
     parser: {
+        loadJSON:false,
         debug: false,
         dropComments: true
     },
@@ -26,11 +27,11 @@ const optionsDefault = {
 module.exports = class {
     /**
      * Command contructor
-     * @param {String} na
+     * @param {String} yna
      * @param {Object} info
      * @param {Object} options
      */
-    constructor(na, info, options) {
+    constructor(yna, info, options) {
         const _this = this;
 
         _this.info = merge(infoDefault, info);
@@ -38,7 +39,7 @@ module.exports = class {
 
         _this.commands = initCommands();
 
-        _this.tree = parse(na, _this.options);
+        _this.tree = _this.options.parser.loadJSON ? yna : parse(yna, _this.options);
     }
     /**
      * Runs command
