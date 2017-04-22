@@ -11,7 +11,7 @@ const infoDefault = {
 };
 const optionsDefault = {
     parser: {
-        loadJSON:false,
+        loadJSON: false,
         debug: false,
         dropComments: true
     },
@@ -47,7 +47,7 @@ module.exports = class {
      * @param {Object} ctx
      * @returns {String}
      */
-    run(args, ctx) {
+    run(args = [], ctx = {}) {
         const _this = this;
         const keys = initKeys(_this.info, args, ctx);
 
