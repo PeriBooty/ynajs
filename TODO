@@ -1,11 +1,99 @@
 TODO
-- Parse validation
-
-- Only retrieve keys that exist in the tag
-
 - Minify tags by making objects array, indicated by id; maybe gzip after
 - Add options: loadMinified
 
 TOTEST
 
 TOFIX
+
+1)
+{arg{num;}}
+
+2)
+{set:newline;
+;}{oneline:
+{set:setmember;{member:setuser;{slice:,-5;{user;};};};}
+{when:{arglen};lt;4;
+	{set:first;
+		{when:{arglen};gt;1;
+			{when:{lower:{arg2};};eq;random;{setuser.display_name};
+			{when:{lower:{arg2};};eq;me;{caller.display_name};{arg2}
+			;}
+			;};
+			{caller.display_name}
+		;}
+	;}
+	{set:second;
+		{when:{arglen};gt;0;
+			{when:{lower:{arg1};};eq;random;{setuser.display_name};
+			{when:{lower:{arg1};};eq;me;{caller.display_name};{arg1}
+			;}
+			;};
+			{setuser.display_name}
+		;}
+	;}
+	{set:score;
+		{choose:X% - Shit.;
+			1X% - Terrible...;
+			2X% - Really Bad.;
+			3X% - Bad.;
+			4X% - Meh?;
+			5X% - Okay...;
+			6X% - Good.;
+			7X% - Great!;
+			8X% - Waifu!!;
+			9X% - OTP!!!
+		;}
+	;}
+	{set:score;{rep:X;{score};{num:9;};};}
+	{set:score;
+		{when:{num:100;};eq;100;
+			100% - THE ULTIMATE SHIP!;
+			{score}
+		;}
+	;}
+	{set:score;
+		{when:{arglen};lt;3;
+			{score};
+			{when:{arg3};is;number;
+				{when:{arg3};lt;10;
+					{arg3}% - Shit!;
+					{when:{arg3};lt;20;
+						{arg3}% - Terrible...;
+						{when:{arg3};lt;30;
+							{arg3}% - Really Bad.;
+							{when:{arg3};lt;40;
+								{arg3}% - Bad.;
+								{when:{arg3};lt;50;
+									{arg3}% - Meh?;
+									{when:{arg3};lt;60;
+										{arg3}% - Okay...;
+										{when:{arg3};lt;70;
+											{arg3}% - Good.;
+											{when:{arg3};lt;80;
+												{arg3}% - Great!;
+												{when:{arg3};lt;90;
+													{arg3}% - Waifu!!;
+													{when:{arg3};lt;100;
+														{arg3}% - OTP!!!;
+														{arg3}% - THE ULTIMATE SHIP!
+													;}
+												;}
+											;}
+										;}
+									;}
+								;}
+							;}
+						;}
+					;}
+				;};{score}
+			;}
+		;}
+	;}**=====Shipping Score=====**{newline}
+**First:** {first}{newline}
+**Second:** {second}{newline}
+**=====================**{newline}
+**{score}**;
+	**Woah! I can't ship too many people!**
+;}
+;}

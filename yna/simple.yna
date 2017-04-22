@@ -1,8 +1,18 @@
 {oneline:
-	{set:moji_hand;{choose:/;\\;\_/;\\\_;\_;7;<;=;>;\~;ლ;–;—;∩;┌;┐;╯;つ;ノ;ヘ;};}
-	{set:moji_eye;{choose:n;u;o;v;O;U;V;#;$;';\*;+;-;.;0;<;=;>;@;^;~;¤;©;«;°;·;º;×;ò;ƍ;Ǫ;ǫ;Ǭ;ǭ;˄;˅;ˉ;˜;ͻ;ͼ;ͽ;ϖ;Ϙ;ϙ;Ϛ;ϛ;Ϭ;ϴ;Ͼ;Ͽ;ಠ;ಥ;–;—;•;⁄•⁄;ↀ;⊙;╹;▔;▼;◉;◕;◔;★;・;︶;ｏ;￣;⁄>⁄;⁄<⁄;ꈍ;ຈ;≧;≦;};}
-	{set:moji_mouth;{choose:#;+;.;6;<;=;-;>;O;U;V;W;\_;o;u;v;w;~;×;ʖ;Δ;Ω;ε;λ;ω;ϖ;ϴ;ᴥ;–;—;•;…;‿;▂;◡;ゝ;︿;︿;﹏;Ｏ;◇;};}
+    {!
+        Edgy names by:
+        - Nobo
+        - Cuz
+        - Omni
+        - Shadowjonathan
+        - Ululu
+        - Dalai
+        - Ange
+    }
 
-	{moji_hand}({moji_eye}{moji_mouth}{moji_eye}){moji_hand}
-    {! foo }
+    {func:edgeWord;{choose:Assassin;Badass;Battle;Black;Blade;Blood;Chopper;Dark;Deadly;Death;Destroyer;Devil;Dragon;Evil;Fear;Fire;Flesh;Grinder;Gun;Inferno;Katana;Killer;King;Knife;Knight;Lightning;Lord;MLG;Master;Murder;Murderous;Night;Ninja;Pawner;Plasma;Pro;Quantum;Raider;Rain;Reaper;Sadist;Sadistic;Samurai;Satan;Scarred;Scary;Shadow;Slayer;Sniper;Sword;Thunder;Twisted;War;X;Y;Z;Zombie;};}
+    {set:edgeNumber;{choose:2k18;2k17;2k16;2k15;1;007;7;27;42;64;69;99;123;235;365;404;420;666;777;1024;1337;2048;4096;9000;9001;};}
+    {set:username;{args};}
+
+    xX_{edgeWord}{username}{edgeWord}{edgeNumber}_Xx
 ;}
