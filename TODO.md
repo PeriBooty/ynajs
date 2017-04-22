@@ -1,15 +1,16 @@
-TODO
+# TODO
 - Minify tags by making objects array, indicated by id; maybe gzip after
 - Add options: loadMinified
 
-TOTEST
+# TOTEST
 
-TOFIX
+# TOFIX
 
-1)
+```
 {arg{num;}}
+```
 
-2)
+```
 {set:newline;
 ;}{oneline:
 {set:setmember;{member:setuser;{slice:,-5;{user;};};};}
@@ -97,3 +98,4 @@ TOFIX
 	**Woah! I can't ship too many people!**
 ;}
 ;}
+```
