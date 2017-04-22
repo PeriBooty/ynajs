@@ -1,10 +1,10 @@
 "use strict";
 
 const fs = require("fs");
-const Yna = require("../index");
+const Yna = require("./index");
 
 //Tag setup
-const tag_content = fs.readFileSync("../yna/simple.yna", {
+const tag_content = fs.readFileSync("./yna/simple.yna", {
     encoding: "utf8"
 });
 
