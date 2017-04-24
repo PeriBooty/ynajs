@@ -15,4 +15,4 @@ const tag = new Yna(tag_content, {},
     }
 );
 
-console.log(JSON.stringify(tag.tree));
+console.log(util.inspect(tag.tree,{depth:null}));

@@ -9,7 +9,7 @@ const tag_content = fs.readFileSync("./yna/simple.yna", {
 });
 
 //Data dump
-const instance = new Yna("{title:{lower:BAR;};}",
+const instance = new Yna(tag_content,
     {
         name: "simple_tag",
         creator: {
