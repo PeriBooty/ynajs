@@ -6,18 +6,8 @@ node_modules/
 bower_components/
 
 # Debug Files
+.git/
 .tmp/
 npm-debug.*
-test_parser.js
-test_runner.js
 test/
-yna/
 spec/
-TODO
-
-# Files not needed in the release
-.git/
-demo/
-logo.png
-logo.psd
-yarn.lock

@@ -1,6 +1,5 @@
 {
     "env": {
-        "browser": true,
         "node": true,
         "es6": true,
         "jasmine": true
@@ -11,7 +10,7 @@
     },
     "rules": {
         "no-console": [
-            "warn"
+            "off"
         ],
         "indent": [
             "warn",
