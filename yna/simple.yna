@@ -1,1 +1,3 @@
-{foo.bar.d}
+{func;foo;bar;}
+
+{foo}
