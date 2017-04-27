@@ -9,14 +9,7 @@ const tag_content = fs.readFileSync("./yna/simple.yna", {
 });
 
 //Data dump
-const instance = new Yna(tag_content,
-    {
-        name: "simple_tag",
-        me: {
-            name: "foo",
-            id: "23141414124"
-        }
-    }, {
+const instance = new Yna(tag_content,{
         runner: {
             debug: true
         }

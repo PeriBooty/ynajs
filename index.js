@@ -28,14 +28,13 @@ module.exports = class {
     /**
      * Command contructor
      * @param {String} yna
-     * @param {Object} info
      * @param {Object} options
      */
-    constructor(yna, info, options) {
+    constructor(yna, options) {
         const _this = this;
 
-        _this.info = merge(infoDefault, info);
         _this.options = merge(optionsDefault, options);
+        _this.commands = initCommands();
 
         _this.tree = _this.options.parser.loadJSON ? yna : parse(yna, _this.options);
     }
@@ -47,9 +46,8 @@ module.exports = class {
      */
     run(args = [], ctx = {}) {
         const _this = this;
-        const keys = initKeys(_this.info, args, ctx);
-        const commands = initCommands();
+        const keys = initKeys(args, ctx);
 
-        return run(_this.tree, commands, keys, _this.options);
+        return run(_this.tree, _this.commands, keys, _this.options);
     }
 };
