@@ -23,7 +23,7 @@ const instance = new Yna(tag_content,
     }
 );
 const result = instance.run(["foo", "bar"], {
-    foo: {bar:1}
+    foo: {bar:()=>Math.random()}
 });
 
 console.log(result);
