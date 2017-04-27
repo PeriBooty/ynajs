@@ -23,7 +23,7 @@ const instance = new Yna(tag_content,
     }
 );
 const result = instance.run(["foo", "bar"], {
-    callerid: "213124124"
+    foo: {bar:1}
 });
 
 console.log(result);
