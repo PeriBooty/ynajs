@@ -1,0 +1,10 @@
+{
+    "open": "{",
+    "close": "}",
+    "data": ":",
+    "delimiter": ";",
+    "list": ",",
+    "prop": ".",
+    "comment": "!",
+    "escape": ">"
+}
