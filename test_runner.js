@@ -12,7 +12,7 @@ const tag_content = fs.readFileSync("./yna/simple.yna", {
 const instance = new Yna(tag_content,
     {
         name: "simple_tag",
-        creator: {
+        me: {
             name: "foo",
             id: "23141414124"
         }
@@ -23,7 +23,7 @@ const instance = new Yna(tag_content,
     }
 );
 const result = instance.run(["foo", "bar"], {
-    foo: {bar:()=>Math.random()}
+    foo: 1
 });
 
 console.log(result);
