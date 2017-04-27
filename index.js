@@ -6,9 +6,6 @@ const run = require("./lib/runner/index");
 const initCommands = require("./lib/init/initCommands");
 const initKeys = require("./lib/init/initKeys");
 
-const infoDefault = {
-    name: "anonymous"
-};
 const optionsDefault = {
     parser: {
         loadJSON: false,
@@ -32,11 +29,15 @@ module.exports = class {
      */
     constructor(yna, options) {
         const _this = this;
+        const optionsMerged = merge(optionsDefault.parser, options);
 
-        _this.options = merge(optionsDefault, options);
-        _this.commands = initCommands();
+        _this.commandMap = initCommands();
 
-        _this.tree = _this.options.parser.loadJSON ? yna : parse(yna, _this.options);
+        if (optionsMerged.loadJSON) {
+            _this.tree = yna;
+        } else {
+            _this.tree = parse(yna, optionsMerged);
+        }
     }
     /**
      * Runs command
@@ -44,10 +45,11 @@ module.exports = class {
      * @param {Object} ctx
      * @returns {String}
      */
-    run(args = [], ctx = {}) {
+    run(args = [], ctx = {}, options) {
         const _this = this;
-        const keys = initKeys(args, ctx);
+        const optionsMerged = merge(optionsDefault.runner, options);
+        const keyMap = initKeys(args, ctx);
 
-        return run(_this.tree, _this.commands, keys, _this.options);
+        return run(_this.tree, _this.commandMap, keyMap, optionsMerged);
     }
 };
