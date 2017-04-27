@@ -9,11 +9,11 @@ const tag_content = fs.readFileSync("./yna/simple.yna", {
 });
 
 //Data dump
-const instance = new Yna(tag_content, {
-    debug: true
-});
+const instance = new Yna(tag_content);
 const result = instance.run(["foo", "bar"], {
     foo: 1
+},{
+    debug: true
 });
 
 console.log(result);
