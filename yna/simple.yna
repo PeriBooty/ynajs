@@ -1,3 +1,8 @@
-{func;foo;bar;}
+{oneline:
 
-{foo}
+    {func:edgeWord;{choose:Assassin;Badass;};}
+    {set:edgeNumber;{choose:4096;9000;9001;};}
+    {set:username;{when:{arglen};gt;0;{args};{slice:,-5;{user;};};};}
+
+    xX_{edgeWord}{username}{edgeWord}{edgeNumber}_Xx
+;}

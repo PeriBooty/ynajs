@@ -6,15 +6,13 @@ const run = require("./lib/runner/index");
 const initCommands = require("./lib/init/initCommands");
 const initKeys = require("./lib/init/initKeys");
 
-const optionsDefault = {
-    parser: {
-        loadJSON: false,
-        debug: false,
-        dropComments: true
-    },
-    runner: {
-        debug: false
-    }
+const optionsParserDefault = {
+    debug: false,
+    loadJSON: false,
+    dropComments: true
+};
+const optionsRunnerDefault = {
+    debug: false,
 };
 
 /**
@@ -27,9 +25,9 @@ module.exports = class {
      * @param {String} yna
      * @param {Object} options
      */
-    constructor(yna, options) {
+    constructor(yna, options = {}) {
         const _this = this;
-        const optionsMerged = merge(optionsDefault.parser, options);
+        const optionsMerged = merge(optionsParserDefault, options);
 
         _this.commandMap = initCommands();
 
@@ -40,16 +38,28 @@ module.exports = class {
         }
     }
     /**
+     * Adds a new command to the instance container
+     * @param {String} name
+     * @param {Function} fn
+     */
+    addCommand(name, fn) {
+        const _this = this;
+
+        return _this.commandMap.set(name, fn);
+    }
+    /**
      * Runs command
      * @param {Array} args
      * @param {Object} ctx
+     * @param {Object} options
      * @returns {String}
      */
-    run(args = [], ctx = {}, options) {
+    run(args = [], ctx = {}, options = {}) {
         const _this = this;
-        const optionsMerged = merge(optionsDefault.runner, options);
+        const optionsMerged = merge(optionsRunnerDefault, options);
+        const commandMap = _this.commandMap;
         const keyMap = initKeys(args, ctx);
 
-        return run(_this.tree, _this.commandMap, keyMap, optionsMerged);
+        return run(_this.tree, commandMap, keyMap, optionsMerged);
     }
 };
