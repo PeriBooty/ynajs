@@ -1,6 +1,1 @@
-{oneline: Foo
-bar\
-
-sasd\n
-a sdsd
-;}
+{>escaped;things;ignore;pls;}
