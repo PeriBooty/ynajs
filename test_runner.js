@@ -15,5 +15,5 @@ const result = instance.run(["foo", "bar"], {
 },{
     debug: true
 });
-
+console.log("---------");
 console.log(result);

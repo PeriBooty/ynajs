@@ -1,1 +1,6 @@
-{math;2;/;10;}
+{oneline: Foo
+bar\
+
+sasd\\n
+a sdsd
+;}
