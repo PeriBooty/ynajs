@@ -1,1 +1,7 @@
-{>escaped;things;ignore;pls;}
+{oneline:
+    {func:ingredient;{choose:Foo;Bar;Fizz;};}
+
+    {set:recipe;We should make a pizza with {ingredient} And {ingredient}!;}
+
+    {recipe}
+;}
