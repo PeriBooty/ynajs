@@ -74,6 +74,8 @@ Nested commands are evaluated recursively from the inside
 - {rep:#needle#;#haystack#;#replacement#;}: Replaces all occurences of a string
 - {parse:#text#;}: Encodes string to an URI
 - {slice:#slice#;#text#;}: Slices from a string
+
+- {calc:#num1#;#(add|sub|mul|div|mod)#;#num2#;}: Performs basic calulcation
 - {substition}: TODO
 
 - {len:#text#;}: Returns length of text
