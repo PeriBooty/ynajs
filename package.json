@@ -1,6 +1,6 @@
 {
     "name": "ynajs",
-    "version": "2.3.4",
+    "version": "2.3.5",
     "description": "A YNA parser",
     "main": "index.js",
     "scripts": {

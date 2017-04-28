@@ -1,5 +1,4 @@
-{set:newline;
-;}{oneline:
+{set:newline;\n;}{oneline:
 {set:setmember;{member:setuser;{slice:,-5;{user;};};};}
 {when:{arglen};lt;4;
 	{set:first;
