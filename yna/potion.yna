@@ -33,32 +33,32 @@
  |<39 Adj><60 Nouns><2340 Potions><25740 Total Combos>|
  |<6735 Chars><204 Lines><22 Memes><70 Brackets> <:3c>|
  |   <Version {ver}><9 Days of Work><13 Collaborators>   |```;}{set:memes;has been reduced to constantly yelling {oneline:
-				{choose:
-					_"HELP TATOR"_;
-					_"CAPTAIN IS COMDOM"_;
-					_"SOMEONE SET UP US THE BOMB"_;
-					_"Cthulhu f'htagn!"_;
-					_"You must construct additional pylons"_;
-					_"Praise the sun"_;
-					something about a cat child and an Entity;
-					doubts regarding the moon;
-					_"Our berserkers hold one sword in each paw and another in their teeth!"_;
-					in pain from an imaginary arrow stuck in the kneecap..;
-					affirmative statements to _"Commander Shepard"_;
-					_"Hi!"_ and _"Lea"_;
-					_"Ciretako!"_;
-					the letter V all over, in groups of six;
-					_"HONK"_;
-					_"PRAISE NAR'SIE!"_;
-					_"Commander to the Research Labs"_;
-					_"wot in tarnation"_;
-					_"i got bamboozled"_;
-					_"ADMINBOOS! MODABOOS!"_;
-					***"EXTERMINATE!"***;
-					_"big nya"_;
-					_"&moe"_;}
-				;}.
-			;}{set:usage;**Usage**: ```md
+        {choose:
+          _"HELP TATOR"_;
+          _"CAPTAIN IS COMDOM"_;
+          _"SOMEONE SET UP US THE BOMB"_;
+          _"Cthulhu f'htagn!"_;
+          _"You must construct additional pylons"_;
+          _"Praise the sun"_;
+          something about a cat child and an Entity;
+          doubts regarding the moon;
+          _"Our berserkers hold one sword in each paw and another in their teeth!"_;
+          in pain from an imaginary arrow stuck in the kneecap..;
+          affirmative statements to _"Commander Shepard"_;
+          _"Hi!"_ and _"Lea"_;
+          _"Ciretako!"_;
+          the letter V all over, in groups of six;
+          _"HONK"_;
+          _"PRAISE NAR'SIE!"_;
+          _"Commander to the Research Labs"_;
+          _"wot in tarnation"_;
+          _"i got bamboozled"_;
+          _"ADMINBOOS! MODABOOS!"_;
+          ***"EXTERMINATE!"***;
+          _"big nya"_;
+          _"&moe"_;}
+        ;}.
+      ;}{set:usage;**Usage**: ```md
 [+t {tag}]: Version {ver}
 +t {tag} "target" "custom potion" <Quotes are important.>
 Use "me" as target to use on yourself.
@@ -68,137 +68,137 @@ Special targets:
 <help Help description>      <memes ??? Use at own risk>
 <credits Credits and thanks> <stats Tag stats>```;}{oneline:
 
-	{set:verb;{choose:used;quaffed;drank;downed;consumed;};}
+  {set:verb;{choose:used;quaffed;drank;downed;consumed;};}
 
     {when:{caller.id};ne;0;
         {when:{arglen};lt;3;
-			{when:{arg1};eq;memes;**{caller.display_name}** {memes};
-				{when:{arg1};eq;help;{usage};
-					{when:{arg1};eq;stats;{stats};
-						{when:{arg1};eq;credits;
-							{when:{arglen};gt;1;
-							{when:{arg2};eq;1;{credits1};
-								{when:{arg2};eq;2;{credits2};};};**Which page would you like to view?** (+t {tag} credits [1-2]);};
-								**{caller.display_name}** {when:{arglen};gt;0;{when:{arg1};eq;me;{verb};used;};{verb};} a **Potion of
-								{when:{arglen};gt;1; {arg2}; {choose:
-										;;;;
-										Minor ;
-										Lesser ;
-										Greater ;
-										Super ;
-										Extreme ;
-										Divine ;
-										Unwavering ;
-										Neverending ;
-										Demonic ;
-										Spiritual ;
-										Liquid ;
-										Stormy ;
-										Stone ;
-										Molten ;
-										Delayed ;
-										Inexplicable ;
-										Iridescent ;
-										Ironic ;
-										Cosmic ;
-										Sexual ;
-										Rotary ;
-										Traumatic ;
-										Transcendent ;
-										Quiet ;
-										Dragon's ;
-										Bright ;
-										Dark ;
-										Prismatic ;
-										Weaker ;
-										Stronger ;
-										Bloody ;
-										Unforgiving ;
-										Visual ;
-										Audible ;
-										Palpable ;
-										Detect ;
-										Dispel ;
-										Drain ;}
-									{choose:
-										Healing;
-										Magic;
-										Spirit;
-										Stamina;
-										Strength;
-										Defense;
-										Agility;
-										Restoration;
-										Regeneration;
-										Death;
-										Doom;
-										Unrest;
-										Intercourse;
-										Blood;
-										Bloodlust;
-										Exhaustion;
-										Meowing;
-										Leaping;
-										Detide;
-										Leaping;
-										Fleetfeet;
-										Glow;
-										Impurity;
-										Purity;
-										Fading;
-										Binding;
-										Love;
-										Pancakes;
-										Deception;
-										Clarity;
-										Clairvoyance;
-										Midas' Touch;
-										Kek;
-										Silence;
-										Intelligence;
-										Understanding;
-										Charisma;
-										moe;
-										Gravitation;
-										Dashing;
-										Illusion;
-										Mirror Image;
-										Innocence;
-										Corruption;
-										Conversion;
-										Speechcraft;
-										Buoyancy;
-										Breath;
-										Venom;
-										Phasing;
-										Nonsense;
-										Vengeance;
-										Vision;
-										Deprivation;
-										{! here's to you, felix !}
-										big nya;
-										Transformation of Pablo;
-										Transformation of Alain;
-										Transformation of Valerie;
-										Transformation of Jozlyn;
-										Transformation of Edna;}
-								;}**{when:{arglen};gt;0;{when:{arg1};ne;me; on **{arg1}**;;};;}!
-							;}
-						;}
-					;}
-				;};
+      {when:{arg1};eq;memes;**{caller.display_name}** {memes};
+        {when:{arg1};eq;help;{usage};
+          {when:{arg1};eq;stats;{stats};
+            {when:{arg1};eq;credits;
+              {when:{arglen};gt;1;
+              {when:{arg2};eq;1;{credits1};
+                {when:{arg2};eq;2;{credits2};};};**Which page would you like to view?** (+t {tag} credits [1-2]);};
+                **{caller.display_name}** {when:{arglen};gt;0;{when:{arg1};eq;me;{verb};used;};{verb};} a **Potion of
+                {when:{arglen};gt;1; {arg2}; {choose:
+                    ;;;;
+                    Minor ;
+                    Lesser ;
+                    Greater ;
+                    Super ;
+                    Extreme ;
+                    Divine ;
+                    Unwavering ;
+                    Neverending ;
+                    Demonic ;
+                    Spiritual ;
+                    Liquid ;
+                    Stormy ;
+                    Stone ;
+                    Molten ;
+                    Delayed ;
+                    Inexplicable ;
+                    Iridescent ;
+                    Ironic ;
+                    Cosmic ;
+                    Sexual ;
+                    Rotary ;
+                    Traumatic ;
+                    Transcendent ;
+                    Quiet ;
+                    Dragon's ;
+                    Bright ;
+                    Dark ;
+                    Prismatic ;
+                    Weaker ;
+                    Stronger ;
+                    Bloody ;
+                    Unforgiving ;
+                    Visual ;
+                    Audible ;
+                    Palpable ;
+                    Detect ;
+                    Dispel ;
+                    Drain ;}
+                  {choose:
+                    Healing;
+                    Magic;
+                    Spirit;
+                    Stamina;
+                    Strength;
+                    Defense;
+                    Agility;
+                    Restoration;
+                    Regeneration;
+                    Death;
+                    Doom;
+                    Unrest;
+                    Intercourse;
+                    Blood;
+                    Bloodlust;
+                    Exhaustion;
+                    Meowing;
+                    Leaping;
+                    Detide;
+                    Leaping;
+                    Fleetfeet;
+                    Glow;
+                    Impurity;
+                    Purity;
+                    Fading;
+                    Binding;
+                    Love;
+                    Pancakes;
+                    Deception;
+                    Clarity;
+                    Clairvoyance;
+                    Midas' Touch;
+                    Kek;
+                    Silence;
+                    Intelligence;
+                    Understanding;
+                    Charisma;
+                    moe;
+                    Gravitation;
+                    Dashing;
+                    Illusion;
+                    Mirror Image;
+                    Innocence;
+                    Corruption;
+                    Conversion;
+                    Speechcraft;
+                    Buoyancy;
+                    Breath;
+                    Venom;
+                    Phasing;
+                    Nonsense;
+                    Vengeance;
+                    Vision;
+                    Deprivation;
+                    {! here's to you, felix !}
+                    big nya;
+                    Transformation of Pablo;
+                    Transformation of Alain;
+                    Transformation of Valerie;
+                    Transformation of Jozlyn;
+                    Transformation of Edna;}
+                ;}**{when:{arglen};gt;0;{when:{arg1};ne;me; on **{arg1}**;;};;}!
+              ;}
+            ;}
+          ;}
+        ;};
             **{caller.display_name}** {choose:
-				blew up the cauldron;
-				failed basic alchemy;
-				tried to mix potassium and water;
-				obliterated reality;
-				spilled the potion;
-				flooded the room;
-				{when:{caller.id};ne;133655732187824128;net a stare from **Arriator**;should stop breaking his own tag;};
-				passed into the next world;
-				became a small blue fairy with silence issues;
-				{memes};
-				}.
+        blew up the cauldron;
+        failed basic alchemy;
+        tried to mix potassium and water;
+        obliterated reality;
+        spilled the potion;
+        flooded the room;
+        {when:{caller.id};ne;133655732187824128;net a stare from **Arriator**;should stop breaking his own tag;};
+        passed into the next world;
+        became a small blue fairy with silence issues;
+        {memes};
+        }.
         ;}
     ;**{caller.display_name}** lost their alchemy license.;}
 ;}

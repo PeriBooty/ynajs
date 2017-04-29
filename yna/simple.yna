@@ -1,86 +1,204 @@
-{set:newline;\n;}{oneline:
-{set:setmember;{member:setuser;{slice:,-5;{user;};};};}
-{when:{arglen};lt;4;
-	{set:first;
-		{when:{arglen};gt;1;
-			{when:{lower:{arg2};};eq;random;{setuser.display_name};
-			{when:{lower:{arg2};};eq;me;{caller.display_name};{arg2}
-			;}
-			;};
-			{caller.display_name}
-		;}
-	;}
-	{set:second;
-		{when:{arglen};gt;0;
-			{when:{lower:{arg1};};eq;random;{setuser.display_name};
-			{when:{lower:{arg1};};eq;me;{caller.display_name};{arg1}
-			;}
-			;};
-			{setuser.display_name}
-		;}
-	;}
-	{set:score;
-		{choose:X% - Shit.;
-			1X% - Terrible...;
-			2X% - Really Bad.;
-			3X% - Bad.;
-			4X% - Meh?;
-			5X% - Okay...;
-			6X% - Good.;
-			7X% - Great!;
-			8X% - Waifu!!;
-			9X% - OTP!!!
-		;}
-	;}
-	{set:score;{rep:X;{score};{num:9;};};}
-	{set:score;
-		{when:{num:100;};eq;100;
-			100% - THE ULTIMATE SHIP!;
-			{score}
-		;}
-	;}
-	{set:score;
-		{when:{arglen};lt;3;
-			{score};
-			{when:{arg3};is;number;
-				{when:{arg3};lt;10;
-					{arg3}% - Shit!;
-					{when:{arg3};lt;20;
-						{arg3}% - Terrible...;
-						{when:{arg3};lt;30;
-							{arg3}% - Really Bad.;
-							{when:{arg3};lt;40;
-								{arg3}% - Bad.;
-								{when:{arg3};lt;50;
-									{arg3}% - Meh?;
-									{when:{arg3};lt;60;
-										{arg3}% - Okay...;
-										{when:{arg3};lt;70;
-											{arg3}% - Good.;
-											{when:{arg3};lt;80;
-												{arg3}% - Great!;
-												{when:{arg3};lt;90;
-													{arg3}% - Waifu!!;
-													{when:{arg3};lt;100;
-														{arg3}% - OTP!!!;
-														{arg3}% - THE ULTIMATE SHIP!
-													;}
-												;}
-											;}
-										;}
-									;}
-								;}
-							;}
-						;}
-					;}
-				;};{score}
-			;}
-		;}
-	;}**=====Shipping Score=====**{newline}
-**First:** {first}{newline}
-**Second:** {second}{newline}
-**=====================**{newline}
-**{score}**;
-	**Woah! I can't ship too many people!**
-;}
+{set:ver;87;}{set:page2;[+t {tag}][credits 2] for page 2;}{set:credits1;**Credits for `+t {tag}`** (Page 1):
+```md
+ |                 <Arriator: Original tag and idea>  |
+#|             My thanks go to the following people:  |
+ | [squaswin][frawst]                                 |
+#|      Listening to my whining about na              |
+ | [TVC][Lilla Oshisaure][DashFox][InterNiko]         |
+ | [Chocohex][Pumpernickel]                           |
+ | <and generally about half of the OneShot Discord>  |
+ | <and its wonderful community>                      |
+#|      Several potion name suggestions               |
+ | [NobodyRocks][squaswin]                            |
+#|      Coding help on multiple occassions            |
+ |                                                    |
+ | {page2:<50} |```;}{set:credits2;**Credits for `+t {tag}`** (Page 2):
+```md
+ | [pankek]("is actually cute")                       |
+#|      Fixing the floating blank line that this      |
+#|      Credits section and "help" ended up causing   |
+ | [Lonestar]("Please drink these irresponsibly")     |
+#|      Letting me know that I forgot to mention      |
+#|      that you can use "me" as an arg. Oops         |
+ | [FelixTheJudge]("big nya")                         |
+#|      Creating HOME and being a wonderful,          |
+#|      quirky person and a major source of           |
+#|      inspiration for me and several others.        |
+#|      Rest in peace, buddy. This one's for you!     |
+ | [Cubular]("nah man i dont need to be here, its ok")|
+#|      Located a floating semicolon when I split     |
+#|      credits/stats into two args. vars are hard    |
+#|      reeeeee floating semicolons reeeee            |```;}{set:stats;**Stats for `+t {tag}`**:
+```md
+ |<39 Adj><60 Nouns><2340 Potions><25740 Total Combos>|
+ |<6735 Chars><204 Lines><22 Memes><70 Brackets> <:3c>|
+ |   <Version {ver}><9 Days of Work><13 Collaborators>   |```;}{set:memes;has been reduced to constantly yelling {oneline:
+        {choose:
+          _"HELP TATOR"_;
+          _"CAPTAIN IS COMDOM"_;
+          _"SOMEONE SET UP US THE BOMB"_;
+          _"Cthulhu f'htagn!"_;
+          _"You must construct additional pylons"_;
+          _"Praise the sun"_;
+          something about a cat child and an Entity;
+          doubts regarding the moon;
+          _"Our berserkers hold one sword in each paw and another in their teeth!"_;
+          in pain from an imaginary arrow stuck in the kneecap..;
+          affirmative statements to _"Commander Shepard"_;
+          _"Hi!"_ and _"Lea"_;
+          _"Ciretako!"_;
+          the letter V all over, in groups of six;
+          _"HONK"_;
+          _"PRAISE NAR'SIE!"_;
+          _"Commander to the Research Labs"_;
+          _"wot in tarnation"_;
+          _"i got bamboozled"_;
+          _"ADMINBOOS! MODABOOS!"_;
+          ***"EXTERMINATE!"***;
+          _"big nya"_;
+          _"&moe"_;}
+        ;}.
+      ;}{set:usage;**Usage**: ```md
+[+t {tag}]: Version {ver}
++t {tag} "target" "custom potion" <Quotes are important.>
+Use "me" as target to use on yourself.
+[0  args][Random potion on yourself][1  args][Random potion on target]
+[2  args][custom potion on target]  [3+ args][Random error message]
+Special targets:
+<help Help description>      <memes ??? Use at own risk>
+<credits Credits and thanks> <stats Tag stats>```;}{oneline:
+
+  {set:verb;{choose:used;quaffed;drank;downed;consumed;};}
+
+    {when:{caller.id};ne;0;
+        {when:{arglen};lt;3;
+      {when:{arg1};eq;memes;**{caller.display_name}** {memes};
+        {when:{arg1};eq;help;{usage};
+          {when:{arg1};eq;stats;{stats};
+            {when:{arg1};eq;credits;
+              {when:{arglen};gt;1;
+              {when:{arg2};eq;1;{credits1};
+                {when:{arg2};eq;2;{credits2};};};**Which page would you like to view?** (+t {tag} credits [1-2]);};
+                **{caller.display_name}** {when:{arglen};gt;0;{when:{arg1};eq;me;{verb};used;};{verb};} a **Potion of
+                {when:{arglen};gt;1; {arg2}; {choose:
+                    ;;;;
+                    Minor ;
+                    Lesser ;
+                    Greater ;
+                    Super ;
+                    Extreme ;
+                    Divine ;
+                    Unwavering ;
+                    Neverending ;
+                    Demonic ;
+                    Spiritual ;
+                    Liquid ;
+                    Stormy ;
+                    Stone ;
+                    Molten ;
+                    Delayed ;
+                    Inexplicable ;
+                    Iridescent ;
+                    Ironic ;
+                    Cosmic ;
+                    Sexual ;
+                    Rotary ;
+                    Traumatic ;
+                    Transcendent ;
+                    Quiet ;
+                    Dragon's ;
+                    Bright ;
+                    Dark ;
+                    Prismatic ;
+                    Weaker ;
+                    Stronger ;
+                    Bloody ;
+                    Unforgiving ;
+                    Visual ;
+                    Audible ;
+                    Palpable ;
+                    Detect ;
+                    Dispel ;
+                    Drain ;}
+                  {choose:
+                    Healing;
+                    Magic;
+                    Spirit;
+                    Stamina;
+                    Strength;
+                    Defense;
+                    Agility;
+                    Restoration;
+                    Regeneration;
+                    Death;
+                    Doom;
+                    Unrest;
+                    Intercourse;
+                    Blood;
+                    Bloodlust;
+                    Exhaustion;
+                    Meowing;
+                    Leaping;
+                    Detide;
+                    Leaping;
+                    Fleetfeet;
+                    Glow;
+                    Impurity;
+                    Purity;
+                    Fading;
+                    Binding;
+                    Love;
+                    Pancakes;
+                    Deception;
+                    Clarity;
+                    Clairvoyance;
+                    Midas' Touch;
+                    Kek;
+                    Silence;
+                    Intelligence;
+                    Understanding;
+                    Charisma;
+                    moe;
+                    Gravitation;
+                    Dashing;
+                    Illusion;
+                    Mirror Image;
+                    Innocence;
+                    Corruption;
+                    Conversion;
+                    Speechcraft;
+                    Buoyancy;
+                    Breath;
+                    Venom;
+                    Phasing;
+                    Nonsense;
+                    Vengeance;
+                    Vision;
+                    Deprivation;
+                    {! here's to you, felix !}
+                    big nya;
+                    Transformation of Pablo;
+                    Transformation of Alain;
+                    Transformation of Valerie;
+                    Transformation of Jozlyn;
+                    Transformation of Edna;}
+                ;}**{when:{arglen};gt;0;{when:{arg1};ne;me; on **{arg1}**;;};;}!
+              ;}
+            ;}
+          ;}
+        ;};
+            **{caller.display_name}** {choose:
+        blew up the cauldron;
+        failed basic alchemy;
+        tried to mix potassium and water;
+        obliterated reality;
+        spilled the potion;
+        flooded the room;
+        {when:{caller.id};ne;133655732187824128;net a stare from **Arriator**;should stop breaking his own tag;};
+        passed into the next world;
+        became a small blue fairy with silence issues;
+        {memes};
+        }.
+        ;}
+    ;**{caller.display_name}** lost their alchemy license.;}
 ;}

@@ -9,11 +9,17 @@ const tag_content = fs.readFileSync("./yna/simple.yna", {
 });
 
 //Data dump
-const instance = new Yna(tag_content);
-const result = instance.run(["foo", "bar"], {
+const tag = new Yna(tag_content);
+let result;
+
+tag.addCommand("user", () => "DummyUser#1234");
+tag.addCommand("member", () => "DummyMember#1234");
+tag.addCommand("nameof", () => "DummyName");
+
+result = tag.run(["foo", "bar"], {
     baaa: 1
-},{
+}, {
     debug: true
 });
-console.log("---------");
+
 console.log(result);
