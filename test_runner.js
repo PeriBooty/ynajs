@@ -16,8 +16,12 @@ tag.addCommand("user", () => "DummyUser#1234");
 tag.addCommand("member", () => "DummyMember#1234");
 tag.addCommand("nameof", () => "DummyName");
 
-result = tag.run(["foo", "bar"], {
-    baaa: 1
+result = tag.run([], {
+    foo: 1,
+    bar: {
+        __default: 1,
+        bizz: 12
+    }
 }, {
     debug: true
 });
