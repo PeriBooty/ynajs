@@ -5,7 +5,5 @@
 # TOTEST
 
 # TOFIX
-
-+t eval "{>escaped;things;ignore;pls;}"
-
-​{escaped;things;ignore;pls;}
+Evaluate command name after data
+Insert oneline keys after replacing

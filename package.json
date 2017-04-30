@@ -1,6 +1,6 @@
 {
     "name": "ynajs",
-    "version": "2.3.7",
+    "version": "2.3.8",
     "description": "A YNA parser",
     "main": "index.js",
     "scripts": {
@@ -29,7 +29,7 @@
     },
     "devDependencies": {
         "eslint": "^3.19.0",
-        "jasmine": "^2.5.3",
+        "jasmine": "^2.6.0",
         "npm-run-all": "^4.0.2"
     }
 }
