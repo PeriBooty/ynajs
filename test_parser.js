@@ -4,7 +4,7 @@ const fs = require("fs");
 const util = require("util");
 const Yna = require("./index");
 
-const tag_content = fs.readFileSync("./yna/simple.yna", {
+const tag_content = fs.readFileSync("./yna/_input.yna", {
     encoding: "utf8"
 });
 const tag = new Yna(tag_content, {
