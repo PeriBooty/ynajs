@@ -2,18 +2,18 @@
 
 const merge = require("lodash/merge");
 const parse = require("./lib/parser/index");
-const run = require("./lib/runner/index");
+//const run = require("./lib/runner/index");
 const initCommands = require("./lib/init/initCommands");
-const initKeys = require("./lib/init/initKeys");
+//const initKeys = require("./lib/init/initKeys");
 
 const optionsParserDefault = {
     debug: false,
     loadJSON: false,
     dropComments: true
 };
-const optionsRunnerDefault = {
-    debug: false,
-};
+//const optionsRunnerDefault = {
+//    debug: false,
+//};
 
 /**
  * YNA command class
@@ -42,11 +42,11 @@ module.exports = class {
      * @param {String} name
      * @param {Function} fn
      */
-    addCommand(name, fn) {
-        const _this = this;
-
-        return _this.commandMap.set(name, fn);
-    }
+    //addCommand(name, fn) {
+    //    const _this = this;
+//
+    //    return _this.commandMap.set(name, fn);
+    //}
     /**
      * Runs command
      * @param {Array} args
@@ -54,12 +54,12 @@ module.exports = class {
      * @param {Object} options
      * @returns {String}
      */
-    run(args = [], ctx = {}, options = {}) {
+    /*run(args = [], ctx = {}, options = {}) {
         const _this = this;
         const optionsMerged = merge(optionsRunnerDefault, options);
         const commandMap = _this.commandMap;
         const keyMap = initKeys(args, ctx);
 
         return run(_this.tree, commandMap, keyMap, optionsMerged);
-    }
+    }*/
 };
