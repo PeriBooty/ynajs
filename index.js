@@ -8,8 +8,7 @@ const initKeys = require("./lib/init/initKeys");
 
 const optionsParserDefault = {
     debug: false,
-    loadJSON: false,
-    dropComments: true
+    loadJSON: false
 };
 const optionsRunnerDefault = {
     debug: false,
