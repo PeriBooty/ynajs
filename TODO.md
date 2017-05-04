@@ -5,5 +5,4 @@
 # TOTEST
 
 # TOFIX
-Evaluate command name after data
 Insert oneline keys after replacing

@@ -8,8 +8,9 @@ bower_components/
 # Debug Files
 .git/
 .tmp/
-npm-debug.*
 test/
 spec/
 yna/
-test_*.js
+test_parser.js
+test_runner.js
+npm-debug.*
