@@ -1,1 +1,1 @@
-{_{when:{arglen};gt;1;{arg2};{caller.display_name};} nibbles on {when:{arglen};gt;0;{arg1};{slice:,-5;{user;};};}_}
+_{when:{arglen};gt;1;{arg2};{caller.display_name};} nibbles on {when:{arglen};gt;0;{arg1};{slice:,-5;{user;};};}_
