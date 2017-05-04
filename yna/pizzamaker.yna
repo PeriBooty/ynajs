@@ -27,7 +27,8 @@
             :spaghetti:;
             :sushi:;
             :curry:;
-            :rice:;};}
+            :rice:;}
+     ;}
     {set:recipe;We should make a pizza with {ingredient} And {ingredient}!;}
 
     {! Ingredient list}
