@@ -4,7 +4,7 @@ const Yna = require("../index.js");
 
 describe("Parser test", () => {
 
-    it("Empty", () => {
+    /*it("Empty", () => {
         const tag = new Yna("");
 
         expect(tag.tree).toEqual([""]);
@@ -81,5 +81,5 @@ describe("Parser test", () => {
                 }]
             ]
         }]);
-    });
+    });*/
 });

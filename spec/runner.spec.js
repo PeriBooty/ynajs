@@ -4,7 +4,7 @@ const Yna = require("../index.js");
 
 describe("Runner test", () => {
 
-    it("Empty", () => {
+    /*it("Empty", () => {
         const tag = new Yna("");
         const result = tag.run();
 
@@ -58,5 +58,5 @@ describe("Runner test", () => {
         const result = tag.run();
 
         expect(result).toEqual("Bar");
-    });
+    });*/
 });
