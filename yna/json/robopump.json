@@ -1,0 +1,278 @@
+[
+    [1, "oneline", [
+        ["\n", [2, "Tag made by Pumper with lots of help from pankek, Lonestar*, and others"], "\n", [2, "Also this idea was inspired by pankek's pkmn tag So give them a lot of love! They've been a huge help"], "\n"]
+    ]],
+    [1, "set", ["usage", ["Here's what I know so far!:\n\t**PET** - I pet the recipient - ``[Recipient]`` or ``me``\n\t**HUG** - I hug the recipient - ``[Recipient]`` or ``me``\n\t**CUTE** - I call the recipient cute - ``[Recipient]`` or ``me``\n\t**BOOP** - I boop the recipient - ``[Recipient]`` or ``me``\n\t**GOODNIGHT** - I say goodnight to the recipient - ``[Recipient]`` or ``me`` or ``pump``\n\t**CONVO** - I come up with a conversation topic - ``no args needed``\n\t**SHIP** - Cheap replacement for the ship tag - ``[Ship name]`` or ``[Person 1] [Person 2]``\n\t**GOODBYE** - Kinda like Goodnight, but with Goodbye instead - ``[Recipient]`` or ``me``\n\t**COOK** - I can try and cook for you - ``[Food]``\n\t**ANIMAL** - See what animal ~~RNG~~ RoboPump thinks you are - ``[Recipient]`` or ``me``\nOr you can just say hi with ``+t ", [0, "tag"], " hello``!"]]],
+    [1, "oneline", [
+        ["\n", [1, "when", [
+            [0, "arglen"], "eq", "0", ["\n\t", [0, "usage"]],
+            ["\n", [1, "when", [
+                [1, "lower", [
+                    [0, "arg1"]
+                ]], "eq", "usage", ["\n\t", [0, "usage"]],
+                ["\n", [1, "when", [
+                    [1, "lower", [
+                        [0, "arg1"]
+                    ]], "eq", "help", ["\n\t", [0, "usage"]],
+                    ["\n``RoboPump:``\n\t\t", [1, "when", [
+                        [1, "lower", [
+                            [0, "arg1"]
+                        ]], "eq", "pet", ["\n\t\t\t", [1, "when", [
+                            [0, "arglen"], "gt", "1", ["\n\t\t\t\t", [1, "when", [
+                                [1, "lower", [
+                                    [0, "arg2"]
+                                ]], "eq", "me", ["\n\t\t\t\t\t", [1, "choose", [
+                                    ["\n\t\t\t\t\t\tWell, all you had to do was ask! *gladly pets ", [0, "caller.display_name"], "*"],
+                                    ["\n\t\t\t\t\t\tCome here, you cutie! *pets ", [0, "caller.display_name"], " happily*"],
+                                    ["\n\t\t\t\t\t\tI'd be honored to! *pets ", [0, "caller.display_name"], " in awe of their awesomeness and cuteness*"],
+                                    ["\n\t\t\t\t\t\tPsh, you know it. *pets ", [0, "caller.display_name"], "*\n\t\t\t\t\t"]
+                                ]]],
+                                ["\n\t\t\t\t\t", [1, "choose", [
+                                    ["\n\t\t\t\t\t\tWell of course! *pets ", [0, "arg2"], "*"],
+                                    ["\n\t\t\t\t\t\tSure! *happily pets ", [0, "arg2"], "*"],
+                                    ["\n\t\t\t\t\t\tOh come 'ere you! *pets ", [0, "arg2"], "*"],
+                                    ["\n\t\t\t\t\t\tActually, I was on my way to do that now! *pets ", [0, "arg2"], "* You look like you want some pets too... AW, COME HERE! *pets ", [0, "caller.display_name"], "*"],
+                                    ["\n\t\t\t\t\t\t*cheerfully pets ", [0, "arg2"], "* don't think i forgot you too! *pets ", [0, "caller.display_name"], " as well*"],
+                                    ["\n\t\t\t\t\t\tWhy didn't you just say so! *pets ", [0, "arg2"], "*\n\t\t\t\t\t"]
+                                ]], "\n\t\t\t\t"]
+                            ]]],
+                            ["\n\t\t\t\t", [1, "choose", [
+                                ["\n\t\t\t\t\tWell, all you had to do was ask! *gladly pets ", [0, "caller.display_name"], "*"],
+                                ["\n\t\t\t\t\tCome here, you cutie! *pets ", [0, "caller.display_name"], " happily*"],
+                                ["\n\t\t\t\t\tI'd be honored to! *pets ", [0, "caller.display_name"], " in awe of their awesomeness and cuteness*"],
+                                ["\n\t\t\t\t\tPsh, you know it. *pets ", [0, "caller.display_name"], "*\n\t\t\t\t"]
+                            ]], "\n\t\t\t"]
+                        ]]],
+                        ["\n\t\t", [1, "when", [
+                            [1, "lower", [
+                                [0, "arg1"]
+                            ]], "eq", "hug", ["\n\t\t\t", [1, "when", [
+                                [0, "arglen"], "gt", "1", ["\n\t\t\t\t", [1, "when", [
+                                    [1, "lower", [
+                                        [0, "arg2"]
+                                    ]], "eq", "me", ["\n\t\t\t\t\t", [1, "choose", [
+                                        ["\n\t\t\t\t\t\t*Gasp* Me? Really! Of course I will! *eagerly hugs ", [0, "caller.display_name"], "*"],
+                                        ["\n\t\t\t\t\t\tI've been waiting for you to ask! *hugs ", [0, "caller.display_name"], " happily*!"],
+                                        ["\n\t\t\t\t\t\tFRIGGIN' HECK YES, *HUGS ", [1, "upper", [
+                                            [0, "caller.display_name"]
+                                        ]], " ENERGETICALLY*"],
+                                        ["\n\t\t\t\t\t\tSure... I suppose I could... Ah who am I kidding! Of course imma hug you! *hugs ", [0, "caller.display_name"], "*!"],
+                                        ["\n\t\t\t\t\t\tCome 'ere ya cutie! *hugs ", [0, "caller.display_name"], " warmly*"],
+                                        ["\n\t\t\t\t\t\tI'll need to see your hugging license... Alright, fine. I'll do it anyway, but only cause you're super cute. *hugs ", [0, "caller.display_name"], "*"],
+                                        ["\n\t\t\t\t\t\tWhy wouldn't I? *hugs ", [0, "caller.display_name"], " with a smile*!\n\t\t\t\t\t"]
+                                    ]]],
+                                    ["\n\t\t\t\t\t", [1, "choose", [
+                                        ["\n\t\t\t\t\t\tYou know I will! *hugs ", [0, "arg2"], "*"],
+                                        ["\n\t\t\t\t\t\tFor sure! *hugs ", [0, "arg2"], "*! Hey... You want in, don't you? I can tell... Well come on! *brings ", [0, "caller.display_name"], " into the hug*"],
+                                        ["\n\t\t\t\t\t\t*Hugs ", [0, "arg2"], " and ", [0, "caller.display_name"], " in a big happy group hug*!"],
+                                        ["\n\t\t\t\t\t\tIn what universe would I turn down such an offer!? *hugs ", [0, "arg2"], " gleefully* ...By the way, the answer is \"in none of them\""],
+                                        ["\n\t\t\t\t\t\tI'll hug you if you hug me. Deal? Deal. *hugs ", [0, "arg2"], "* oh, and the mediator of the hug is right here. *brings ", [0, "caller.display_name"], " into the hug as well*"],
+                                        ["\n\t\t\t\t\t\tDude, heck yes! *hugs ", [0, "arg2"], " with a fistpump*\n\t\t\t\t\t"]
+                                    ]], "\n\t\t\t\t"]
+                                ]]],
+                                ["\n\t\t\t\t", [1, "choose", [
+                                    ["\n\t\t\t\t\t*Gasp* Me? Really! Of course I will! *eagerly hugs ", [0, "caller.display_name"], "*"],
+                                    ["\n\t\t\t\t\tI've been waiting for you to ask! *hugs ", [0, "caller.display_name"], " happily*!"],
+                                    ["\n\t\t\t\t\tFRIGGIN' HECK YES, *HUGS ", [1, "upper", [
+                                        [0, "caller.display_name"]
+                                    ]], " ENERGETICALLY*"],
+                                    ["\n\t\t\t\t\tSure... I suppose I could... Ah who am I kidding! Of course imma hug you! *hugs ", [0, "caller.display_name"], "*!"],
+                                    ["\n\t\t\t\t\tCome 'ere ya cutie! *hugs ", [0, "caller.display_name"], " warmly*"],
+                                    ["\n\t\t\t\t\tI'll need to see your hugging license... Alright, fine. I'll do it anyway, but only cause you're super cute. *hugs ", [0, "caller.display_name"], "*"],
+                                    ["\n\t\t\t\t\tWhy wouldn't I? *hugs ", [0, "caller.display_name"], " with a smile*!\n\t\t\t\t"]
+                                ]], "\n\t\t\t"]
+                            ]]],
+                            ["\n\t\t", [1, "when", [
+                                [1, "lower", [
+                                    [0, "arg1"]
+                                ]], "eq", "hello", ["\n\t\t\t", [1, "choose", ["\n\t\t\t\tHowdy!", "\n\t\t\t\tHiya!", "\n\t\t\t\tHi!", "\n\t\t\t\tYo!", "\n\t\t\t\tHi! How are ya?", "\n\t\t\t\tGreetings!", "\n\t\t\t\tSalutations!", "\n\t\t\t\tWell hello there!", "\n\t\t\t\tGood morning/afternoon/evening wherever you are!", "\n\t\t\t\tHi! nice to see ya!\n\t\t\t"]]],
+                                ["\n\t\t", [1, "when", [
+                                    [1, "lower", [
+                                        [0, "arg1"]
+                                    ]], "eq", "cute", ["\n\t\t\t", [1, "when", [
+                                        [0, "arglen"], "gt", "1", ["\n\t\t\t\t", [1, "when", [
+                                            [1, "lower", [
+                                                [0, "arg2"]
+                                            ]], "eq", "me", ["\n\t\t\t\t\t", [1, "choose", ["\n\t\t\t\t\t\tYou are so cute!", "\n\t\t\t\t\t\tYou have no idea how cute you really are", "\n\t\t\t\t\t\tOn a scale of 1 to 10, you are SO CUTE I WANNA DIE!", "\n\t\t\t\t\t\tMan, I tell you. You are really really cute. Like. SUPER cute.", "\n\t\t\t\t\t\tYoure so cute! Can I hug you?\n\t\t\t\t\t"]]],
+                                            ["\n\t\t\t\t\t", [1, "choose", [
+                                                ["\n\t\t\t\t\t\tYeah, I totally agree! ", [0, "arg2"], " is too cute!"],
+                                                ["\n\t\t\t\t\t\tHey ", [0, "arg2"], "! You're really really cute! Don't let anyone tell you otherwise!"],
+                                                ["\n\t\t\t\t\t\tMY HEART IS MELTING FROM YOUR CUTENESS, ", [1, "upper", [
+                                                    [0, "arg2"]
+                                                ]], "!!!"],
+                                                ["\n\t\t\t\t\t\tYou're so cute, ", [0, "arg2"], "!!! I could just eat you up! ...I promise I won't, though..."],
+                                                ["\n\t\t\t\t\t\tDude, you're so right! ", [0, "arg2"], " Is most definitely cute."],
+                                                ["\n\t\t\t\t\t\t", [0, "arg2"], ", you're cute in every single universe and timeline. It's a multiversal CONSTANT!\n\t\t\t\t\t"]
+                                            ]], "\n\t\t\t\t"]
+                                        ]]],
+                                        ["\n\t\t\t\t", [1, "choose", ["\n\t\t\t\t\tYou are so cute!", "\n\t\t\t\t\tYou have no idea how cute you really are", "\n\t\t\t\t\tOn a scale of 1 to 10, you are SO CUTE I WANNA DIE!", "\n\t\t\t\t\tMan, I tell you. You are really really cute. Like. SUPER cute.", "\n\t\t\t\t\tYoure so cute! Can I hug you?\n\t\t\t\t"]], "\n\t\t\t"]
+                                    ]]],
+                                    ["\n\t\t", [1, "when", [
+                                        [1, "lower", [
+                                            [0, "arg1"]
+                                        ]], "eq", "boop", ["\n\t\t\t", [1, "when", [
+                                            [0, "arglen"], "gt", "1", ["\n\t\t\t\t", [1, "when", [
+                                                [1, "lower", [
+                                                    [0, "arg2"]
+                                                ]], "eq", "me", ["\n\t\t\t\t\t", [1, "choose", ["\n\t\t\t\t\t\tAw heck yiss. *boops your snoot*", "\n\t\t\t\t\t\tR-Really? I'd love to! *boop*!", ["\n\t\t\t\t\t\tSuch a cute nose. How could I resist? *boops ", [0, "caller.display_name"], "*"],
+                                                    ["\n\t\t\t\t\t\t*Gasp!* Yay! *Eagerly boops ", [0, "caller.display_name"], "*"],
+                                                    ["\n\t\t\t\t\t\tIf you wouldn't have asked, I would have anyway. *boops ", [0, "caller.display_name"], " happily*\n\t\t\t\t\t"]
+                                                ]]],
+                                                ["\n\t\t\t\t\t", [1, "choose", [
+                                                    ["\n\t\t\t\t\t\t*boops ", [0, "arg2"], "* Score!"],
+                                                    ["\n\t\t\t\t\t\tHey ", [0, "arg2"], "! Catch! *Throws a boop at ", [0, "args"], "'s face*"],
+                                                    ["\n\t\t\t\t\t\t*boops ", [0, "arg2"], " ", [1, "when", [
+                                                        [1, "num", ["3"]], "eq", "0", [1, "num", ["3"]],
+                                                        [0, "num"]
+                                                    ]], " time", [1, "when", [
+                                                        [0, "num"], "eq", "1", [], "s"
+                                                    ]], "*"],
+                                                    ["\n\t\t\t\t\t\t**SEARCHING FOR TARGET** ...**TARGET ACQUIRED, ADMINISTERING BOOP** *boops ", [0, "arg2"], "*"],
+                                                    ["\n\t\t\t\t\t\tHey you! Yeah you! ", [0, "arg2"], "! Imma boop you! *boops ", [0, "arg2"], "*!"],
+                                                    ["\n\t\t\t\t\t\tIt would be an honor to, ", [0, "caller.display_name"], ". *boops ", [0, "arg2"], " in awe of their awesomeness*\n\t\t\t\t\t"]
+                                                ]], "\n\t\t\t\t"]
+                                            ]]],
+                                            ["\n\t\t\t\t", [1, "choose", ["\n\t\t\t\t\tAw heck yiss. *boops your snoot*", "\n\t\t\t\t\tR-Really? I'd love to! *boop*!", ["\n\t\t\t\t\tSuch a cute nose. How could I resist? *boops ", [0, "caller.display_name"], "*"],
+                                                ["\n\t\t\t\t\t*Gasp!* Yay! *Eagerly boops ", [0, "caller.display_name"], "*"],
+                                                ["\n\t\t\t\t\tIf you wouldn't have asked, I would have anyway. *boops ", [0, "caller.display_name"], " happily*\n\t\t\t\t"]
+                                            ]], "\n\t\t\t"]
+                                        ]]],
+                                        ["\n\t\t", [1, "when", [
+                                            [1, "lower", [
+                                                [0, "arg1"]
+                                            ]], "eq", "convo", ["\n\t\t\tHmmm... how about ", [1, "choose", ["\n\t\t\t\tpizza", "\n\t\t\t\tpizza", "\n\t\t\t\tpizza", "\n\t\t\t\tOneShot", "\n\t\t\t\tNiko's adorable face", "\n\t\t\t\tyour day", "\n\t\t\t\tvideo games", "\n\t\t\t\tmusic", "\n\t\t\t\tclothes", "\n\t\t\t\tcomputer stuff", "\n\t\t\t\tDiscord bots", "\n\t\t\t\t42 tags", "\n\t\t\t\tramen", "\n\t\t\t\tfood", "\n\t\t\t\tsleep", "\n\t\t\t\tdreams", "\n\t\t\t\t~~memes~~ jokes", "\n\t\t\t\tanything but puns, please", "\n\t\t\t\tanime", "\n\t\t\t\tTV shows", "\n\t\t\t\tmovies", "\n\t\t\t\tthe latest technology", ["\n\t\t\t\t", [0, "caller.display_name"], "\n\t\t\t"]]], "?"],
+                                            ["\n\t\t", [1, "when", [
+                                                [1, "lower", [
+                                                    [0, "arg1"]
+                                                ]], "eq", "goodnight", ["\n\t\t\t", [1, "when", [
+                                                    [0, "arglen"], "gt", "1", ["\n\t\t\t\t", [1, "when", [
+                                                        [1, "lower", [
+                                                            [0, "arg2"]
+                                                        ]], "eq", "me", ["\n\t\t\t\t\t", [1, "choose", [
+                                                            ["\n\t\t\t\t\t\tOh! Goodnight, ", [0, "caller.display_name"], "! Sleep well!"],
+                                                            ["\n\t\t\t\t\t\tNighty Night, ", [0, "caller.display_name"], "!"],
+                                                            ["\n\t\t\t\t\t\t*tucks ", [0, "caller.display_name"], " in* Sleep well!"], "\n\t\t\t\t\t\tGoodnight! *turns out the light and closes the door gently*", ["\n\t\t\t\t\t\tRest well, ", [0, "caller.display_name"], "! *pap pap*\n\t\t\t\t\t"]
+                                                        ]]],
+                                                        ["\n\t\t\t\t\t", [1, "when", [
+                                                            [1, "lower", [
+                                                                [0, "arg2"]
+                                                            ]], "eq", "pump", ["\n\t\t\t\t\t\t", [1, "choose", ["\n\t\t\t\t\t\t\tFiiiiine. I'll sleep. Night peoples.", "\n\t\t\t\t\t\t\tBut, but.... Butt. hehe.", "\n\t\t\t\t\t\t\tNOOOO!! *runs from sleep but falls asleep midrun*", "\n\t\t\t\t\t\t\tYou'll never make me!", "\n\t\t\t\t\t\t\t*Yawn* Yeah, ok. Fine. Night everyone.\n\t\t\t\t\t\t"]]],
+                                                            ["\n\t\t\t\t\t\t", [1, "choose", [
+                                                                ["\n\t\t\t\t\t\t\tOh! Goodnight, ", [0, "arg2"], "! Sleep well!"],
+                                                                ["\n\t\t\t\t\t\t\tNighty Night, ", [0, "arg2"], "!"],
+                                                                ["\n\t\t\t\t\t\t\t*tucks ", [0, "arg2"], " in* Sleep well!"], "\n\t\t\t\t\t\t\tGoodnight! *turns out the light and closes the door gently*", ["\n\t\t\t\t\t\t\tRest well, ", [0, "arg2"], "! *pap pap*\n\t\t\t\t\t\t"]
+                                                            ]], "\n\t\t\t\t\t"]
+                                                        ]], "\n\t\t\t\t"]
+                                                    ]]],
+                                                    ["\n\t\t\t\t", [1, "choose", [
+                                                        ["\n\t\t\t\t\tOh! Goodnight, ", [0, "caller.display_name"], "! Sleep well!"],
+                                                        ["\n\t\t\t\t\tNighty Night, ", [0, "caller.display_name"], "!"],
+                                                        ["\n\t\t\t\t\t*tucks ", [0, "caller.display_name"], " in* Sleep well!"], "\n\t\t\t\t\tGoodnight! *turns out the light and closes the door gently*", ["\n\t\t\t\t\tRest well, ", [0, "caller.display_name"], "! *pap pap*\n\t\t\t\t"]
+                                                    ]], "\n\t\t\t"]
+                                                ]]],
+                                                ["\n\t\t", [1, "when", [
+                                                    [1, "lower", [
+                                                        [0, "arg1"]
+                                                    ]], "eq", "puppet", ["\n\t\t\t", [1, "when", [
+                                                        [0, "callerid"], "eq", "168558770958499850", ["\n\t\t\t\t", [0, "arg2"]],
+                                                        ["\n\t\t\t\t", [1, "choose", ["\n\t\t\t\t\t**[ERROR]: INVALID ID - ACCESS DENIED**", "\n\t\t\t\t\tHey, man, I can't let you do that, sorry!", ["\n\t\t\t\t\tI'm afraid I can't let you do that, ", [0, "caller.display_name"]], "\n\t\t\t\t\tSorry, Pump's the only one allowed to do that\n\t\t\t\t"]], "\n\t\t\t"]
+                                                    ]]],
+                                                    ["\n\t\t", [1, "when", [
+                                                        [1, "lower", [
+                                                            [0, "arg1"]
+                                                        ]], "eq", "ship", ["\n\t\t\t", [1, "when", [
+                                                            [0, "arglen"], "eq", "2", ["\n\t\t\t\t", [1, "choose", [
+                                                                ["\n\t\t\t\t\t", [0, "arg2"], " huh? Hmmm... I think that's a ", [1, "num", ["10"]], "/10 ship."],
+                                                                ["\n\t\t\t\t\tI rate ", [0, "arg2"], " at ", [1, "num", ["100"]], "%"],
+                                                                ["\n\t\t\t\t\t", [0, "arg2"], "... cute ship name, btw. Hmmm, yeah, that's a ", [1, "num", ["100"]], "%, for sure.\n\t\t\t\t"]
+                                                            ]]],
+                                                            ["\n\t\t\t\t", [1, "when", [
+                                                                [0, "arglen"], "eq", "3", ["\n\t\t\t\t\t", [1, "choose", [
+                                                                    ["\n\t\t\t\t\t\t", [0, "arg2"], " and ", [0, "arg3"], " huh? Hmmm... I think that's a ", [1, "num", ["10"]], "/10 ship."],
+                                                                    ["\n\t\t\t\t\t\tI rate ", [0, "arg2"], " and ", [0, "arg3"], " at ", [1, "num", ["100"]], "%"],
+                                                                    ["\n\t\t\t\t\t\t", [0, "arg2"], " and ", [0, "arg3"], "... Hmmm, yeah, that's a ", [1, "num", ["100"]], "%, for sure."],
+                                                                    ["\n\t\t\t\t\t\t", [0, "arg2"], " and ", [0, "arg3"], " simply belong together, no disputing that."],
+                                                                    ["\n\t\t\t\t\t\tI hate to say it... But I don't think ", [0, "arg2"], " and ", [0, "arg3"], " are gonna work out...\n\t\t\t\t\t"]
+                                                                ]]],
+                                                                ["\n\t\t\t\t\t", [1, "choose", ["\n\t\t\t\t\t\tI can only do 2 people at a time. Sorry, polygamy folks.", "\n\t\t\t\t\t\tThis ship only seats 2 people, I'm afraid. Sorry", "\n\t\t\t\t\t\tI wasn't designed for any more than 2 people per ship, blame pump.\n\t\t\t\t\t"]], "\n\t\t\t\t"]
+                                                            ]], "\n\t\t\t"]
+                                                        ]]],
+                                                        ["\n\t\t", [1, "when", [
+                                                            [1, "lower", [
+                                                                [0, "arg1"]
+                                                            ]], "eq", "goodbye", ["\n\t\t\t", [1, "when", [
+                                                                [0, "arglen"], "gt", "1", ["\n\t\t\t\t", [1, "when", [
+                                                                    [0, "arg2"], "eq", "me", ["\n\t\t\t\t\t", [1, "choose", [
+                                                                        ["\n\t\t\t\t\t\tOh! Goodbye, ", [0, "caller.display_name"], "!"],
+                                                                        ["\n\t\t\t\t\t\tAdios, ", [0, "caller.display_name"]],
+                                                                        ["\n\t\t\t\t\t\tSee ya later, ", [0, "caller.display_name"], "!"],
+                                                                        ["\n\t\t\t\t\t\t*Waves goodbye to ", [0, "caller.display_name"], "*!"], "\n\t\t\t\t\t\tBye bye!\n\t\t\t\t\t"
+                                                                    ]]],
+                                                                    ["\n\t\t\t\t\t", [1, "choose", [
+                                                                        ["\n\t\t\t\t\t\tGoodbye, ", [0, "arg2"], "!"],
+                                                                        ["\n\t\t\t\t\t\tAdios, ", [0, "arg2"]],
+                                                                        ["\n\t\t\t\t\t\tI'll see you later,", [0, "arg2"], "!"],
+                                                                        ["\n\t\t\t\t\t\tTake care ", [0, "arg2"], "!"],
+                                                                        ["\n\t\t\t\t\t\tBye bye, ", [0, "arg2"], "\n\t\t\t\t\t"]
+                                                                    ]], "\n\t\t\t\t"]
+                                                                ]]],
+                                                                ["\n\t\t\t\t", [1, "choose", [
+                                                                    ["\n\t\t\t\t\tOh! Goodbye, ", [0, "caller.display_name"], "!"],
+                                                                    ["\n\t\t\t\t\tAdios, ", [0, "caller.display_name"]],
+                                                                    ["\n\t\t\t\t\tSee ya later, ", [0, "caller.display_name"], "!"],
+                                                                    ["\n\t\t\t\t\t*Waves goodbye to ", [0, "caller.display_name"], "*!"], "\n\t\t\t\t\tBye bye!\n\t\t\t\t"
+                                                                ]], "\n\t\t\t"]
+                                                            ]]],
+                                                            ["\n\t\t", [1, "when", [
+                                                                [1, "lower", [
+                                                                    [0, "arg1"]
+                                                                ]], "eq", "cook", ["\n\t\t\t", [1, "when", [
+                                                                    [0, "arglen"], "gt", "1", ["\n\t\t\t\t", [1, "choose", [
+                                                                        ["\n\t\t\t\t\tSure thing! *cooks ", [0, "caller.display_name"], " some ", [0, "arg2"], "*"],
+                                                                        ["\n\t\t\t\t\tI'll do my best! *cooks some ", [0, "arg2"], " for ", [0, "caller.display_name"], "*"],
+                                                                        ["\n\t\t\t\t\tI... I tried... *holds up a burnt ", [0, "arg2"], "*..."],
+                                                                        ["\n\t\t\t\t\tIt... It burned... Sorry, I really tried... *hands a burnt ", [0, "arg2"], " to ", [0, "caller.display_name"], " ashamedly*\n\t\t\t\t"]
+                                                                    ]]],
+                                                                    ["\n\t\t\t\t", [1, "choose", [
+                                                                        ["\n\t\t\t\t\tYou gotta tell me what you want, silly! *laughs and pets ", [0, "caller.display_name"], "*"], "\n\t\t\t\t\tIdk how to cook ``<arg2:Missing Arg>``, sorry!", "\n\t\t\t\t\tSure thing! *Gives you nothing* ...Tell me what I need to cook next time.\n\t\t\t\t"
+                                                                    ]], "\n\t\t\t"]
+                                                                ]]],
+                                                                ["\n\t\t", [2, "I'm leaving this one out of the help page on purpose"], "\n\t\t", [1, "when", [
+                                                                    [1, "lower", [
+                                                                        [0, "arg1"]
+                                                                    ]], "eq", "lewd", ["\n\t\t\t", [1, "choose", ["\n\t\t\t\t*Blush* O-Oh... I'm sorry. I have to get to know you better for that...", "\n\t\t\t\tI'm not designed for such things. Forgive me.", "\n\t\t\t\tGet your mind out of the gutter!", "\n\t\t\t\tWoah now, don't get too excited. I can't do that.", "\n\t\t\t\tSorry, I can't do that. You should've known.\n\t\t\t"]]],
+                                                                    ["\n\t\t", [1, "when", [
+                                                                        [1, "lower", [
+                                                                            [0, "arg1"]
+                                                                        ]], "eq", "animal", ["\n\t\t\t", [1, "when", [
+                                                                            [0, "arglen"], "gt", "1", ["\n\t\t\t\t", [1, "when", [
+                                                                                [0, "callerid"], "eq", "133655732187824128", "\n\t\t\t\t\tYou're a cutie green kitty~", ["\n\t\t\t\t\t", [1, "when", [
+                                                                                    [0, "callerid"], "eq", "168558770958499850", "\n\t\t\t\t\t\tPump, you know you're a cat already...", ["\n\t\t\t\t\t\t", [1, "when", [
+                                                                                        [1, "lower", [
+                                                                                            [0, "arg2"]
+                                                                                        ]], "eq", "me", ["\n\t\t\t\t\t\t\t", [0, "caller.display_name"]],
+                                                                                        ["\n\t\t\t\t\t\t\t", [0, "arg2"], "\n\t\t\t\t\t\t"]
+                                                                                    ]], " is ", [1, "choose", ["\n\t\t\t\t\t\t\ta ~~birb~~ bird", "\n\t\t\t\t\t\t\ta doggo", "\n\t\t\t\t\t\t\ta deer", "\n\t\t\t\t\t\t\ta bear", "\n\t\t\t\t\t\t\ta kitty cat", "\n\t\t\t\t\t\t\ta wolf", "\n\t\t\t\t\t\t\ta tiger", "\n\t\t\t\t\t\t\ta lion", "\n\t\t\t\t\t\t\ta lizard", "\n\t\t\t\t\t\t\ta snake", "\n\t\t\t\t\t\t\ta gecko", "\n\t\t\t\t\t\t\ta squirrel", "\n\t\t\t\t\t\t\ta chipmunk", "\n\t\t\t\t\t\t\ta pig", "\n\t\t\t\t\t\t\ta leopard", "\n\t\t\t\t\t\t\ta rhino", "\n\t\t\t\t\t\t\ta horse", "\n\t\t\t\t\t\t\ta crocodile", "\n\t\t\t\t\t\t\tan alligator", "\n\t\t\t\t\t\t\ta turtle", "\n\t\t\t\t\t\t\ta raccoon", "\n\t\t\t\t\t\t\ta giraffe", "\n\t\t\t\t\t\t\ta hippo", "\n\t\t\t\t\t\t\ta frog", "\n\t\t\t\t\t\t\ta weasel", "\n\t\t\t\t\t\t\tan otter", "\n\t\t\t\t\t\t\ta panda", "\n\t\t\t\t\t\t\ta rabbit", "\n\t\t\t\t\t\t\ta ferret", "\n\t\t\t\t\t\t\tan owl", "\n\t\t\t\t\t\t\ta reindeer", "\n\t\t\t\t\t\t\ta lemur", "\n\t\t\t\t\t\t\ta cougar (not the creepy kind)", "\n\t\t\t\t\t\t\ta hyena", "\n\t\t\t\t\t\t\ta coyote", "\n\t\t\t\t\t\t\ta bat", "\n\t\t\t\t\t\t\ta cheetah", "\n\t\t\t\t\t\t\tan armadillo", "\n\t\t\t\t\t\t\ta chimpanzee", "\n\t\t\t\t\t\t\ta penguin", "\n\t\t\t\t\t\t\ta ~~blue~~ hedgehog", "\n\t\t\t\t\t\t\ta goat\n\t\t\t\t\t\t"]], "\n\t\t\t\t\t"]
+                                                                                ]], "\n\t\t\t\t"]
+                                                                            ]]],
+                                                                            ["\n\t\t\t\t", [0, "caller.display_name"], " is ", [1, "choose", ["\n\t\t\t\t\ta ~~birb~~ bird", "\n\t\t\t\t\ta doggo", "\n\t\t\t\t\ta deer", "\n\t\t\t\t\ta bear", "\n\t\t\t\t\ta kitty cat", "\n\t\t\t\t\ta wolf", "\n\t\t\t\t\ta tiger", "\n\t\t\t\t\ta lion", "\n\t\t\t\t\ta lizard", "\n\t\t\t\t\ta snake", "\n\t\t\t\t\ta gecko", "\n\t\t\t\t\ta squirrel", "\n\t\t\t\t\ta chipmunk", "\n\t\t\t\t\ta pig", "\n\t\t\t\t\ta leopard", "\n\t\t\t\t\ta rhino", "\n\t\t\t\t\ta horse", "\n\t\t\t\t\ta crocodile", "\n\t\t\t\t\tan alligator", "\n\t\t\t\t\ta turtle", "\n\t\t\t\t\ta raccoon", "\n\t\t\t\t\ta giraffe", "\n\t\t\t\t\ta hippo", "\n\t\t\t\t\ta frog", "\n\t\t\t\t\ta weasel", "\n\t\t\t\t\tan otter", "\n\t\t\t\t\ta panda", "\n\t\t\t\t\ta rabbit", "\n\t\t\t\t\ta ferret", "\n\t\t\t\t\tan owl", "\n\t\t\t\t\ta reindeer", "\n\t\t\t\t\ta lemur", "\n\t\t\t\t\ta cougar (not the creepy kind)", "\n\t\t\t\t\ta hyena", "\n\t\t\t\t\ta coyote", "\n\t\t\t\t\ta bat", "\n\t\t\t\t\ta cheetah", "\n\t\t\t\t\tan armadillo", "\n\t\t\t\t\ta chimpanzee", "\n\t\t\t\t\ta penguin", "\n\t\t\t\t\ta ~~blue~~ hedgehog", "\n\t\t\t\t\ta goat\n\t\t\t\t"]], "\n\t\t\t"]
+                                                                        ]]],
+                                                                        ["\n\t\t\tWhat's that? IDK how to do that... But you can use ``+t ", [0, "tag"], " help`` to see what I *can* do!\n\t\t"]
+                                                                    ]], "\n\t\t"]
+                                                                ]], "\n\t\t"]
+                                                            ]], "\n\t\t"]
+                                                        ]], "\n\t\t"]
+                                                    ]], "\n\t\t"]
+                                                ]], "\n\t\t"]
+                                            ]], "\n\t\t"]
+                                        ]], "\n\t\t"]
+                                    ]], "\n\t\t"]
+                                ]], "\n\t\t"]
+                            ]], "\n\t\t"]
+                        ]], "\n\t\t"]
+                    ]], "\n\t"]
+                ]], "\n\t"]
+            ]], "\n\t"]
+        ]], "\n"]
+    ]], "\t\t\t"
+]

@@ -15,4 +15,4 @@ console.log(util.inspect(tag.tree, {
     depth: null
 }));
 //console.log(JSON.stringify(tag.tree))
-//fs.writeFile("tag.json",JSON.stringify(tag.tree));
+fs.writeFile("tag.json",JSON.stringify(tag.tree));
