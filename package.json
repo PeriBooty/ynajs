@@ -1,6 +1,6 @@
 {
   "name": "ynajs",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "description": "A YNA parser",
   "main": "index.js",
   "scripts": {
@@ -26,6 +26,7 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
+    "pyslice": "^1.0.0",
     "replace-string": "^1.1.0"
   },
   "devDependencies": {
