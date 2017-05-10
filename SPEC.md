@@ -46,7 +46,7 @@ Default keys provided by the engine:
  - {time}: Current timestamp
  - {args}: Joined arguments
  - {arglen}: Amount of arguments
- - {arg1},{arg2}...{argn}: Argument by index
+ - {arg1},{arg2}...{arg#n#}: Argument by index
 
 Additional keys can be implemented in specialized engines.
 
