@@ -75,7 +75,7 @@ Nested commands are evaluated recursively from the inside
 - {parse:#text#;}: Encodes string to an URI
 - {slice:#slice#;#text#;}: Slices from a string
 
-- {math:#num1#;#(add|sub|mul|div|idiv|mod|and|or|xor|not)#;#num2#;}: Performs basic math
+- {math#(add|sub|mul|div|idiv|mod|and|or|xor|not|round|floor|ceil|max|min)#;#num1#;#num2#;[#numN#;]}: Performs basic math
 
 - {len:#text#;}: Returns length of text
 - {time:[#offset#];}: Returns time for the given offset
