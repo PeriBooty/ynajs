@@ -23,7 +23,7 @@ result = tag.run(["100"], {
         bizz: 12
     }
 }, {
-    debug: false
+    debug: true
 });
 
 console.log(result);
