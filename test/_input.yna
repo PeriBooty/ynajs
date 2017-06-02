@@ -1,1 +1,3 @@
-{set:1_foo;bar;} {1_foo}
+{oneline:
+    {! foo }
+;}
