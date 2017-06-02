@@ -12,10 +12,6 @@ const tag_content = fs.readFileSync("./test/_input.yna", {
 const tag = new Yna(tag_content);
 let result;
 
-tag.addCommand("user", () => "DummyUser#1234");
-tag.addCommand("member", () => "DummyMember#1234");
-tag.addCommand("nameof", () => "DummyName");
-
 result = tag.run(["100"], {
     foo: 1,
     bar: {
