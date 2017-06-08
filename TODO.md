@@ -1,8 +1,6 @@
 # TODO
-- Minify tags by making objects array, indicated by id; maybe gzip after
-- Add options: loadMinified
+Add key padding http://fennekid.github.io/beta/yna.html#format
 
 # TOTEST
 
 # TOFIX
-Insert oneline keys after replacing
