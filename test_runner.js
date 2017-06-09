@@ -12,7 +12,7 @@ const tag_content = fs.readFileSync("./test/_input.yna", {
 const tag = new Yna(tag_content);
 let result;
 
-result = tag.run(["100"], {
+result = tag.run(["Foo","Bar"], {
     foo: 1,
     bar: {
         __default: 1,

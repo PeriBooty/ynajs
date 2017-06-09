@@ -1,8 +1,22 @@
-{slice:2;abracadabra;}
-{slice:2,6;abracadabra;}
-{slice:2,;abracadabra;}
-{slice:,6;abracadabra;}
-{slice:2,6,2;abracadabra;}
-{slice:2,6,;abracadabra;}
-{slice:,,6;abracadabra;}
-{slice:,,;abracadabra;}
+{oneline:
+{!Created by squaswin}
+{set:newrep;true;}
+{set:first;{arg2};}
+{set:second;{arg1};}
+{set:score;
+    {choose:
+        X% - Terrible;1X% - Really Bad;
+        2X% - Fairly Bad;3X% - Bad;
+        4X% - Meh;5X% Okay;
+        6X% - Good;7X% - Great;
+        8X% - Excellent;9X% - AMAZING!!
+    ;}
+;}
+{set:score;
+    {rep:X;{num:9;};{score};}
+;}
+;}=====Shipping Score=====
+First: {first}
+Second: {second}
+====================
+{score}
