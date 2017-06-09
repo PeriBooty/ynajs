@@ -1,5 +1,8 @@
-{time}
-----
-{time:+0;}
-----
-{time:+3;}
+{slice:2;abracadabra;}
+{slice:2,6;abracadabra;}
+{slice:2,;abracadabra;}
+{slice:,6;abracadabra;}
+{slice:2,6,2;abracadabra;}
+{slice:2,6,;abracadabra;}
+{slice:,,6;abracadabra;}
+{slice:,,;abracadabra;}
