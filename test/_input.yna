@@ -1,22 +1,42 @@
 {oneline:
-{!Created by squaswin}
-{set:newrep;true;}
-{set:first;{arg2};}
-{set:second;{arg1};}
-{set:score;
-    {choose:
-        X% - Terrible;1X% - Really Bad;
-        2X% - Fairly Bad;3X% - Bad;
-        4X% - Meh;5X% Okay;
-        6X% - Good;7X% - Great;
-        8X% - Excellent;9X% - AMAZING!!
-    ;}
+    {! Recipe }
+    {func:ingredient;
+        {choose:
+            :lemon:;
+            :banana:;
+            :pineapple:;
+            :tomato:;
+            :avocado:;
+            :eggplant:;
+            :potato:;
+            :carrot:;
+            :corn:;
+            :hot_pepper:;
+            :cucumber:;
+            :mushroom:;
+            :peanuts:;
+            :chestnut:;
+            :cheese:;
+            :poultry_leg:;
+            :bacon:;
+            :sweet_potato:;
+            :fried_shrimp:;
+            :fish:;
+            :egg:;
+            :fries:;
+            :spaghetti:;
+            :sushi:;
+            :curry:;
+            :rice:
+            ;}
+     ;}
+    {set:recipe;We should make a pizza with {ingredient} And {ingredient}!;}
+
+    {! Ingredient list}
+    {set:ingredients; :lemon:, :banana:, :pineapple:, :tomato:, :avocado:, :eggplant:, :potato:, :carrot:, :corn:, :hot_pepper:, :cucumber:, :mushroom:, :peanuts:, :chestnut:, :cheese:, :poultry_leg:, :bacon:, :sweet_potato:, :fried_shrimp:, :fish:, :egg:, :fries:, :spaghetti:, :sushi:, :curry:, :rice:;}
+    {set:ingredient_list; We currently offer the following: {ingredients};}
+
+
+    {! Mode Selection}
+    {when:{arg1};eq;ingredients;{ingredient_list};{recipe};}
 ;}
-{set:score;
-    {rep:X;{num:9;};{score};}
-;}
-;}=====Shipping Score=====
-First: {first}
-Second: {second}
-====================
-{score}

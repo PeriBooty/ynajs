@@ -13,7 +13,7 @@ module.exports = class {
     /**
      * Command contructor
      * @param {String} yna
-     * @param {Object} options
+     * @param {Object} [options={}]
      */
     constructor(yna, options = {}) {
         this.tree = parse(yna, options);
@@ -29,9 +29,9 @@ module.exports = class {
     }
     /**
      * Runs command
-     * @param {Array} args
-     * @param {Object} ctx
-     * @param {Object} options
+     * @param {Array} [args=[]]
+     * @param {Object} [ctx={}]
+     * @param {Object} [options={}]
      * @returns {String}
      */
     run(args = [], ctx = {}, options = {}) {
