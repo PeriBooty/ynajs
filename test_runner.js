@@ -1,15 +1,10 @@
 "use strict";
 
-const fs = require("fs");
 const Yna = require("./index");
-
-//Tag setup
-const tag_content = fs.readFileSync("./test/_input.yna", {
-    encoding: "utf8"
-});
+const tag_data = require("./test_data");
 
 //Data dump
-const tag = new Yna(tag_content);
+const tag = new Yna(tag_data);
 let result;
 
 result = tag.run(["Foo","Bar"], {
