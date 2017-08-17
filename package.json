@@ -26,8 +26,7 @@
     "dependencies": {
         "lodash": "^4.17.4",
         "moment": "^2.18.1",
-        "pyslice": "^1.1.3",
-        "replace-string": "^1.1.0"
+        "pyslice": "^1.1.3"
     },
     "devDependencies": {
         "eslint": "^4.3.0",
