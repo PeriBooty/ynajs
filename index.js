@@ -17,7 +17,7 @@ module.exports = class {
      */
     constructor(yna, options = {}) {
         this.tree = parse(yna, options);
-        this.commandMap = initCommands();
+        this.commandMap = initCommands(options);
     }
     /**
      * Adds a new command to the instance container
