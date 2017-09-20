@@ -1,8 +1,10 @@
 # YNA
 
-A YNA Engine in JS
+> A YNA Engine in JS
 
-Official YNA Docs: http://fennekid.github.io/beta/yna.html
+Official YNA Docs: http://42.rockett.space/yna.html
+
+This library is **not** fully spec compilant due to differences in the way python and js work and due to how this library operates. Also keep in mind that the discord-dependant functionality is only available as a plugin.
 
 ## Usage
 
@@ -31,7 +33,3 @@ Tag execution:
 */
 tag.run(["Argument1"]); //=> "ARGUMENT1"
 ```
-
-## Know Issues
-
-- `oneline` formatting is slightly different from the official spec
