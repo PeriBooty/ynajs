@@ -4,7 +4,7 @@ const Yna = require("../index.js");
 
 describe("Runner test", () => {
 
-    /*it("Empty", () => {
+    it("Empty", () => {
         const tag = new Yna("");
         const result = tag.run();
 
@@ -58,5 +58,26 @@ describe("Runner test", () => {
         const result = tag.run();
 
         expect(result).toEqual("Bar");
-    });*/
+    });
+
+    it("Variables", () => {
+        const tag = new Yna("{set:a;1;}{a}");
+        const result = tag.run();
+
+        expect(result).toEqual("1");
+    });
+
+    it("Variables recursion", () => {
+        const tag = new Yna("{func:a;1;}{a}");
+        const result = tag.run();
+
+        expect(result).toEqual("1");
+    });
+
+    it("Variables recursion infinite", () => {
+        const tag = new Yna("{func:a;{a};}{a}");
+        const result = tag.run();
+
+        expect(result).toEqual("<a:max recursion depth exceeded>");
+    });
 });
