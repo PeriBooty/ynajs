@@ -1,4 +1,4 @@
-# YNA
+# YNA.js
 
 > A YNA Engine in JS
 
@@ -33,3 +33,10 @@ Tag execution:
 */
 tag.run(["Argument1"]); //=> "ARGUMENT1"
 ```
+
+## Differences
+
+YNA.js has a few key differences from the "official" YNA in python:
+
+- Property access is very limited, due to how JS+d.js and Py+d.py handle that
+- Time formating using a different syntax due to the time library used
