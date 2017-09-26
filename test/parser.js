@@ -1,5 +1,6 @@
 "use strict";
 
+/* eslint no-console: "off" */
 const fs = require("fs");
 const util = require("util");
 const Yna = require("../index");
