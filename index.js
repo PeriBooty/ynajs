@@ -7,12 +7,14 @@ const initKeys = require("./lib/init/initKeys");
 
 /**
  * YNA command class
+ *
  * @class
  */
 module.exports = class {
     /**
      * Command contructor
-     * @param {String} yna
+     *
+     * @param {string} yna
      * @param {Object} [options={}]
      */
     constructor(yna, options = {}) {
@@ -21,18 +23,20 @@ module.exports = class {
     }
     /**
      * Adds a new command to the instance container
-     * @param {String} name
-     * @param {Function} fn
+     *
+     * @param {string} name
+     * @param {function} fn
      */
     addCommand(name, fn) {
         this.commandMap.set(name, fn);
     }
     /**
      * Runs command
-     * @param {Array} [args=[]]
+     *
+     * @param {Array<string>} [args=[]]
      * @param {Object} [ctx={}]
      * @param {Object} [options={}]
-     * @returns {String}
+     * @returns {string}
      */
     run(args = [], ctx = {}, options = {}) {
         const keyMap = initKeys(args, ctx);
