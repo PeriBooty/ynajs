@@ -38,5 +38,8 @@ tag.run(["Argument1"]); //=> "ARGUMENT1"
 
 YNA.js has a few key differences from the "official" YNA in python:
 
-- Property access is very limited, due to how JS+d.js and Py+d.py handle that
+- Property access is different and limited
 - Time formating using a different syntax due to the time library used
+- Oneline is wonky
+- The discord based commands are a bit different due to d.js and d.py
+- the official spec says that the contents of an escaped command are not escaped. in ynajs the contents are escaped too.
