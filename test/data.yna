@@ -1,1 +1,5 @@
-{math:add;1;2;}
+{oneline:
+    foo
+    bar
+{!bar}  baz
+;}
