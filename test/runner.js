@@ -11,7 +11,7 @@ const tag = new Yna(text, {
         discord: true
     }
 });
-const result = tag.run(["Foo", "Bar"], {
+const result = tag.run([], {
     a: 1,
     b: {
         __default: 1,
