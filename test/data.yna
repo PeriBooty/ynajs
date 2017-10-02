@@ -1,6 +1,1 @@
-{>set:i;0;}\n
-{>func:recurse;\n
-{!}{>when:{>i};lt;10;\n
-{!}{>i}{>set;i;{>math:add;{>i};1;};}\n
-{!};}\n
-;}
+{math:add;1;2.2;}
