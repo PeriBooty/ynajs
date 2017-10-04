@@ -8,7 +8,8 @@ const text = fs.readFileSync("./test/data.yna", "utf8");
 const tag = new Yna(text, {
     debug: true,
     plugins: {
-        discord: true
+        discord: false,
+        init: true
     }
 });
 const result = tag.run([], {
@@ -18,7 +19,7 @@ const result = tag.run([], {
         c: 12
     }
 }, {
-    debug: false,
+    debug: true,
 });
 
 console.log(result);

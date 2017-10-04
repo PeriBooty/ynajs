@@ -1,5 +1,3 @@
-{oneline:
-    foo
-    bar
-{!bar}  baz
+{init:
+foooo
 ;}

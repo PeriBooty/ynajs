@@ -12,7 +12,7 @@ const optionsDefault = {
     debug: false,
     loadJSON: false,
     plugins: {
-        init: true,
+        init: false,
         discord: false
     }
 };
