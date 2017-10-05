@@ -1,0 +1,10 @@
+voice:{caller.voice}
+roles:{caller.roles}
+joined_at:{caller.joined_at}
+status:{caller.status}
+game:{caller.game}
+server:{caller.server}
+nick:{caller.nick}
+colour:{caller.colour}
+top_role:{caller.top_role}
+server_permissions:{caller.server_permissions}
