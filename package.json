@@ -24,7 +24,7 @@
     },
     "homepage": "https://github.com/FelixRilling/ynajs#readme",
     "dependencies": {
-        "di-ngy": "^4.0.1",
+        "di-ngy": "^4.0.2",
         "lodash": "^4.17.4",
         "moment": "^2.19.1",
         "pyslice": "^1.1.4"
@@ -36,6 +36,6 @@
         "npm-run-all": "^4.1.1"
     },
     "engines": {
-        "node": "v8.x"
+        "node": ">=7.0.0"
     }
 }
