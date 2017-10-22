@@ -22,12 +22,12 @@ const optionsRunnerDefault = {
 };
 const dataDefault = {
     discord: {
-        msg: null, //Discord.js message collection
-        app: null, //Di-ngy app instance
+        msg: null, //Discord.js message
+        app: null, //Di-ngy app
         storing: {
-            tag: null,
-            tagStorage: null,
-            tagKey: null,
+            tag: null, //current tag
+            tagStorage: null, //Flat-cache instance
+            tagKey: null, //tag name
         }
     }
 };

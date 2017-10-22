@@ -1,9 +1,8 @@
 {
     "plugins": [
-        "node",
-        "unicorn"
+        "node"
     ],
-    "extends": ["eslint:recommended", "plugin:node/recommended", "plugin:unicorn/recommended"],
+    "extends": ["eslint:recommended", "plugin:node/recommended"],
     "env": {
         "es6": true,
         "node": true,
@@ -18,10 +17,6 @@
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "double"],
         "semi": ["error", "always"],
-        "no-console": "warn",
-
-        "unicorn/filename-case": ["warn", {
-            "case": "camelCase"
-        }]
+        "no-console": "warn"
     }
 }
