@@ -4,7 +4,8 @@
 
 Official YNA Docs: <http://42.rockett.space/yna.html>
 
-This library is **not** fully spec compliant due to differences in the way python and js work and due to how this library operates. Also keep in mind that the discord-dependant functionality is only available as a plugin.
+This library is **not** fully spec compliant due to differences in the way python and js work and due to how this library operates.
+The discord commands can be found [here](https://github.com/FelixRilling/lisa-bot/tree/master/lib/commands/tag), Keep in mind that this functionality is only available in bots.
 
 ## Usage
 
