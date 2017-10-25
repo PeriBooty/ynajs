@@ -10,27 +10,13 @@ const {
 
 const optionsDefault = {
     debug: false,
-    loadJSON: false,
-    plugins: {
-        init: false,
-        discord: false
-    }
+    loadJSON: false
 };
 const optionsRunnerDefault = {
     debug: false,
     depth: 0
 };
-const dataDefault = {
-    discord: {
-        msg: null, //Discord.js message
-        app: null, //Di-ngy app
-        storing: {
-            tag: null, //current tag
-            tagStorage: null, //Flat-cache instance
-            tagKey: null, //tag name
-        }
-    }
-};
+const dataDefault = {};
 
 /**
  * YNA command class
@@ -39,7 +25,7 @@ const dataDefault = {
  */
 module.exports = class {
     /**
-     * Command contructor
+     * Command constructor
      *
      * @param {string} yna
      * @param {Object} [options={}]

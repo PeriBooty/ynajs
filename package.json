@@ -1,7 +1,7 @@
 {
     "name": "ynajs",
     "version": "5.1.2",
-    "description": "A YNA parser",
+    "description": "A YNA parser and interpreter",
     "main": "index.js",
     "scripts": {
         "start": "npm-run-all lint test",
@@ -15,7 +15,8 @@
     "keywords": [
         "yna",
         "na",
-        "parser"
+        "parser",
+        "interpreter"
     ],
     "author": "Felix Rilling",
     "license": "MIT",
@@ -24,7 +25,6 @@
     },
     "homepage": "https://github.com/FelixRilling/ynajs#readme",
     "dependencies": {
-        "di-ngy": "^4.0.2",
         "lodash": "^4.17.4",
         "moment": "^2.19.1",
         "pyslice": "^1.1.4"

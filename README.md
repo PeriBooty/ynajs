@@ -1,6 +1,6 @@
 # YNA.js
 
-> A YNA Engine in JS
+> YNA parser and interpreter
 
 Official YNA Docs: <http://42.rockett.space/yna.html>
 
@@ -14,7 +14,7 @@ Tag instance creation:
 const Yna = require("ynajs");
 
 /**
-* Command contructor
+* Command constructor
 * @param {String} yna
 * @param {Object} [options={}]
 */
