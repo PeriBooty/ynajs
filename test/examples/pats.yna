@@ -1,8 +1,0 @@
-{oneline:
-	{init}{save:text;pats nobo;}Oki Doki Loki{endinit}
-	
-	{set:text;{text} and {arg1};}
-	{save:text;{text};}
-	
-	\*{text}*
-;}
