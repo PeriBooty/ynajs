@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "npm-run-all lint test",
-        "lint": "eslint index.js lib/**/*.js",
+        "lint": "eslint index.js lib/",
         "test": "jasmine"
     },
     "repository": {
@@ -30,8 +30,8 @@
         "pyslice": "^1.1.4"
     },
     "devDependencies": {
-        "eslint": "^4.9.0",
-        "eslint-plugin-node": "^5.2.0",
+        "eslint": "^4.10.0",
+        "eslint-plugin-node": "^5.2.1",
         "jasmine": "^2.8.0",
         "npm-run-all": "^4.1.1"
     },
