@@ -5,6 +5,7 @@ const run = require("./lib/runner");
 const initCommands = require("./lib/init/initCommands");
 const initKeys = require("./lib/init/initKeys");
 const {
+    objDefaults,
     objDefaultsDeep
 } = require("lightdash");
 
@@ -56,7 +57,7 @@ module.exports = class {
      */
     run(args = [], ctx = {}, options = {}, data = {}) {
         const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
-        const dataMerged = objDefaultsDeep(data, dataDefault);
+        const dataMerged = objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
 
         return run(this.tree, this.commandMap, keyMap, optionsMerged, dataMerged);
