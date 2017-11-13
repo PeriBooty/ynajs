@@ -5,8 +5,8 @@ const run = require("./lib/runner");
 const initCommands = require("./lib/init/initCommands");
 const initKeys = require("./lib/init/initKeys");
 const {
-    defaultsDeep
-} = require("lodash");
+    objDefaultsDeep
+} = require("lightdash");
 
 const optionsDefault = {
     debug: false,
@@ -31,8 +31,8 @@ module.exports = class {
      * @param {Object} [options={}]
      */
     constructor(yna, options = {}, data = {}) {
-        const optionsMerged = defaultsDeep(options, optionsDefault);
-        const dataMerged = defaultsDeep(data, dataDefault);
+        const optionsMerged = objDefaultsDeep(options, optionsDefault);
+        const dataMerged = objDefaultsDeep(data, dataDefault);
 
         this.tree = parse(yna, optionsMerged, dataMerged);
         this.commandMap = initCommands(optionsMerged);
@@ -55,8 +55,8 @@ module.exports = class {
      * @returns {string}
      */
     run(args = [], ctx = {}, options = {}, data = {}) {
-        const optionsMerged = defaultsDeep(options, optionsRunnerDefault);
-        const dataMerged = defaultsDeep(data, dataDefault);
+        const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
+        const dataMerged = objDefaultsDeep(data, dataDefault);
         const keyMap = initKeys(args, ctx);
 
         return run(this.tree, this.commandMap, keyMap, optionsMerged, dataMerged);
