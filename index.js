@@ -1,13 +1,13 @@
 "use strict";
 
-const YnaParser = require("./lib/yna/parser");
-//const run = require("./lib/runner");
-const initCommands = require("./lib/init/initCommands");
-const initKeys = require("./lib/init/initKeys");
 const {
     objDefaults,
     objDefaultsDeep
 } = require("lightdash");
+const initCommands = require("./lib/init/initCommands");
+const initKeys = require("./lib/init/initKeys");
+const YnaParser = require("./lib/parser");
+const YnaRunner = require("./lib/runner");
 
 const optionsDefault = {
     debug: false,
@@ -30,6 +30,7 @@ module.exports = class {
      *
      * @param {string} yna
      * @param {Object} [options={}]
+     * @param {Object} [data={}]
      */
     constructor(yna, options = {}, data = {}) {
         const optionsMerged = objDefaultsDeep(options, optionsDefault);
@@ -60,13 +61,14 @@ module.exports = class {
      * @param {Array<string>} [args=[]]
      * @param {Object} [ctx={}]
      * @param {Object} [options={}]
+     * @param {Object} [data={}]
      * @returns {string}
      */
-    /*     run(args = [], ctx = {}, options = {}, data = {}) {
-            const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
-            const dataMerged = objDefaults(data, dataDefault);
-            const keyMap = initKeys(args, ctx);
+    run(args = [], ctx = {}, options = {}, data = {}) {
+        const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
+        const dataMerged = objDefaults(data, dataDefault);
+        const runner = new YnaRunner(this.commandMap, initKeys(args, ctx), optionsMerged, dataMerged);
 
-            return run(this.tree, this.commandMap, keyMap, optionsMerged, dataMerged);
-        } */
+        return runner.execItem(this.tree);
+    }
 };
