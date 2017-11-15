@@ -1,7 +1,7 @@
 "use strict";
 
-const parse = require("./lib/parser");
-const run = require("./lib/runner");
+const YnaParser = require("./lib/yna/parser");
+//const run = require("./lib/runner");
 const initCommands = require("./lib/init/initCommands");
 const initKeys = require("./lib/init/initKeys");
 const {
@@ -35,8 +35,15 @@ module.exports = class {
         const optionsMerged = objDefaultsDeep(options, optionsDefault);
         const dataMerged = objDefaultsDeep(data, dataDefault);
 
-        this.tree = parse(yna, optionsMerged, dataMerged);
         this.commandMap = initCommands(optionsMerged);
+
+        if (options.loadJSON) {
+            this.tree = yna;
+        } else {
+            const parser = new YnaParser(optionsMerged, dataMerged);
+
+            this.tree = parser.parseString(yna);
+        }
     }
     /**
      * Adds a new command to the instance container
@@ -55,11 +62,11 @@ module.exports = class {
      * @param {Object} [options={}]
      * @returns {string}
      */
-    run(args = [], ctx = {}, options = {}, data = {}) {
-        const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
-        const dataMerged = objDefaults(data, dataDefault);
-        const keyMap = initKeys(args, ctx);
+    /*     run(args = [], ctx = {}, options = {}, data = {}) {
+            const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
+            const dataMerged = objDefaults(data, dataDefault);
+            const keyMap = initKeys(args, ctx);
 
-        return run(this.tree, this.commandMap, keyMap, optionsMerged, dataMerged);
-    }
+            return run(this.tree, this.commandMap, keyMap, optionsMerged, dataMerged);
+        } */
 };
