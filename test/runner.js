@@ -5,11 +5,12 @@ const fs = require("fs");
 const Yna = require("../index");
 
 const text = fs.readFileSync("./test/data.yna", "utf8");
+
 const tag = new Yna(text);
-const result = tag.run(["bar"], {
+const result = tag.run(["Foo", "Bar"], {
     callerid: "23123"
 }, {
-    debug: true,
-}, {});
+    debug: false,
+});
 
 console.log(result);

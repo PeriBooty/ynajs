@@ -27,7 +27,7 @@
     "dependencies": {
         "lightdash": "^3.1.0",
         "moment": "^2.19.2",
-        "pydateformat": "^1.0.0",
+        "pydateformat": "^1.0.1",
         "pyslice": "^1.1.6"
     },
     "devDependencies": {
