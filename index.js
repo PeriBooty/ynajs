@@ -1,9 +1,6 @@
 "use strict";
 
-const {
-    objDefaults,
-    objDefaultsDeep
-} = require("lightdash");
+const { objDefaults, objDefaultsDeep } = require("lightdash");
 const initCommands = require("./lib/init/initCommands");
 const initKeys = require("./lib/init/initKeys");
 const YnaParser = require("./lib/parser");
@@ -15,18 +12,18 @@ const optionsDefault = {
 };
 const optionsRunnerDefault = {
     debug: false,
-    depth: 0
+    depth: 0 // Used for recursion depth checks
 };
 const dataDefault = {};
 
 /**
- * YNA command class
+ * YNA instance class
  *
  * @class
  */
 module.exports = class {
     /**
-     * Command constructor
+     * YNA instance constructor
      *
      * @param {string} yna
      * @param {Object} [options={}]
@@ -47,7 +44,7 @@ module.exports = class {
         }
     }
     /**
-     * Adds a new command to the instance container
+     * Adds a new command to the instance command map
      *
      * @param {string} name
      * @param {function} fn
@@ -56,7 +53,7 @@ module.exports = class {
         this.commandMap.set(name, fn);
     }
     /**
-     * Runs command
+     * Runs the yna instance and returns the results
      *
      * @param {Array<string>} [args=[]]
      * @param {Object} [ctx={}]
@@ -67,7 +64,13 @@ module.exports = class {
     run(args = [], ctx = {}, options = {}, data = {}) {
         const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
         const dataMerged = objDefaults(data, dataDefault);
-        const runner = new YnaRunner(this.commandMap, initKeys(args, ctx), optionsMerged, dataMerged);
+        const keyMap = initKeys(args, ctx);
+        const runner = new YnaRunner(
+            this.commandMap,
+            keyMap,
+            optionsMerged,
+            dataMerged
+        );
 
         return runner.execItem(this.tree);
     }
