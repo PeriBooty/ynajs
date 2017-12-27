@@ -9,9 +9,7 @@ const text = fs.readFileSync("./test/data.yna", "utf8");
 
 const tag = new Yna(text);
 const result = tag.run(
-    ["foo", "bar", "bizz"],
-    {},
-    {
+    ["<a:b"], {}, {
         debug: true
     }
 );
