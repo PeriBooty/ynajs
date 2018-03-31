@@ -3,21 +3,36 @@
     "version": "5.4.10",
     "description": "A YNA parser and interpreter",
     "main": "index.js",
+    "settings": {
+        "input": "main.ts",
+        "namespace": {
+            "module": "YNA",
+            "file": "yna"
+        },
+        "external": ["lightdash"]
+    },
     "scripts": {
-        "start": "npm-run-all lint test",
-        "lint": "eslint index.js lib/",
-        "test": "jasmine"
+        "start": "npm-run-all lint build test docs",
+        "build": "rollup -c ./tasks/rollup.config.js",
+        "build:iife": "rollup -c ./tasks/rollup.config.iife.js",
+        "build:iife-min": "rollup -c ./tasks/rollup.config.iife-min.js",
+        "watch": "rollup -c ./tasks/rollup.config.js --watch",
+        "dist": "npm-run-all --parallel build build:iife build:iife-min",
+        "lint": "npm-run-all --parallel lint:ts lint:es",
+        "lint:ts": "tslint ./src/**/*.ts",
+        "lint:es": "eslint ./spec/**/*.js",
+        "fix": "npm-run-all fix:ts fix:es fix:prettier",
+        "fix:ts": "tslint ./src/**/*.ts --fix",
+        "fix:es": "eslint ./spec/**/*.js --fix",
+        "fix:prettier": "prettier ./src/**/* ./spec/**/* --write",
+        "test": "jasmine",
+        "docs": "jsdoc -c jsdoc.json"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/FelixRilling/ynajs.git"
     },
-    "keywords": [
-        "yna",
-        "na",
-        "parser",
-        "interpreter"
-    ],
+    "keywords": ["yna", "na", "parser", "interpreter"],
     "author": "Felix Rilling",
     "license": "MIT",
     "bugs": {
@@ -25,16 +40,30 @@
     },
     "homepage": "https://github.com/FelixRilling/ynajs#readme",
     "dependencies": {
-        "lightdash": "^3.3.3",
-        "moment": "^2.20.1",
-        "pydateformat": "^1.0.3",
-        "pyslice": "^1.1.7"
+        "lightdash": "^5.0.2",
+        "moment": "^2.22.0",
+        "pydateformat": "^2.0.0",
+        "pyslice": "^2.0.1"
     },
     "devDependencies": {
-        "eslint": "^4.14.0",
-        "eslint-plugin-node": "^5.2.1",
-        "jasmine": "^2.8.0",
-        "npm-run-all": "^4.1.2"
+        "@babel/core": "^7.0.0-beta.42",
+        "@babel/plugin-external-helpers": "^7.0.0-beta.42",
+        "@babel/preset-env": "^7.0.0-beta.42",
+        "docdash": "git+https://github.com/clenemt/docdash.git",
+        "eslint": "^4.19.1",
+        "jasmine": "^3.1.0",
+        "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
+        "npm-run-all": "^4.1.2",
+        "prettier": "^1.11.1",
+        "rollup": "^0.57.1",
+        "rollup-plugin-babel": "^4.0.0-beta.3",
+        "rollup-plugin-json": "^2.3.0",
+        "rollup-plugin-node-resolve": "^3.3.0",
+        "rollup-plugin-typescript2": "^0.12.0",
+        "rollup-plugin-uglify-es": "0.0.1",
+        "tslint": "^5.9.1",
+        "typescript": "^2.8.1",
+        "uglify-es": "^3.3.10"
     },
     "engines": {
         "node": ">=6.0.0"
