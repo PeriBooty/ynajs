@@ -1,9 +1,10 @@
 import { objDefaults, objDefaultsDeep } from "lightdash";
-/* const initCommands = require("./lib/init/initCommands"); */
+import initCommands from "./init/initCommands";
 /* const initKeys = require("./lib/init/initKeys"); */
 /* const YnaParser = require("./lib/parser"); */
 /* const YnaRunner = require("./lib/runner"); */
 import { IYna, IYnaData, IYnaOptions, IYnaRunnerOptions } from "./interfaces";
+import { ynaCommandFnMap } from "./types";
 
 const optionsDefault: IYnaOptions = {
     debug: false,
@@ -21,6 +22,9 @@ const dataDefault: IYnaData = {};
  * @class
  */
 const Yna = class {
+    public tree: any;
+    public commands: ynaCommandFnMap;
+    public keys: any;
     /**
      * YNA instance constructor
      *
@@ -32,7 +36,7 @@ const Yna = class {
         const optionsMerged = objDefaultsDeep(options, optionsDefault);
         const dataMerged = objDefaultsDeep(data, dataDefault);
 
-        /*     this.commandMap = initCommands(optionsMerged); */
+        this.commands = initCommands();
         /*         if (options.loadJSON) {
             this.tree = yna;
         } else {

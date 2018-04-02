@@ -1,6 +1,8 @@
+import { ynaCommandFnMap } from "./types";
+
 interface IYna {
     tree: any;
-    commands: any;
+    commands: ynaCommandFnMap;
     keys: any;
     constructor: (yna: string, options: object, data: object) => IYna;
     addCommand: (name: string, fn: any) => void;

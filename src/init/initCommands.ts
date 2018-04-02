@@ -1,11 +1,10 @@
-"use strict";
-
-const { mapFromObject } = require("lightdash");
+import { mapFromObject } from "lightdash";
+import { ynaCommandFn, ynaCommandFnMap } from "../types";
 
 /**
  * Core
  */
-const set = require("../commands/data/set");
+/* const set = require("../commands/data/set");
 const func = require("../commands/data/func");
 const time = require("../commands/data/time");
 
@@ -27,57 +26,61 @@ const num = require("../commands/random/num");
 
 const oneline = require("../commands/wrapper/oneline");
 const _void = require("../commands/wrapper/void");
-
+ */
 /**
  * Creates map of default commands
  *
  * @returns {Map}
  */
-module.exports = () => {
+const initCommands = (): ynaCommandFnMap => {
     const map = mapFromObject({
         /**
          * Data
          */
-        set,
+        /*         set,
         func,
         time,
-
+ */
         /**
          * Logic
          */
-        when,
+        /*       when, */
 
         /**
          * Numbers
          */
-        math,
+        /*       math, */
 
         /**
          * Text
          */
-        len,
+        /*         len,
         upper,
         lower,
         title,
         rep,
         parse,
-        slice,
+        slice, */
 
         /**
          * Random
          */
-        num,
+        /*         num,
         choose,
-        wchoose,
+        wchoose, */
 
         /**
          * Wrappers
          */
-        oneline,
-        void: _void
+        /*   oneline,
+        void: _void */
+
+        foo: () => "foo"
     });
 
     // Conditional registers here
 
     return map;
 };
+
+export default initCommands;
