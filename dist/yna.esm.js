@@ -1,27 +1,16 @@
-"use strict";
-
-const { objDefaults, objDefaultsDeep } = require("lightdash");
-const initCommands = require("./lib/init/initCommands");
-const initKeys = require("./lib/init/initKeys");
-const YnaParser = require("./lib/parser");
-const YnaRunner = require("./lib/runner");
+import { objDefaultsDeep } from 'lightdash';
 
 const optionsDefault = {
     debug: false,
     loadJSON: false
 };
-const optionsRunnerDefault = {
-    debug: false,
-    depth: 0 // Used for recursion depth checks
-};
 const dataDefault = {};
-
 /**
  * YNA instance class
  *
  * @class
  */
-module.exports = class {
+const Yna = class {
     /**
      * YNA instance constructor
      *
@@ -32,16 +21,14 @@ module.exports = class {
     constructor(yna, options = {}, data = {}) {
         const optionsMerged = objDefaultsDeep(options, optionsDefault);
         const dataMerged = objDefaultsDeep(data, dataDefault);
-
-        this.commandMap = initCommands(optionsMerged);
-
-        if (options.loadJSON) {
+        /*     this.commandMap = initCommands(optionsMerged); */
+        /*         if (options.loadJSON) {
             this.tree = yna;
         } else {
             const parser = new YnaParser(optionsMerged, dataMerged);
 
             this.tree = parser.parseString(yna);
-        }
+        } */
     }
     /**
      * Adds a new command to the instance command map
@@ -50,7 +37,7 @@ module.exports = class {
      * @param {function} fn
      */
     addCommand(name, fn) {
-        this.commandMap.set(name, fn);
+        /*    this.commandMap.set(name, fn); */
     }
     /**
      * Runs the yna instance and returns the results
@@ -62,7 +49,7 @@ module.exports = class {
      * @returns {string}
      */
     run(args = [], ctx = {}, options = {}, data = {}) {
-        const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
+        /*         const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
         const dataMerged = objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
         const runner = new YnaRunner(
@@ -72,6 +59,9 @@ module.exports = class {
             dataMerged
         );
 
-        return runner.execItem(this.tree);
+        return runner.execItem(this.tree); */
+        return "";
     }
 };
+
+export default Yna;
