@@ -1,8 +1,3 @@
-/**
- * YNA instance class
- *
- * @class
- */
 declare const Yna: {
     new (yna: string, options?: object, data?: object): {
         tree: any;

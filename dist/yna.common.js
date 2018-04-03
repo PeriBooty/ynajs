@@ -2,37 +2,33 @@
 
 var lightdash = require('lightdash');
 
-/**
- * Core
- */
-/* const set = require("../commands/data/set");
-const func = require("../commands/data/func");
-const time = require("../commands/data/time");
+const YnaLogger = class {
+    constructor(name, options, data) {
+        this.name = name;
+        this.options = options;
+        this.data = data;
+    }
+    log(arr, data) {
+        if (this.options.debug) {
+            const path = [this.name, ...arr].join("->");
+            console.log(`${path}: ${JSON.stringify(data)}`);
+        }
+    }
+};
 
-const when = require("../commands/logic/when");
+const YnaParser = class extends YnaLogger {
+    constructor(options, data) {
+        super("parser", options, data);
+    }
+    parseString(yna) { }
+};
 
-const upper = require("../commands/text/upper");
-const lower = require("../commands/text/lower");
-const title = require("../commands/text/title");
-const rep = require("../commands/text/rep");
-const parse = require("../commands/text/parse");
-const slice = require("../commands/text/slice");
-const len = require("../commands/text/len");
+const optionsDefault = {
+    debug: false,
+    loadJSON: false
+};
+const dataDefault = {};
 
-const math = require("../commands/numbers/math");
-
-const choose = require("../commands/random/choose");
-const wchoose = require("../commands/random/wchoose");
-const num = require("../commands/random/num");
-
-const oneline = require("../commands/wrapper/oneline");
-const _void = require("../commands/wrapper/void");
- */
-/**
- * Creates map of default commands
- *
- * @returns {Map}
- */
 const initCommands = () => {
     const map = lightdash.mapFromObject({
         /**
@@ -77,54 +73,21 @@ const initCommands = () => {
     return map;
 };
 
-const optionsDefault = {
-    debug: false,
-    loadJSON: false
-};
-const dataDefault = {};
-/**
- * YNA instance class
- *
- * @class
- */
 const Yna = class {
-    /**
-     * YNA instance constructor
-     *
-     * @param {string} yna
-     * @param {Object} [options={}]
-     * @param {Object} [data={}]
-     */
     constructor(yna, options = {}, data = {}) {
         const optionsMerged = lightdash.objDefaultsDeep(options, optionsDefault);
         const dataMerged = lightdash.objDefaultsDeep(data, dataDefault);
         this.commands = initCommands();
         /*         if (options.loadJSON) {
             this.tree = yna;
-        } else {
-            const parser = new YnaParser(optionsMerged, dataMerged);
-
-            this.tree = parser.parseString(yna);
-        } */
+        } else {*/
+        const parser = new YnaParser(optionsMerged, dataMerged);
+        this.tree = parser.parseString(yna);
+        /* }  */
     }
-    /**
-     * Adds a new command to the instance command map
-     *
-     * @param {string} name
-     * @param {function} fn
-     */
     addCommand(name, fn) {
         /*    this.commandMap.set(name, fn); */
     }
-    /**
-     * Runs the yna instance and returns the results
-     *
-     * @param {Array<string>} [args=[]]
-     * @param {Object} [ctx={}]
-     * @param {Object} [options={}]
-     * @param {Object} [data={}]
-     * @returns {string}
-     */
     run(args = [], ctx = {}, options = {}, data = {}) {
         /*         const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
         const dataMerged = objDefaults(data, dataDefault);

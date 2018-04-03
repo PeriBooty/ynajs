@@ -1,27 +1,15 @@
-"use strict";
+import { IYnaLogger } from "../interfaces";
 
-/* eslint no-console: "off" */
-
-/**
- * YnaLogger class that parser and runner are based on
- *
- * @class
- */
-module.exports = class {
-    /**
-     * YnaLogger constructor
-     *
-     * @constructor
-     * @param {string} name
-     * @param {Object} options
-     * @param {Object} data
-     */
-    constructor(name, options, data) {
+const YnaLogger = class implements IYnaLogger {
+    public name: string;
+    public options: any;
+    public data: any;
+    constructor(name: string, options: any, data: any) {
         this.name = name;
         this.options = options;
         this.data = data;
     }
-    log(arr, data) {
+    public log(arr: string[], data: any): void {
         if (this.options.debug) {
             const path = [this.name, ...arr].join("->");
 
@@ -29,3 +17,5 @@ module.exports = class {
         }
     }
 };
+
+export default YnaLogger;
