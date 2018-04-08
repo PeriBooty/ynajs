@@ -335,8 +335,7 @@ var YNA = (function () {
             /**
              * If a block has been exited, evaluate the content and push to the container
              */
-            const blockContent = this.parseBlock(currentString.substr(1, currentString.length - 1));
-            strData.push(blockContent);
+            strData.push(this.parseBlock(currentString.substr(1, currentString.length - 1)));
             strIndexLast = strIndex + 1;
           }
         });
@@ -443,22 +442,19 @@ var YNA = (function () {
       parseBlockData(str) {
         const strData = [];
         const result = {
-          name: [],
-          args: []
+          name: "",
+          args: ""
         };
         let resultType;
         let strIndexLast = 0;
         let encounteredStart = false;
         const strStackEnd = iterateString(str, (letter, strIndex, strStack) => {
-          const letterIsStart = letter === ":"
-          /* start */
-          && !encounteredStart;
-
           if (strStack === 0 && (letter === ";"
           /* delimiter */
-          || letterIsStart)) {
-            const currentString = str.substr(strIndexLast, strIndex - strIndexLast);
-            const currentBlock = this.parseString(currentString, true);
+          || letter === ":"
+          /* start */
+          && !encounteredStart)) {
+            const currentBlock = this.parseString(str.substr(strIndexLast, strIndex - strIndexLast), true);
             strData.push(currentBlock);
             strIndexLast = strIndex + 1; // Only use the first data-start, ignore after
 
@@ -555,17 +551,16 @@ var YNA = (function () {
         const optionsMerged = objDefaultsDeep(options, optionsDefault);
         const dataMerged = objDefaultsDeep(data, dataDefault);
         this.commands = initCommands();
-        /*         if (options.loadJSON) {
-            this.tree = yna;
-        } else {*/
 
-        const parser = new YnaParser(optionsMerged, dataMerged);
-        this.tree = parser.parseString(yna);
-        /* }  */
+        if (optionsMerged.loadJSON) {
+          this.tree = yna;
+        } else {
+          this.tree = new YnaParser(optionsMerged, dataMerged).parseString(yna);
+        }
       }
 
       addCommand(name, fn) {
-        /*    this.commandMap.set(name, fn); */
+        this.commands.set(name, fn);
       }
 
       run(args = [], ctx = {}, options = {}, data = {}) {

@@ -3,13 +3,17 @@ import YnaParser from "./classes/parser";
 import { dataDefault, optionsDefault, optionsRunnerDefault } from "./defaults";
 import initCommands from "./init/initCommands";
 import { IYna, IYnaData, IYnaOptions, IYnaRunnerOptions } from "./interfaces";
-import { ynaCommandFnMap, ynaTree } from "./types";
+import { ynaCommandFnMap, ynaTree, ynaCommandFn } from "./types";
 
 const Yna = class {
-    public tree: ynaTree;
+    public tree: string | ynaTree;
     public commands: ynaCommandFnMap;
     public keys: any;
-    constructor(yna: string, options: object = {}, data: object = {}) {
+    constructor(
+        yna: string | ynaTree,
+        options: object = {},
+        data: object = {}
+    ) {
         const optionsMerged = <IYnaOptions>objDefaultsDeep(
             options,
             optionsDefault
@@ -17,16 +21,16 @@ const Yna = class {
         const dataMerged = <IYnaData>objDefaultsDeep(data, dataDefault);
 
         this.commands = initCommands();
-        /*         if (options.loadJSON) {
+        if (optionsMerged.loadJSON) {
             this.tree = yna;
-        } else {*/
-        const parser = new YnaParser(optionsMerged, dataMerged);
-
-        this.tree = parser.parseString(yna);
-        /* }  */
+        } else {
+            this.tree = new YnaParser(optionsMerged, dataMerged).parseString(
+                <string>yna
+            );
+        }
     }
-    public addCommand(name: string, fn: any): void {
-        /*    this.commandMap.set(name, fn); */
+    public addCommand(name: string, fn: ynaCommandFn): void {
+        this.commands.set(name, fn);
     }
     public run(
         args: any[] = [],

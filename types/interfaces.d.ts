@@ -39,7 +39,7 @@ interface IYnaTree extends Array<any> {
     [index: number]: string | number | IYnaTree;
 }
 interface IYnaTreeBlockResult {
-    name: any;
-    args: any;
+    name: ynaTree;
+    args: ynaTree;
 }
 export { IYna, IYnaOptions, IYnaRunnerOptions, IYnaData, IYnaLogger, IYnaParser, IYnaParserIsControlTree, IYnaTree, IYnaTreeBlockResult };

@@ -59,11 +59,11 @@ const YnaParser = class extends YnaLogger implements IYnaParser {
                     /**
                      * If a block has been exited, evaluate the content and push to the container
                      */
-                    const blockContent = this.parseBlock(
-                        currentString.substr(1, currentString.length - 1)
+                    strData.push(
+                        this.parseBlock(
+                            currentString.substr(1, currentString.length - 1)
+                        )
                     );
-
-                    strData.push(blockContent);
                     strIndexLast = strIndex + 1;
                 }
             }
@@ -158,27 +158,24 @@ const YnaParser = class extends YnaLogger implements IYnaParser {
         return result;
     }
     public parseBlockData(str: string): IYnaTreeBlockResult {
-        const strData: IYnaTree = [];
+        const strData: ynaTree = [];
         const result: IYnaTreeBlockResult = {
-            name: [],
-            args: []
+            name: "",
+            args: ""
         };
         let resultType: string;
         let strIndexLast = 0;
         let encounteredStart = false;
         const strStackEnd = iterateString(str, (letter, strIndex, strStack) => {
-            const letterIsStart =
-                letter === ynaControlData.start && !encounteredStart;
-
             if (
                 strStack === 0 &&
-                (letter === ynaControlData.delimiter || letterIsStart)
+                (letter === ynaControlData.delimiter ||
+                    (letter === ynaControlData.start && !encounteredStart))
             ) {
-                const currentString = str.substr(
-                    strIndexLast,
-                    strIndex - strIndexLast
+                const currentBlock = this.parseString(
+                    str.substr(strIndexLast, strIndex - strIndexLast),
+                    true
                 );
-                const currentBlock = this.parseString(currentString, true);
 
                 strData.push(currentBlock);
                 strIndexLast = strIndex + 1;
@@ -194,14 +191,14 @@ const YnaParser = class extends YnaLogger implements IYnaParser {
          * If strStack is not zero, there are unmatched brackets
          */
         if (strStackEnd !== 0) {
-            result.name = strData[0];
+            result.name = <ynaTree>strData[0];
             result.args = stringifyError(
                 "parser",
                 new Error("mismatched brackets")
             );
             resultType = "error";
         } else {
-            result.name = strData[0];
+            result.name = <ynaTree>strData[0];
             result.args = strData.slice(1);
             resultType = "mixed";
         }

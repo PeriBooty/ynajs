@@ -48,8 +48,8 @@ interface IYnaTree extends Array<any> {
 }
 
 interface IYnaTreeBlockResult {
-    name: any;
-    args: any;
+    name: ynaTree;
+    args: ynaTree;
 }
 
 export {
