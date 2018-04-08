@@ -1,7 +1,6 @@
 "use strict";
 
-const Yna = require("../index.js");
-const language = require("../lib/language");
+const Yna = require("../dist/yna.common");
 
 describe("Parser test", () => {
     it("Empty", () => {
@@ -19,33 +18,33 @@ describe("Parser test", () => {
     it("Key", () => {
         const tag = new Yna("{time}");
 
-        expect(tag.tree).toEqual([language.ids.key, "time"]);
+        expect(tag.tree).toEqual([0, "time"]);
     });
 
     it("Command", () => {
         const tag = new Yna("{time:+10;}");
 
-        expect(tag.tree).toEqual([language.ids.command, "time", ["+10"]]);
+        expect(tag.tree).toEqual([1, "time", ["+10"]]);
     });
 
     it("Text + Key", () => {
         const tag = new Yna("foo {time} bar");
 
-        expect(tag.tree).toEqual(["foo ", [language.ids.key, "time"], " bar"]);
+        expect(tag.tree).toEqual(["foo ", [1, "time"], " bar"]);
     });
 
     it("Text + Command", () => {
         const tag = new Yna("foo {time:+10;} bar");
 
-        expect(tag.tree).toEqual(["foo ", [language.ids.command, "time", ["+10"]], " bar"]);
+        expect(tag.tree).toEqual(["foo ", [1, "time", ["+10"]], " bar"]);
     });
 
     it("Nested Commands", () => {
         const tag = new Yna("{time:+{num;};}");
 
         expect(tag.tree).toEqual([
-            language.ids.command, "time", [
-                ["+", [language.ids.command, "num", []]]
+            1, "time", [
+                ["+", [1, "num", []]]
             ]
         ]);
     });
@@ -54,9 +53,9 @@ describe("Parser test", () => {
         const tag = new Yna("{time:+{num:{num:0;10;};};}");
 
         expect(tag.tree).toEqual([
-            language.ids.command, "time", [
-                ["+", [language.ids.command, "num", [
-                    [language.ids.command, "num", ["0", "10"]]
+            1, "time", [
+                ["+", [1, "num", [
+                    [1, "num", ["0", "10"]]
                 ]]]
             ]
         ]);

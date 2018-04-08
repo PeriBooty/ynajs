@@ -1,6 +1,6 @@
-import { ynaCommandFnMap } from "./types";
+import { ynaCommandFnMap, ynaTree } from "./types";
 declare class IYna {
-    tree: any;
+    tree: ynaTree;
     commands: ynaCommandFnMap;
     keys: any;
     constructor(yna: string, options: object, data: object);
@@ -11,12 +11,18 @@ declare class IYnaLogger {
     name: string;
     options: any;
     data: any;
-    constructor(name: string, options: any, data: any);
-    log(arr: string[], data: any): void;
+    constructor(name: string, options: IYnaOptions, data: IYnaData);
+    log(arr: string[], data: IYnaData): void;
 }
 declare class IYnaParser extends IYnaLogger {
-    constructor(options: any, data: any);
-    parseString(yna: string): void;
+    constructor(options: IYnaOptions, data: IYnaData);
+    parseString(str: string): string | ynaTree;
+    parseBlock(str: string): ynaTree;
+    parseBlockData(str: string): IYnaTreeBlockResult;
+}
+interface IYnaParserIsControlTree {
+    open: boolean;
+    close: boolean;
 }
 interface IYnaOptions {
     debug: boolean;
@@ -29,4 +35,11 @@ interface IYnaRunnerOptions {
 interface IYnaData {
     [key: string]: any;
 }
-export { IYna, IYnaOptions, IYnaRunnerOptions, IYnaData, IYnaLogger, IYnaParser };
+interface IYnaTree extends Array<any> {
+    [index: number]: string | number | IYnaTree;
+}
+interface IYnaTreeBlockResult {
+    name: any;
+    args: any;
+}
+export { IYna, IYnaOptions, IYnaRunnerOptions, IYnaData, IYnaLogger, IYnaParser, IYnaParserIsControlTree, IYnaTree, IYnaTreeBlockResult };

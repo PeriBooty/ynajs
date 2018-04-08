@@ -1,8 +1,8 @@
-declare enum languageControlTree {
+declare const enum ynaControlTree {
     open = "{",
     close = "}",
 }
-declare enum languageControlData {
+declare const enum ynaControlData {
     start = ":",
     delimiter = ";",
     list = ",",
@@ -10,9 +10,9 @@ declare enum languageControlData {
     comment = "!",
     escape = ">",
 }
-declare enum languageIds {
+declare const enum ynaIds {
     key = 0,
     command = 1,
     comment = 2,
 }
-export { languageControlData, languageControlTree, languageIds };
+export { ynaControlData, ynaControlTree, ynaIds };

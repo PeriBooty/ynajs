@@ -3,10 +3,10 @@ import YnaParser from "./classes/parser";
 import { dataDefault, optionsDefault, optionsRunnerDefault } from "./defaults";
 import initCommands from "./init/initCommands";
 import { IYna, IYnaData, IYnaOptions, IYnaRunnerOptions } from "./interfaces";
-import { ynaCommandFnMap } from "./types";
+import { ynaCommandFnMap, ynaTree } from "./types";
 
 const Yna = class {
-    public tree: any;
+    public tree: ynaTree;
     public commands: ynaCommandFnMap;
     public keys: any;
     constructor(yna: string, options: object = {}, data: object = {}) {

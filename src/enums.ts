@@ -1,9 +1,9 @@
-enum languageControlTree {
+const enum ynaControlTree {
     open = "{",
     close = "}"
 }
 
-enum languageControlData {
+const enum ynaControlData {
     start = ":",
     delimiter = ";",
     list = ",",
@@ -12,10 +12,10 @@ enum languageControlData {
     escape = ">"
 }
 
-enum languageIds {
+const enum ynaIds {
     key = 0,
     command = 1,
     comment = 2
 }
 
-export { languageControlData, languageControlTree, languageIds };
+export { ynaControlData, ynaControlTree, ynaIds };
