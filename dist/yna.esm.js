@@ -143,8 +143,8 @@ const YnaParser = class extends YnaLogger {
     parseBlockData(str) {
         const strData = [];
         const result = {
-            name: null,
-            args: null
+            name: [],
+            args: []
         };
         let resultType;
         let strIndexLast = 0;

@@ -10,7 +10,7 @@
             "file": "yna"
         },
         "external": [
-            "lightdash"
+            "lightdash", "moment", "pydateformat", "pyslice"
         ]
     },
     "scripts": {

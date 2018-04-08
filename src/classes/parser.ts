@@ -160,8 +160,8 @@ const YnaParser = class extends YnaLogger implements IYnaParser {
     public parseBlockData(str: string): IYnaTreeBlockResult {
         const strData: IYnaTree = [];
         const result: IYnaTreeBlockResult = {
-            name: null,
-            args: null
+            name: [],
+            args: []
         };
         let resultType: string;
         let strIndexLast = 0;

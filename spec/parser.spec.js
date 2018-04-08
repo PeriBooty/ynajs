@@ -30,7 +30,7 @@ describe("Parser test", () => {
     it("Text + Key", () => {
         const tag = new Yna("foo {time} bar");
 
-        expect(tag.tree).toEqual(["foo ", [1, "time"], " bar"]);
+        expect(tag.tree).toEqual(["foo ", [0, "time"], " bar"]);
     });
 
     it("Text + Command", () => {

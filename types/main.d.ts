@@ -1,6 +1,7 @@
+import { ynaTree } from "./types";
 declare const Yna: {
     new (yna: string, options?: object, data?: object): {
-        tree: any;
+        tree: ynaTree;
         commands: Map<string, (...args: any[]) => any>;
         keys: any;
         addCommand(name: string, fn: any): void;
