@@ -3,11 +3,13 @@ import YnaParser from "./classes/parser";
 import { dataDefault, optionsDefault, optionsRunnerDefault } from "./defaults";
 import initCommands from "./init/initCommands";
 import { IYna, IYnaData, IYnaOptions, IYnaRunnerOptions } from "./interfaces";
-import { ynaCommandFnMap, ynaTree, ynaCommandFn } from "./types";
+import { ynaCommandMap, ynaTree, ynaCommand } from "./types";
+import initKeys from "./init/initKeys";
+import YnaRunner from "./classes/runner";
 
 const Yna = class {
     public tree: string | ynaTree;
-    public commands: ynaCommandFnMap;
+    public commands: ynaCommandMap;
     public keys: any;
     constructor(
         yna: string | ynaTree,
@@ -29,27 +31,25 @@ const Yna = class {
             );
         }
     }
-    public addCommand(name: string, fn: ynaCommandFn): void {
+    public addCommand(name: string, fn: ynaCommand): void {
         this.commands.set(name, fn);
     }
     public run(
-        args: any[] = [],
+        args: string[] = [],
         ctx: object = {},
         options: object = {},
         data: object = {}
     ): string {
-        /*         const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
+        const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
         const dataMerged = objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
-        const runner = new YnaRunner(
-            this.commandMap,
+
+        return new YnaRunner(
+            this.commands,
             keyMap,
             optionsMerged,
             dataMerged
-        );
-
-        return runner.execItem(this.tree); */
-        return "";
+        ).execItem(this.tree);
     }
 };
 

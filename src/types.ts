@@ -1,8 +1,9 @@
 import { IYnaParserIsControlTree, IYnaTree } from "./interfaces";
 
-type ynaCommandFn = (...args: any[]) => any;
+type ynaCommand = (...args: any[]) => any;
 
-type ynaCommandFnMap = Map<string, ynaCommandFn>;
+type ynaCommandMap = Map<string, ynaCommand>;
+type ynaKeyMap = Map<string, string>;
 
 type ynaTree = string | IYnaTree;
 
@@ -13,4 +14,4 @@ type ynaParserIterator = (
     isControlTree: IYnaParserIsControlTree
 ) => void;
 
-export { ynaCommandFn, ynaCommandFnMap, ynaTree, ynaParserIterator };
+export { ynaCommand, ynaCommandMap, ynaTree, ynaParserIterator, ynaKeyMap };

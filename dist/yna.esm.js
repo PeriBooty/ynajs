@@ -1,4 +1,4 @@
-import { mapFromObject, objDefaultsDeep } from 'lightdash';
+import { mapFromObject, forEachEntry, objDefaults, objDefaultsDeep } from 'lightdash';
 
 const YnaLogger = class {
     constructor(name, options, data) {
@@ -183,6 +183,10 @@ const optionsDefault = {
     debug: false,
     loadJSON: false
 };
+const optionsRunnerDefault = {
+    debug: false,
+    depth: 0 // Used for recursion depth checks
+};
 const dataDefault = {};
 
 const initCommands = () => {
@@ -229,6 +233,48 @@ const initCommands = () => {
     return map;
 };
 
+/* const moment = require("moment");
+const toDatetime = require("../types/toDatetime"); */
+/**
+ * Creates map of default keys
+ *
+ * @param {Array<string>} args
+ * @param {Object} ctx
+ * @returns {Map}
+ */
+const initKeys = (args, ctx) => {
+    const map = new Map();
+    /*     const time = toDatetime(moment(Date.now()).utc());
+
+    map.set("time", time);
+    map.set("newrep", false); */
+    // Args
+    map.set("args", args.join(" "));
+    map.set("arglen", String(args.length));
+    args.forEach((arg, index) => {
+        map.set(`arg${index + 1}`, arg);
+    });
+    // Context
+    forEachEntry(ctx, (val, key) => {
+        map.set(key, val);
+    });
+    return map;
+};
+
+const YnaRunner = class extends YnaLogger {
+    constructor(commands, keys, options, data) {
+        super("RUNNER", options, data);
+        this.commands = commands;
+        this.keys = keys;
+    }
+    execItem(item, transformerCustom) {
+        return "";
+    }
+    execArr(itemArr) { }
+    resolveCommand(name, data) { }
+    resolveKey(name) { }
+};
+
 const Yna = class {
     constructor(yna, options = {}, data = {}) {
         const optionsMerged = objDefaultsDeep(options, optionsDefault);
@@ -245,18 +291,10 @@ const Yna = class {
         this.commands.set(name, fn);
     }
     run(args = [], ctx = {}, options = {}, data = {}) {
-        /*         const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
+        const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
         const dataMerged = objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
-        const runner = new YnaRunner(
-            this.commandMap,
-            keyMap,
-            optionsMerged,
-            dataMerged
-        );
-
-        return runner.execItem(this.tree); */
-        return "";
+        return new YnaRunner(this.commands, keyMap, optionsMerged, dataMerged).execItem(this.tree);
     }
 };
 

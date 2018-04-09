@@ -1,8 +1,7 @@
-"use strict";
-
-const { forEachEntry } = require("lightdash");
-const moment = require("moment");
-const toDatetime = require("../types/toDatetime");
+import { forEachEntry } from "lightdash";
+import { ynaKeyMap } from "../types";
+/* const moment = require("moment");
+const toDatetime = require("../types/toDatetime"); */
 
 /**
  * Creates map of default keys
@@ -11,16 +10,16 @@ const toDatetime = require("../types/toDatetime");
  * @param {Object} ctx
  * @returns {Map}
  */
-module.exports = (args, ctx) => {
-    const map = new Map();
-    const time = toDatetime(moment(Date.now()).utc());
+const initKeys = (args: string[], ctx: object): ynaKeyMap => {
+    const map: ynaKeyMap = new Map();
+    /*     const time = toDatetime(moment(Date.now()).utc());
 
     map.set("time", time);
-    map.set("newrep", false);
+    map.set("newrep", false); */
 
     // Args
     map.set("args", args.join(" "));
-    map.set("arglen", args.length);
+    map.set("arglen", String(args.length));
     args.forEach((arg, index) => {
         map.set(`arg${index + 1}`, arg);
     });
@@ -32,3 +31,5 @@ module.exports = (args, ctx) => {
 
     return map;
 };
+
+export default initKeys;

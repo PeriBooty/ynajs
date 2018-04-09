@@ -1,11 +1,11 @@
-import { ynaTree, ynaCommandFn } from "./types";
+import { ynaTree, ynaCommand } from "./types";
 declare const Yna: {
     new (yna: ynaTree, options?: object, data?: object): {
         tree: ynaTree;
-        commands: Map<string, ynaCommandFn>;
+        commands: Map<string, ynaCommand>;
         keys: any;
-        addCommand(name: string, fn: ynaCommandFn): void;
-        run(args?: any[], ctx?: object, options?: object, data?: object): string;
+        addCommand(name: string, fn: ynaCommand): void;
+        run(args?: string[], ctx?: object, options?: object, data?: object): string;
     };
 };
 export default Yna;

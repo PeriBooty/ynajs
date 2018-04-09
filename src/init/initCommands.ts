@@ -1,7 +1,7 @@
 import { mapFromObject } from "lightdash";
-import { ynaCommandFn, ynaCommandFnMap } from "../types";
+import { ynaCommand, ynaCommandMap } from "../types";
 
-const initCommands = (): ynaCommandFnMap => {
+const initCommands = (): ynaCommandMap => {
     const map = mapFromObject({
         /**
          * Data
