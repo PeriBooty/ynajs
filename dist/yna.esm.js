@@ -269,7 +269,53 @@ const YnaRunner = class extends YnaLogger {
         this.transformer = transformerDefault;
     }
     execItem(item, transformerCustom) {
-        return "";
+        const itemId = item[0];
+        const itemContent = item.slice(1);
+        let result;
+        let resultType;
+        /**
+         * Binds custom transformer
+         */
+        if (transformerCustom) {
+            this.transformer = transformerCustom;
+        }
+        if (itemId === IDS.key) {
+            // Key
+            const keyName = this.execItem(itemContent[0]);
+            result = this.resolveKey(keyName);
+            resultType = "key";
+        }
+        else if (itemId === IDS.command) {
+            // Command
+            const commandName = this.execItem(itemContent[0]);
+            const commandArgs = itemContent[1];
+            result = this.resolveCommand(commandName, commandArgs);
+            resultType = "command";
+        }
+        else if (itemId === IDS.comment) {
+            // Comment (ignored)
+            result = "";
+            resultType = "comment";
+        }
+        else if (isArray(item)) {
+            // Array
+            const str = this.execArr(item).join("");
+            result = this.transformer(str);
+            resultType = "array";
+        }
+        else {
+            // String
+            result = item;
+            resultType = "string";
+        }
+        /**
+         * Unbinds custom transformer
+         */
+        if (transformerCustom) {
+            this.transformer = transformerDefault;
+        }
+        this.log(["item", resultType], result);
+        return result;
     }
     execArr(itemArr) {
         return [];

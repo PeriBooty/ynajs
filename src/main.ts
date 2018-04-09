@@ -3,14 +3,13 @@ import YnaParser from "./classes/parser";
 import { dataDefault, optionsDefault, optionsRunnerDefault } from "./defaults";
 import initCommands from "./init/initCommands";
 import { IYna, IYnaData, IYnaOptions, IYnaRunnerOptions } from "./interfaces";
-import { ynaCommandMap, ynaTree, ynaCommand } from "./types";
+import { ynaCommandMap, ynaTree, ynaCommand, ynaKeyMap } from "./types";
 import initKeys from "./init/initKeys";
 import YnaRunner from "./classes/runner";
 
 const Yna = class {
     public tree: string | ynaTree;
     public commands: ynaCommandMap;
-    public keys: any;
     constructor(
         yna: string | ynaTree,
         options: object = {},
@@ -40,8 +39,11 @@ const Yna = class {
         options: object = {},
         data: object = {}
     ): string {
-        const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
-        const dataMerged = objDefaults(data, dataDefault);
+        const optionsMerged = <IYnaRunnerOptions>objDefaultsDeep(
+            options,
+            optionsRunnerDefault
+        );
+        const dataMerged = <IYnaOptions>objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
 
         console.log(keyMap);

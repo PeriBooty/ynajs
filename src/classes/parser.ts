@@ -1,6 +1,7 @@
 import { ynaControlData, ynaControlTree, ynaIds } from "../enums";
 import {
     IYnaData,
+    IYnaOptionsBase,
     IYnaOptions,
     IYnaParser,
     IYnaParserIsControlTree,

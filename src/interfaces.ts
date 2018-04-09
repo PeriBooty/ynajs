@@ -3,13 +3,13 @@ import {
     ynaCommandMap,
     ynaTree,
     ynaKeyMap,
-    ynaCommandTransformer
+    ynaCommandTransformer,
+    ynaTreeItems
 } from "./types";
 
 declare class IYna {
     public tree: ynaTree;
     public commands: ynaCommandMap;
-    public keys: ynaKeyMap;
     constructor(yna: string, options: object, data: object);
     public addCommand(name: string, fn: ynaCommand): void;
     public run(
@@ -22,9 +22,9 @@ declare class IYna {
 
 declare class IYnaLogger {
     public name: string;
-    public options: IYnaOptions;
+    public options: IYnaOptionsBase;
     public data: IYnaData;
-    constructor(name: string, options: IYnaOptions, data: IYnaData);
+    constructor(name: string, options: IYnaOptionsBase, data: IYnaData);
     public log(arr: string[], data: IYnaData): void;
 }
 
@@ -59,13 +59,15 @@ interface IYnaParserIsControlTree {
     close: boolean;
 }
 
-interface IYnaOptions {
+interface IYnaOptionsBase {
     debug: boolean;
+}
+
+interface IYnaOptions extends IYnaOptionsBase {
     loadJSON: boolean;
 }
 
-interface IYnaRunnerOptions {
-    debug: boolean;
+interface IYnaRunnerOptions extends IYnaOptionsBase {
     depth: number;
 }
 
@@ -74,7 +76,7 @@ interface IYnaData {
 }
 
 interface IYnaTree extends Array<any> {
-    [index: number]: string | number | IYnaTree;
+    [index: number]: ynaTreeItems;
 }
 
 interface IYnaTreeBlockResult {
@@ -84,6 +86,7 @@ interface IYnaTreeBlockResult {
 
 export {
     IYna,
+    IYnaOptionsBase,
     IYnaOptions,
     IYnaRunnerOptions,
     IYnaData,

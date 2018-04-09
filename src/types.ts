@@ -6,6 +6,7 @@ type ynaCommandTransformer = (str: string) => string;
 type ynaCommandMap = Map<string, ynaCommand>;
 type ynaKeyMap = Map<string, any>;
 
+type ynaTreeItems = string | number | IYnaTree;
 type ynaTree = string | IYnaTree;
 
 type ynaParserIterator = (
@@ -21,5 +22,6 @@ export {
     ynaTree,
     ynaParserIterator,
     ynaKeyMap,
-    ynaCommandTransformer
+    ynaCommandTransformer,
+    ynaTreeItems
 };

@@ -1,4 +1,4 @@
-import { IYnaData, IYnaOptions, IYnaTreeBlockResult } from "../interfaces";
+import { IYnaData, IYnaOptionsBase, IYnaOptions, IYnaTreeBlockResult } from "../interfaces";
 import { ynaTree } from "../types";
 declare const YnaParser: {
     new (options: IYnaOptions, data: IYnaData): {
@@ -6,8 +6,8 @@ declare const YnaParser: {
         parseBlock(str: string): ynaTree;
         parseBlockData(str: string): IYnaTreeBlockResult;
         name: string;
-        options: any;
-        data: any;
+        options: IYnaOptionsBase;
+        data: IYnaData;
         log(arr: string[], contents: any): void;
     };
 };

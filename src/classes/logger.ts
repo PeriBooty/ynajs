@@ -1,10 +1,10 @@
-import { IYnaData, IYnaLogger, IYnaOptions } from "../interfaces";
+import { IYnaData, IYnaLogger, IYnaOptionsBase } from "../interfaces";
 
 const YnaLogger = class implements IYnaLogger {
     public name: string;
-    public options: any;
-    public data: any;
-    constructor(name: string, options: IYnaOptions, data: IYnaData) {
+    public options: IYnaOptionsBase;
+    public data: IYnaData;
+    constructor(name: string, options: IYnaOptionsBase, data: IYnaData) {
         this.name = name;
         this.options = options;
         this.data = data;

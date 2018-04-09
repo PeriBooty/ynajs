@@ -1,9 +1,9 @@
-import { IYnaData, IYnaOptions } from "../interfaces";
+import { IYnaData, IYnaOptionsBase } from "../interfaces";
 declare const YnaLogger: {
-    new (name: string, options: IYnaOptions, data: IYnaData): {
+    new (name: string, options: IYnaOptionsBase, data: IYnaData): {
         name: string;
-        options: any;
-        data: any;
+        options: IYnaOptionsBase;
+        data: IYnaData;
         log(arr: string[], contents: any): void;
     };
 };
