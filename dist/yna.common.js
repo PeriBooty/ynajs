@@ -18,6 +18,20 @@ const YnaLogger = class {
 };
 
 const stringifyError = (key, err) => `<${key}:${err.message}>`;
+const stringifyVal = (val, key = "unknown") => {
+    if (lightdash.isString(val))
+        return val;
+    else if (val === true)
+        return "True";
+    else if (val === false)
+        return "False";
+    else if (lightdash.isNil(val))
+        return "None";
+    else if (lightdash.isError(val))
+        return stringifyError(key, val);
+    else
+        return String(val);
+};
 
 const iterateString = (str, fn) => {
     let strStack = 0;
@@ -320,13 +334,45 @@ const YnaRunner = class extends YnaLogger {
         return result;
     }
     execArr(itemArr) {
-        return [];
+        const result = itemArr.map(item => this.execItem(item));
+        this.log(["array"], result);
+        return result;
     }
     resolveCommand(name, data) {
-        return "";
+        if (!this.commands.has(name)) {
+            return stringifyError(name, new Error("unknown command"));
+        }
+        const command = this.commands.get(name);
+        const result = command.call(this, data);
+        return stringifyVal(result, name);
     }
     resolveKey(name) {
-        return "";
+        const path = name.split(LANGUAGE_YNA.control.data.prop);
+        if (!this.keys.has(path[0])) {
+            return stringifyError(name, new Error("unknown key"));
+        }
+        // First level check
+        const entry = this.keys.get(path[0]);
+        let resolved = entry;
+        let result;
+        if (path.length > 1) {
+            // Only enter if more than one prop in path
+            const pathRest = path.slice(1);
+            if (!hasPath(entry, pathRest)) {
+                return stringifyError(name, new Error(`does not have '${pathRest}'`));
+            }
+            resolved = getPath(entry, pathRest);
+        }
+        if (isFunction(resolved)) {
+            result = resolved();
+        }
+        else if (isObjectPlain(resolved)) {
+            result = resolved.__default;
+        }
+        else {
+            result = resolved;
+        }
+        return stringifyVal(result, name);
     }
 };
 

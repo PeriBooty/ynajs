@@ -10,10 +10,11 @@ import {
     ynaTree,
     ynaCommandMap,
     ynaKeyMap,
-    ynaCommandTransformer
+    ynaCommandTransformer,
+    ynaCommand
 } from "../types";
 import YnaLogger from "./logger";
-import { stringifyError } from "../types/stringify";
+import { stringifyError, stringifyVal } from "../types/stringify";
 
 const transformerDefault: ynaCommandTransformer = (str: string): string => str;
 
@@ -89,13 +90,56 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
         return result;
     }
     public execArr(itemArr: IYnaTree): string[] {
-        return [];
+        const result = itemArr.map(item => this.execItem(item));
+
+        this.log(["array"], result);
+
+        return result;
     }
     public resolveCommand(name: string, data: IYnaTree): string {
-        return "";
+        if (!this.commands.has(name)) {
+            return stringifyError(name, new Error("unknown command"));
+        }
+
+        const command = <ynaCommand>this.commands.get(name);
+        const result = command.call(this, data);
+
+        return stringifyVal(result, name);
     }
     public resolveKey(name: string): string {
-        return "";
+        const path = name.split(LANGUAGE_YNA.control.data.prop);
+
+        if (!this.keys.has(path[0])) {
+            return stringifyError(name, new Error("unknown key"));
+        }
+
+        // First level check
+        const entry = this.keys.get(path[0]);
+        let resolved = entry;
+        let result;
+
+        if (path.length > 1) {
+            // Only enter if more than one prop in path
+            const pathRest = path.slice(1);
+
+            if (!hasPath(entry, pathRest)) {
+                return stringifyError(
+                    name,
+                    new Error(`does not have '${pathRest}'`)
+                );
+            }
+
+            resolved = getPath(entry, pathRest);
+        }
+
+        if (isFunction(resolved)) {
+            result = resolved();
+        } else if (isObjectPlain(resolved)) {
+            result = resolved.__default;
+        } else {
+            result = resolved;
+        }
+        return stringifyVal(result, name);
     }
 };
 

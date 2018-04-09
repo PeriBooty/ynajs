@@ -1,9 +1,9 @@
 import { IYnaData, IYnaTree, IYnaOptionsBase, IYnaRunnerOptions } from "../interfaces";
-import { ynaTree, ynaCommandTransformer } from "../types";
+import { ynaTree, ynaCommandTransformer, ynaCommand } from "../types";
 declare const YnaRunner: {
-    new (commands: Map<string, (...args: any[]) => any>, keys: Map<string, any>, options: IYnaRunnerOptions, data: IYnaData): {
+    new (commands: Map<string, ynaCommand>, keys: Map<string, any>, options: IYnaRunnerOptions, data: IYnaData): {
         transformer: ynaCommandTransformer;
-        commands: Map<string, (...args: any[]) => any>;
+        commands: Map<string, ynaCommand>;
         keys: Map<string, any>;
         execItem(item: ynaTree, transformerCustom?: ynaCommandTransformer | undefined): string;
         execArr(itemArr: IYnaTree): string[];

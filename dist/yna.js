@@ -19,6 +19,10 @@ var Yna = (function (lightdash,moment) {
 
     const stringifyError = (key, err) => `<${key}:${err.message}>`;
 
+    const stringifyVal = (val, key = "unknown") => {
+      if (lightdash.isString(val)) return val;else if (val === true) return "True";else if (val === false) return "False";else if (lightdash.isNil(val)) return "None";else if (lightdash.isError(val)) return stringifyError(key, val);else return String(val);
+    };
+
     const iterateString = (str, fn) => {
       let strStack = 0;
       str.split("").forEach((letter, strIndex) => {
@@ -308,22 +312,116 @@ var Yna = (function (lightdash,moment) {
       return map;
     };
 
+    const transformerDefault = str => str;
+
     const YnaRunner = class extends YnaLogger {
       constructor(commands, keys, options, data) {
         super("RUNNER", options, data);
         this.commands = commands;
         this.keys = keys;
+        this.transformer = transformerDefault;
       }
 
       execItem(item, transformerCustom) {
-        return "";
+        const itemId = item[0];
+        const itemContent = item.slice(1);
+        let result;
+        let resultType;
+        /**
+         * Binds custom transformer
+         */
+
+        if (transformerCustom) {
+          this.transformer = transformerCustom;
+        }
+
+        if (itemId === IDS.key) {
+          // Key
+          const keyName = this.execItem(itemContent[0]);
+          result = this.resolveKey(keyName);
+          resultType = "key";
+        } else if (itemId === IDS.command) {
+          // Command
+          const commandName = this.execItem(itemContent[0]);
+          const commandArgs = itemContent[1];
+          result = this.resolveCommand(commandName, commandArgs);
+          resultType = "command";
+        } else if (itemId === IDS.comment) {
+          // Comment (ignored)
+          result = "";
+          resultType = "comment";
+        } else if (isArray(item)) {
+          // Array
+          const str = this.execArr(item).join("");
+          result = this.transformer(str);
+          resultType = "array";
+        } else {
+          // String
+          result = item;
+          resultType = "string";
+        }
+        /**
+         * Unbinds custom transformer
+         */
+
+
+        if (transformerCustom) {
+          this.transformer = transformerDefault;
+        }
+
+        this.log(["item", resultType], result);
+        return result;
       }
 
-      execArr(itemArr) {}
+      execArr(itemArr) {
+        const result = itemArr.map(item => this.execItem(item));
+        this.log(["array"], result);
+        return result;
+      }
 
-      resolveCommand(name, data) {}
+      resolveCommand(name, data) {
+        if (!this.commands.has(name)) {
+          return stringifyError(name, new Error("unknown command"));
+        }
 
-      resolveKey(name) {}
+        const command = this.commands.get(name);
+        const result = command.call(this, data);
+        return stringifyVal(result, name);
+      }
+
+      resolveKey(name) {
+        const path = name.split(LANGUAGE_YNA.control.data.prop);
+
+        if (!this.keys.has(path[0])) {
+          return stringifyError(name, new Error("unknown key"));
+        } // First level check
+
+
+        const entry = this.keys.get(path[0]);
+        let resolved = entry;
+        let result;
+
+        if (path.length > 1) {
+          // Only enter if more than one prop in path
+          const pathRest = path.slice(1);
+
+          if (!hasPath(entry, pathRest)) {
+            return stringifyError(name, new Error(`does not have '${pathRest}'`));
+          }
+
+          resolved = getPath(entry, pathRest);
+        }
+
+        if (isFunction(resolved)) {
+          result = resolved();
+        } else if (isObjectPlain(resolved)) {
+          result = resolved.__default;
+        } else {
+          result = resolved;
+        }
+
+        return stringifyVal(result, name);
+      }
 
     };
 
