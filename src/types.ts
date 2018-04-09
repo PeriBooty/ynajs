@@ -1,6 +1,11 @@
-import { IYnaParserIsControlTree, IYnaTree } from "./interfaces";
+import {
+    IYnaParserIsControlTree,
+    IYnaTree,
+    IYnaData,
+    IYnaRunner
+} from "./interfaces";
 
-type ynaCommand = (...args: any[]) => any;
+type ynaCommand = (runner: IYnaRunner, tree: IYnaTree) => string;
 type ynaCommandTransformer = (str: string) => string;
 
 type ynaCommandMap = Map<string, ynaCommand>;

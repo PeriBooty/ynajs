@@ -7,7 +7,7 @@ declare const YnaRunner: {
         keys: Map<string, any>;
         execItem(item: ynaTree, transformerCustom?: ynaCommandTransformer | undefined): string;
         execArr(itemArr: IYnaTree): string[];
-        resolveCommand(name: string, data: IYnaTree): string;
+        resolveCommand(name: string, tree: IYnaTree): string;
         resolveKey(name: string): string;
         name: string;
         options: IYnaOptionsBase;

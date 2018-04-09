@@ -335,12 +335,12 @@ const YnaRunner = class extends YnaLogger {
         this.log(["array"], result);
         return result;
     }
-    resolveCommand(name, data) {
+    resolveCommand(name, tree) {
         if (!this.commands.has(name)) {
             return stringifyError(name, new Error("unknown command"));
         }
         const command = this.commands.get(name);
-        const result = command.call(this, data);
+        const result = command(this, tree);
         return stringifyVal(result, name);
     }
     resolveKey(name) {

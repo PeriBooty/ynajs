@@ -103,13 +103,13 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
 
         return result;
     }
-    public resolveCommand(name: string, data: IYnaTree): string {
+    public resolveCommand(name: string, tree: IYnaTree): string {
         if (!this.commands.has(name)) {
             return stringifyError(name, new Error("unknown command"));
         }
 
         const command = <ynaCommand>this.commands.get(name);
-        const result = command.call(this, data);
+        const result = command(this, tree);
 
         return stringifyVal(result, name);
     }
