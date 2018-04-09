@@ -15,6 +15,13 @@ import {
 } from "../types";
 import YnaLogger from "./logger";
 import { stringifyError, stringifyVal } from "../types/stringify";
+import {
+    hasPath,
+    getPath,
+    isFunction,
+    isObjectPlain,
+    isArray
+} from "lightdash";
 
 const transformerDefault: ynaCommandTransformer = (str: string): string => str;
 
@@ -49,20 +56,20 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
             this.transformer = transformerCustom;
         }
 
-        if (itemId === IDS.key) {
+        if (itemId === ynaIds.key) {
             // Key
             const keyName = this.execItem(itemContent[0]);
 
             result = this.resolveKey(keyName);
             resultType = "key";
-        } else if (itemId === IDS.command) {
+        } else if (itemId === ynaIds.command) {
             // Command
             const commandName = this.execItem(itemContent[0]);
             const commandArgs = itemContent[1];
 
             result = this.resolveCommand(commandName, commandArgs);
             resultType = "command";
-        } else if (itemId === IDS.comment) {
+        } else if (itemId === ynaIds.comment) {
             // Comment (ignored)
             result = "";
             resultType = "comment";
@@ -107,7 +114,7 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
         return stringifyVal(result, name);
     }
     public resolveKey(name: string): string {
-        const path = name.split(LANGUAGE_YNA.control.data.prop);
+        const path = name.split(ynaControlData.prop);
 
         if (!this.keys.has(path[0])) {
             return stringifyError(name, new Error("unknown key"));

@@ -20,7 +20,8 @@ var Yna = (function (lightdash,moment) {
     const stringifyError = (key, err) => `<${key}:${err.message}>`;
 
     const stringifyVal = (val, key = "unknown") => {
-      if (lightdash.isString(val)) return val;else if (val === true) return "True";else if (val === false) return "False";else if (lightdash.isNil(val)) return "None";else if (lightdash.isError(val)) return stringifyError(key, val);else return String(val);
+      if (lightdash.isString(val)) return val;else if (val === true) return "True";else if (val === false) return "False";else if (lightdash.isNil(val)) return "None";else if (lightdash.isError(val)) return stringifyError(key, val);
+      return String(val);
     };
 
     const iterateString = (str, fn) => {
@@ -335,22 +336,28 @@ var Yna = (function (lightdash,moment) {
           this.transformer = transformerCustom;
         }
 
-        if (itemId === IDS.key) {
-          // Key
-          const keyName = this.execItem(itemContent[0]);
-          result = this.resolveKey(keyName);
-          resultType = "key";
-        } else if (itemId === IDS.command) {
-          // Command
-          const commandName = this.execItem(itemContent[0]);
-          const commandArgs = itemContent[1];
-          result = this.resolveCommand(commandName, commandArgs);
-          resultType = "command";
-        } else if (itemId === IDS.comment) {
-          // Comment (ignored)
-          result = "";
-          resultType = "comment";
-        } else if (isArray(item)) {
+        if (itemId === 0
+        /* key */
+        ) {
+            // Key
+            const keyName = this.execItem(itemContent[0]);
+            result = this.resolveKey(keyName);
+            resultType = "key";
+          } else if (itemId === 1
+        /* command */
+        ) {
+            // Command
+            const commandName = this.execItem(itemContent[0]);
+            const commandArgs = itemContent[1];
+            result = this.resolveCommand(commandName, commandArgs);
+            resultType = "command";
+          } else if (itemId === 2
+        /* comment */
+        ) {
+            // Comment (ignored)
+            result = "";
+            resultType = "comment";
+          } else if (lightdash.isArray(item)) {
           // Array
           const str = this.execArr(item).join("");
           result = this.transformer(str);
@@ -390,7 +397,9 @@ var Yna = (function (lightdash,moment) {
       }
 
       resolveKey(name) {
-        const path = name.split(LANGUAGE_YNA.control.data.prop);
+        const path = name.split("."
+        /* prop */
+        );
 
         if (!this.keys.has(path[0])) {
           return stringifyError(name, new Error("unknown key"));
@@ -405,16 +414,16 @@ var Yna = (function (lightdash,moment) {
           // Only enter if more than one prop in path
           const pathRest = path.slice(1);
 
-          if (!hasPath(entry, pathRest)) {
+          if (!lightdash.hasPath(entry, pathRest)) {
             return stringifyError(name, new Error(`does not have '${pathRest}'`));
           }
 
-          resolved = getPath(entry, pathRest);
+          resolved = lightdash.getPath(entry, pathRest);
         }
 
-        if (isFunction(resolved)) {
+        if (lightdash.isFunction(resolved)) {
           result = resolved();
-        } else if (isObjectPlain(resolved)) {
+        } else if (lightdash.isObjectPlain(resolved)) {
           result = resolved.__default;
         } else {
           result = resolved;
@@ -446,7 +455,6 @@ var Yna = (function (lightdash,moment) {
         const optionsMerged = lightdash.objDefaultsDeep(options, optionsRunnerDefault);
         const dataMerged = lightdash.objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
-        console.log(keyMap);
         return new YnaRunner(this.commands, keyMap, optionsMerged, dataMerged).execItem(this.tree);
       }
 

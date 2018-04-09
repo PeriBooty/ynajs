@@ -46,8 +46,6 @@ const Yna = class {
         const dataMerged = <IYnaOptions>objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
 
-        console.log(keyMap);
-
         return new YnaRunner(
             this.commands,
             keyMap,

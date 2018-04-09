@@ -9,7 +9,7 @@ const stringifyVal = (val: any, key: string = "unknown"): string => {
     else if (val === false) return "False";
     else if (isNil(val)) return "None";
     else if (isError(val)) return stringifyError(key, val);
-    else return String(val);
+    return String(val);
 };
 
 export { stringifyError, stringifyVal };

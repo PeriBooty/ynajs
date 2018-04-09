@@ -1,4 +1,4 @@
-import { isString, isNil, isError, mapFromObject, forEachEntry, objDefaults, objDefaultsDeep } from 'lightdash';
+import { isString, isNil, isError, mapFromObject, forEachEntry, hasPath, getPath, isFunction, isObjectPlain, isArray, objDefaults, objDefaultsDeep } from 'lightdash';
 import { utc } from 'moment';
 
 const YnaLogger = class {
@@ -27,8 +27,7 @@ const stringifyVal = (val, key = "unknown") => {
         return "None";
     else if (isError(val))
         return stringifyError(key, val);
-    else
-        return String(val);
+    return String(val);
 };
 
 const iterateString = (str, fn) => {
@@ -293,20 +292,20 @@ const YnaRunner = class extends YnaLogger {
         if (transformerCustom) {
             this.transformer = transformerCustom;
         }
-        if (itemId === IDS.key) {
+        if (itemId === 0 /* key */) {
             // Key
             const keyName = this.execItem(itemContent[0]);
             result = this.resolveKey(keyName);
             resultType = "key";
         }
-        else if (itemId === IDS.command) {
+        else if (itemId === 1 /* command */) {
             // Command
             const commandName = this.execItem(itemContent[0]);
             const commandArgs = itemContent[1];
             result = this.resolveCommand(commandName, commandArgs);
             resultType = "command";
         }
-        else if (itemId === IDS.comment) {
+        else if (itemId === 2 /* comment */) {
             // Comment (ignored)
             result = "";
             resultType = "comment";
@@ -345,7 +344,7 @@ const YnaRunner = class extends YnaLogger {
         return stringifyVal(result, name);
     }
     resolveKey(name) {
-        const path = name.split(LANGUAGE_YNA.control.data.prop);
+        const path = name.split("." /* prop */);
         if (!this.keys.has(path[0])) {
             return stringifyError(name, new Error("unknown key"));
         }
@@ -393,7 +392,6 @@ const Yna = class {
         const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
         const dataMerged = objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
-        console.log(keyMap);
         return new YnaRunner(this.commands, keyMap, optionsMerged, dataMerged).execItem(this.tree);
     }
 };
