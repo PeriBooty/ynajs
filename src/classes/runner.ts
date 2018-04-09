@@ -10,7 +10,7 @@ import {
 } from "../interfaces";
 import { ynaParserIterator, ynaTree, ynaCommandMap, ynaKeyMap } from "../types";
 import YnaLogger from "./logger";
-import { stringifyError } from "../util/stringify";
+import { stringifyError } from "../types/stringify";
 
 const YnaRunner = class extends YnaLogger implements IYnaRunner {
     public transformer: any;
