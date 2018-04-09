@@ -1,11 +1,17 @@
-import { ynaCommandMap, ynaTree, ynaKeyMap } from "./types";
+import {
+    ynaCommand,
+    ynaCommandMap,
+    ynaTree,
+    ynaKeyMap,
+    ynaCommandTransformer
+} from "./types";
 
 declare class IYna {
     public tree: ynaTree;
     public commands: ynaCommandMap;
     public keys: ynaKeyMap;
     constructor(yna: string, options: object, data: object);
-    public addCommand(name: string, fn: any): void;
+    public addCommand(name: string, fn: ynaCommand): void;
     public run(
         args: string[],
         ctx: object,
@@ -30,7 +36,7 @@ declare class IYnaParser extends IYnaLogger {
 }
 
 declare class IYnaRunner extends IYnaLogger {
-    public transformer: any;
+    public transformer: ynaCommandTransformer;
     public commands: ynaCommandMap;
     public keys: ynaKeyMap;
     constructor(
@@ -39,10 +45,13 @@ declare class IYnaRunner extends IYnaLogger {
         options: IYnaRunnerOptions,
         data: IYnaData
     );
-    public execItem(item, transformerCustom?): string;
-    public execArr(itemArr);
-    public resolveCommand(name, data);
-    public resolveKey(name);
+    public execItem(
+        item: ynaTree,
+        transformerCustom?: ynaCommandTransformer
+    ): string;
+    public execArr(itemArr: IYnaTree): string[];
+    public resolveCommand(name: string, data: IYnaTree): string;
+    public resolveKey(name: string): string;
 }
 
 interface IYnaParserIsControlTree {

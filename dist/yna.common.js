@@ -262,18 +262,26 @@ const initKeys = (args, ctx) => {
     return map;
 };
 
+const transformerDefault = (str) => str;
 const YnaRunner = class extends YnaLogger {
     constructor(commands, keys, options, data) {
         super("RUNNER", options, data);
         this.commands = commands;
         this.keys = keys;
+        this.transformer = transformerDefault;
     }
     execItem(item, transformerCustom) {
         return "";
     }
-    execArr(itemArr) { }
-    resolveCommand(name, data) { }
-    resolveKey(name) { }
+    execArr(itemArr) {
+        return [];
+    }
+    resolveCommand(name, data) {
+        return "";
+    }
+    resolveKey(name) {
+        return "";
+    }
 };
 
 const Yna = class {
