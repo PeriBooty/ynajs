@@ -3,7 +3,7 @@ import { IYnaParserIsControlTree, IYnaTree } from "./interfaces";
 type ynaCommand = (...args: any[]) => any;
 
 type ynaCommandMap = Map<string, ynaCommand>;
-type ynaKeyMap = Map<string, string>;
+type ynaKeyMap = Map<string, any>;
 
 type ynaTree = string | IYnaTree;
 

@@ -1,4 +1,5 @@
 import { mapFromObject, forEachEntry, objDefaults, objDefaultsDeep } from 'lightdash';
+import { utc } from 'moment';
 
 const YnaLogger = class {
     constructor(name, options, data) {
@@ -233,8 +234,8 @@ const initCommands = () => {
     return map;
 };
 
-/* const moment = require("moment");
-const toDatetime = require("../types/toDatetime"); */
+const toDatetime = time => utc(time).format("YYYY-MM-DD HH:mm:ss:SSSSSS");
+
 /**
  * Creates map of default keys
  *
@@ -244,13 +245,11 @@ const toDatetime = require("../types/toDatetime"); */
  */
 const initKeys = (args, ctx) => {
     const map = new Map();
-    /*     const time = toDatetime(moment(Date.now()).utc());
-
-    map.set("time", time);
-    map.set("newrep", false); */
+    map.set("time", toDatetime(utc()));
+    map.set("newrep", false);
     // Args
     map.set("args", args.join(" "));
-    map.set("arglen", String(args.length));
+    map.set("arglen", args.length);
     args.forEach((arg, index) => {
         map.set(`arg${index + 1}`, arg);
     });
@@ -294,6 +293,7 @@ const Yna = class {
         const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
         const dataMerged = objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
+        console.log(keyMap);
         return new YnaRunner(this.commands, keyMap, optionsMerged, dataMerged).execItem(this.tree);
     }
 };

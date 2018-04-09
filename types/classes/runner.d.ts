@@ -2,7 +2,7 @@ declare const YnaRunner: {
     new (commands: any, keys: any, options: any, data: any): {
         transformer: any;
         commands: Map<string, (...args: any[]) => any>;
-        keys: Map<string, string>;
+        keys: Map<string, any>;
         execItem(item: any, transformerCustom?: any): string;
         execArr(itemArr: any): void;
         resolveCommand(name: any, data: any): void;

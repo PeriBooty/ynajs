@@ -5,5 +5,5 @@
  * @param {Object} ctx
  * @returns {Map}
  */
-declare const initKeys: (args: string[], ctx: object) => Map<string, string>;
+declare const initKeys: (args: string[], ctx: object) => Map<string, any>;
 export default initKeys;

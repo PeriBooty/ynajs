@@ -3,7 +3,7 @@
 /* eslint no-console: "off" */
 
 const fs = require("fs");
-const Yna = require("../index");
+const Yna = require("../dist/yna.common");
 
 const text = fs.readFileSync("./test/data.yna", "utf8");
 

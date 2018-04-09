@@ -1,7 +1,7 @@
 import { forEachEntry } from "lightdash";
 import { ynaKeyMap } from "../types";
-/* const moment = require("moment");
-const toDatetime = require("../types/toDatetime"); */
+import { toDatetime } from "../types/datetime";
+import { utc } from "moment";
 
 /**
  * Creates map of default keys
@@ -12,14 +12,13 @@ const toDatetime = require("../types/toDatetime"); */
  */
 const initKeys = (args: string[], ctx: object): ynaKeyMap => {
     const map: ynaKeyMap = new Map();
-    /*     const time = toDatetime(moment(Date.now()).utc());
 
-    map.set("time", time);
-    map.set("newrep", false); */
+    map.set("time", toDatetime(utc()));
+    map.set("newrep", false);
 
     // Args
     map.set("args", args.join(" "));
-    map.set("arglen", String(args.length));
+    map.set("arglen", args.length);
     args.forEach((arg, index) => {
         map.set(`arg${index + 1}`, arg);
     });

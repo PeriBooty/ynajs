@@ -1,275 +1,5 @@
-var YNA = (function () {
+var Yna = (function (lightdash,moment) {
     'use strict';
-
-    /**
-     * Checks if the value has a certain type-string.
-     *
-     * @function isTypeOf
-     * @memberof Is
-     * @since 1.0.0
-     * @param {any} val
-     * @param {string} type
-     * @returns {boolean}
-     * @example
-     * isTypeOf({}, "object")
-     * // => true
-     *
-     * isTypeOf([], "object")
-     * // => true
-     *
-     * isTypeOf("foo", "string")
-     * // => true
-     *
-     * @example
-     * isTypeOf("foo", "number")
-     * // => false
-     */
-    const isTypeOf = (val, type) => typeof val === type;
-    /**
-     * Checks if a value is an array.
-     *
-     * `Array.isArray` shorthand.
-     *
-     * @function isArray
-     * @memberof Is
-     * @since 1.0.0
-     * @param {any} val
-     * @returns {boolean}
-     * @example
-     * isArray([]);
-     * // => true
-     *
-     * isArray([1, 2, 3]);
-     * // => true
-     *
-     * @example
-     * isArray({});
-     * // => false
-     */
-
-
-    const isArray = Array.isArray;
-    /**
-     * Checks if a value is undefined.
-     *
-     * @function isUndefined
-     * @memberof Is
-     * @since 1.0.0
-     * @param {any} val
-     * @returns {boolean}
-     * @example
-     * const a = {};
-     *
-     * isUndefined(a.b)
-     * // => true
-     *
-     * isUndefined(undefined)
-     * // => true
-     *
-     * @example
-     * const a = {};
-     *
-     * isUndefined(1)
-     * // => false
-     *
-     * isUndefined(a)
-     * // => false
-     */
-
-
-    const isUndefined = val => isTypeOf(val, "undefined");
-    /**
-     * Checks if a value is undefined or null.
-     *
-     * @function isNil
-     * @memberof Is
-     * @since 1.0.0
-     * @param {any} val
-     * @returns {boolean}
-     * @example
-     * isNil(null)
-     * // => true
-     *
-     * isNil(undefined)
-     * // => true
-     *
-     * @example
-     * isNil(0)
-     * // => false
-     *
-     * isNil("")
-     * // => false
-     */
-
-
-    const isNil = val => isUndefined(val) || val === null;
-    /**
-     * Checks if a value is not nil and has a type of object.
-     *
-     * The main difference to isObject is that functions are not considered object-like,
-     * because `typeof function(){}` returns "function".
-     *
-     * @function isObjectLike
-     * @memberof Is
-     * @since 1.0.0
-     * @param {any} val
-     * @returns {boolean}
-     * @example
-     * isObjectLike({})
-     * // => true
-     *
-     * isObjectLike([])
-     * // => true
-     *
-     * @example
-     * isObjectLike(1)
-     * // => false
-     *
-     * isObjectLike(() => 1))
-     * // => false
-     */
-
-
-    const isObjectLike = val => !isNil(val) && isTypeOf(val, "object");
-    /**
-     * Iterates over each entry of an object
-     *
-     * @function forEachEntry
-     * @memberof For
-     * @param {object} obj
-     * @param {function} fn fn(key: any, val: any, index: number, arr: any[])
-     * @example
-     * const a = {a: 1, b: 2};
-     *
-     * forEachEntry(a, (key, val, index) => a[key] = val * index)
-     * // a = {a: 0, b: 2}
-     */
-
-
-    const forEachEntry = (obj, fn) => {
-      Object.entries(obj).forEach((entry, index) => {
-        fn(entry[0], entry[1], index, obj);
-      });
-    };
-    /**
-     * Creates a new object with the entries of the input object.
-     *
-     * @function objFrom
-     * @memberof Object
-     * @since 1.0.0
-     * @param {Object} obj
-     * @returns {Object}
-     * @example
-     * const a = {a: 4, b: 2};
-     * const b = objFrom(a);
-     *
-     * b.a = 10;
-     * // a = {a: 4, b: 2}
-     * // b = {a: 10, b: 2}
-     */
-
-
-    const objFrom = obj => Object.assign({}, obj);
-    /**
-     * Maps each entry of an object and returns the result.
-     *
-     * @function objMap
-     * @memberof Object
-     * @since 1.0.0
-     * @param {Object} obj
-     * @param {function} fn fn(key: any, val: any, index: number, arr: any[])
-     * @returns {Object}
-     * @example
-     * objMap({a: 4, b: 2}, (key, val) => val * 2)
-     * // => {a: 8, b: 4}
-     */
-
-
-    const objMap = (obj, fn) => {
-      const objNew = {};
-      forEachEntry(obj, (key, val, index) => {
-        objNew[key] = fn(key, val, index, obj);
-      });
-      return objNew;
-    };
-    /**
-     * Recursively maps each entry of an object and returns the result.
-     *
-     * @function objMapDeep
-     * @memberof Object
-     * @since 1.0.0
-     * @param {Object} obj
-     * @param {function} fn fn(key: any, val: any, index: number, arr: any[])
-     * @returns {Object}
-     * @example
-     * arrMapDeep({a: {b: 2, c: [10, 20]}}, (key, val) => val * 2)
-     * // => {a: {b: 4, c: [20, 40]}}
-     */
-
-
-    const objMapDeep = (obj, fn) => objMap(obj, (key, val, index, objNew) => isObjectLike(val) ? objMapDeep(val, fn) : fn(key, val, index, objNew));
-    /**
-     * Deeply creates a new object with the entries of the input object.
-     *
-     * @function objFromDeep
-     * @memberof Object
-     * @since 1.0.0
-     * @param {Object} obj
-     * @returns {Object}
-     * @example
-     * const a = {a: {b: 2, c: {a: 10, b: 20}}};
-     * const b = objFromDeep(a);
-     *
-     * b.a.c.a = 123;
-     * // a = {a: {b: 2, c: {a: 10, b: 20}}
-     * // b = {a: {b: 2, c: {a: 123, b: 20}}}
-     */
-
-
-    const objFromDeep = obj => objMapDeep(objFrom(obj), (key, val) => isObjectLike(val) ? objFrom(val) : val);
-    /**
-     * Recursively sets every nil property of object to the value from the default object.
-     *
-     * @function objDefaultsDeep
-     * @memberof Object
-     * @since 2.7.0
-     * @param {Object} obj
-     * @param {Object} objDefault
-     * @returns {Object}
-     * @example
-     * objDefaultsDeep({a: [1, 2], c: {f: "x"}}, {a: [1, 2, 3], b: 2, c: {f: "y"}})
-     * // => {a: [1, 2, 3], b: 2, c: {f: "x"}}
-     */
-
-
-    const objDefaultsDeep = (obj, objDefault) => {
-      const result = isArray(obj) ? Array.from(obj) : objFromDeep(obj);
-      forEachEntry(objDefault, (keyDefault, valDefault) => {
-        const valGiven = obj[keyDefault];
-
-        if (isObjectLike(valDefault)) {
-          result[keyDefault] = isObjectLike(valGiven) ? objDefaultsDeep(valGiven, valDefault) : valDefault;
-        } else {
-          result[keyDefault] = isUndefined(valGiven) ? valDefault : valGiven;
-        }
-      });
-      return result;
-    };
-    /**
-     * Creates a map from an object.
-     *
-     * @function mapFromObject
-     * @memberof Map
-     * @since 1.0.0
-     * @param {Object} obj
-     * @returns {Map}
-     * @example
-     * mapFromObject({a: 1, b: 4, c: 5})
-     * // => Map<string,number>{a: 1, b: 4, c: 5}
-     */
-
-
-    const mapFromObject = obj => new Map(Object.entries(obj));
 
     const YnaLogger = class {
       constructor(name, options, data) {
@@ -489,10 +219,15 @@ var YNA = (function () {
       debug: false,
       loadJSON: false
     };
+    const optionsRunnerDefault = {
+      debug: false,
+      depth: 0 // Used for recursion depth checks
+
+    };
     const dataDefault = {};
 
     const initCommands = () => {
-      const map = mapFromObject({
+      const map = lightdash.mapFromObject({
         /**
          * Data
          */
@@ -546,10 +281,56 @@ var YNA = (function () {
       return map;
     };
 
+    const toDatetime = time => moment.utc(time).format("YYYY-MM-DD HH:mm:ss:SSSSSS");
+
+    /**
+     * Creates map of default keys
+     *
+     * @param {Array<string>} args
+     * @param {Object} ctx
+     * @returns {Map}
+     */
+
+    const initKeys = (args, ctx) => {
+      const map = new Map();
+      map.set("time", toDatetime(moment.utc()));
+      map.set("newrep", false); // Args
+
+      map.set("args", args.join(" "));
+      map.set("arglen", args.length);
+      args.forEach((arg, index) => {
+        map.set(`arg${index + 1}`, arg);
+      }); // Context
+
+      lightdash.forEachEntry(ctx, (val, key) => {
+        map.set(key, val);
+      });
+      return map;
+    };
+
+    const YnaRunner = class extends YnaLogger {
+      constructor(commands, keys, options, data) {
+        super("RUNNER", options, data);
+        this.commands = commands;
+        this.keys = keys;
+      }
+
+      execItem(item, transformerCustom) {
+        return "";
+      }
+
+      execArr(itemArr) {}
+
+      resolveCommand(name, data) {}
+
+      resolveKey(name) {}
+
+    };
+
     const Yna = class {
       constructor(yna, options = {}, data = {}) {
-        const optionsMerged = objDefaultsDeep(options, optionsDefault);
-        const dataMerged = objDefaultsDeep(data, dataDefault);
+        const optionsMerged = lightdash.objDefaultsDeep(options, optionsDefault);
+        const dataMerged = lightdash.objDefaultsDeep(data, dataDefault);
         this.commands = initCommands();
 
         if (optionsMerged.loadJSON) {
@@ -564,22 +345,16 @@ var YNA = (function () {
       }
 
       run(args = [], ctx = {}, options = {}, data = {}) {
-        /*         const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
-        const dataMerged = objDefaults(data, dataDefault);
+        const optionsMerged = lightdash.objDefaultsDeep(options, optionsRunnerDefault);
+        const dataMerged = lightdash.objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
-        const runner = new YnaRunner(
-            this.commandMap,
-            keyMap,
-            optionsMerged,
-            dataMerged
-        );
-         return runner.execItem(this.tree); */
-        return "";
+        console.log(keyMap);
+        return new YnaRunner(this.commands, keyMap, optionsMerged, dataMerged).execItem(this.tree);
       }
 
     };
 
     return Yna;
 
-}());
+}(lightdash,moment));
 //# sourceMappingURL=yna.js.map
