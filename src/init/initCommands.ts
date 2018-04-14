@@ -3,6 +3,7 @@ import { ynaCommand, ynaCommandMap } from "../types";
 import num from "../commands/random/num";
 import choose from "../commands/random/choose";
 import wchoose from "../commands/random/wchoose";
+import math from "../commands/numbers/math";
 
 const initCommands = (): ynaCommandMap => {
     const map = mapFromObject({
@@ -20,7 +21,7 @@ const initCommands = (): ynaCommandMap => {
         /**
          * Numbers
          */
-        /*       math, */
+        math,
         /**
          * Text
          */
