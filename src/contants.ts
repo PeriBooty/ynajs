@@ -1,4 +1,5 @@
 const MAX_RECURSION_DEPTH = 15;
-const FLOAT_ACCURACY = 2;
+const MATH_MAX = Math.pow(2, 32) - 1;
+const MATH_MIN = -Math.pow(2, 32) + 1;
 
-export { FLOAT_ACCURACY, MAX_RECURSION_DEPTH };
+export { MAX_RECURSION_DEPTH, MATH_MAX, MATH_MIN };

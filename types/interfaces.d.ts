@@ -1,4 +1,4 @@
-import { ynaCommand, ynaCommandMap, ynaTree, ynaKeyMap, ynaCommandTransformer, ynaTreeItems } from "./types";
+import { ynaCommand, ynaCommandMap, ynaTree, ynaKeyMap, ynaCommandTransformer, ynaTreeItems, ynaRange } from "./types";
 declare class IYna {
     tree: ynaTree;
     commands: ynaCommandMap;
@@ -52,4 +52,8 @@ interface IYnaTreeBlockResult {
     name: ynaTree;
     args: ynaTree;
 }
-export { IYna, IYnaOptionsBase, IYnaOptions, IYnaRunnerOptions, IYnaData, IYnaLogger, IYnaParser, IYnaRunner, IYnaParserIsControlTree, IYnaTree, IYnaTreeBlockResult };
+interface IYnaMathDef {
+    argsLengthRange: ynaRange;
+    fn: (...args: any[]) => number | Error;
+}
+export { IYna, IYnaOptionsBase, IYnaOptions, IYnaRunnerOptions, IYnaData, IYnaLogger, IYnaParser, IYnaRunner, IYnaParserIsControlTree, IYnaTree, IYnaTreeBlockResult, IYnaMathDef };

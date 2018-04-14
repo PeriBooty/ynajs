@@ -1,97 +1,86 @@
-"use strict";
+import { mapFromObject } from "lightdash";
+import { isNumber, toNumber } from "../../types/number";
+import { MATH_MAX, MATH_MIN } from "../../contants";
+import {
+    ynaAliasMap,
+    ynaMathMap,
+    ynaCommand,
+    ynaCommandResult,
+    ynaTreeItems
+} from "../../types";
+import { IYnaMathDef, IYnaTree } from "../../interfaces";
 
-const MATH_MAX = Math.pow(2, 32) - 1;
-const MATH_MIN = -Math.pow(2, 32) + 1;
-
-const { mapFromObject } = require("lightdash");
-const isNumber = require("../../types/isNumber");
-const toNumber = require("../../types/toNumber");
-
-const operations = mapFromObject({
-    add: {
+const operations: ynaMathMap = mapFromObject({
+    add: <IYnaMathDef>{
         argsLengthRange: [2, Infinity],
-        fn: function() {
-            return Array.from(arguments).reduce((a, b) => a + b);
-        }
+        fn: (...args: number[]) => args.reduce((a, b) => a + b)
     },
-    sub: {
+    sub: <IYnaMathDef>{
         argsLengthRange: [2, 2],
-        fn: function() {
-            return Array.from(arguments).reduce((a, b) => a - b);
-        }
+        fn: (...args: number[]) => args.reduce((a, b) => a - b)
     },
-    mul: {
+    mul: <IYnaMathDef>{
         argsLengthRange: [2, Infinity],
-        fn: function() {
-            return Array.from(arguments).reduce((a, b) => a * b);
-        }
+        fn: (...args: number[]) => args.reduce((a, b) => a * b)
     },
-    pow: {
+    pow: <IYnaMathDef>{
         argsLengthRange: [2, 2],
-        fn: (a, b) => Math.pow(a, b)
+        fn: Math.pow
     },
-    div: {
+    div: <IYnaMathDef>{
         argsLengthRange: [2, 2],
         fn: (a, b) => (b !== 0 ? a / b : new Error("divide by zero"))
     },
-    idiv: {
+    idiv: <IYnaMathDef>{
         argsLengthRange: [2, 2],
         fn: (a, b) =>
             b !== 0 ? Math.floor(a / b) : new Error("divide by zero")
     },
-    mod: {
+    mod: <IYnaMathDef>{
         argsLengthRange: [2, 2],
         fn: (a, b) => a % b
     },
 
-    and: {
+    and: <IYnaMathDef>{
         argsLengthRange: [2, Infinity],
-        fn: function() {
-            return [~0, ...arguments].reduce((a, b) => a & b);
-        }
+        fn: (...args: number[]) => [~0, ...args].reduce((a, b) => a & b)
     },
-    or: {
+    or: <IYnaMathDef>{
         argsLengthRange: [2, Infinity],
-        fn: function() {
-            return [0, ...arguments].reduce((a, b) => a | b);
-        }
+        fn: (...args: number[]) => [0, ...args].reduce((a, b) => a | b)
     },
-    xor: {
+    xor: <IYnaMathDef>{
         argsLengthRange: [2, 2],
         fn: (a, b) => a ^ b
     },
-    not: {
+    not: <IYnaMathDef>{
         argsLengthRange: [1, 1],
         fn: a => ~a
     },
 
-    round: {
+    round: <IYnaMathDef>{
         argsLengthRange: [1, 1],
-        fn: a => Math.round(a)
+        fn: Math.round
     },
-    floor: {
+    floor: <IYnaMathDef>{
         argsLengthRange: [1, 1],
-        fn: a => Math.floor(a)
+        fn: Math.floor
     },
-    ceil: {
+    ceil: <IYnaMathDef>{
         argsLengthRange: [1, 1],
-        fn: a => Math.ceil(a)
+        fn: Math.ceil
     },
 
-    max: {
+    max: <IYnaMathDef>{
         argsLengthRange: [2, Infinity],
-        fn: function() {
-            return Math.max(...arguments);
-        }
+        fn: Math.max
     },
-    min: {
+    min: <IYnaMathDef>{
         argsLengthRange: [2, Infinity],
-        fn: function() {
-            return Math.min(...arguments);
-        }
+        fn: Math.min
     }
 });
-const aliases = mapFromObject({
+const aliases: ynaAliasMap = mapFromObject({
     "+": "add",
     "-": "sub",
     "*": "mul",
@@ -106,27 +95,23 @@ const aliases = mapFromObject({
     "~": "not"
 });
 
-/**
- * math command
- *
- * @param {Array<any>} dataRaw
- * @returns {string}
- */
-module.exports = function(dataRaw) {
-    if (dataRaw.length === 0) {
+const math: ynaCommand = (runner, tree) => {
+    if (tree.length === 0) {
         return new Error("no args");
     }
 
-    const operation = this.execItem(dataRaw[0]);
-    const valsRaw = dataRaw.slice(1);
-    let operationRef = null;
-    let vals;
-    let result;
+    const operation = runner.execItem(<IYnaTree>tree[0]);
+    const valsRaw = tree.slice(1);
+    let operationRef: IYnaMathDef;
+    let vals: number[] | string[];
+    let result: ynaCommandResult;
 
     if (operations.has(operation)) {
-        operationRef = operations.get(operation);
+        operationRef = <IYnaMathDef>operations.get(operation);
     } else if (aliases.has(operation)) {
-        operationRef = operations.get(aliases.get(operation));
+        operationRef = <IYnaMathDef>operations.get(<string>aliases.get(
+            operation
+        ));
     } else {
         return new Error("unknown operation");
     }
@@ -135,7 +120,7 @@ module.exports = function(dataRaw) {
         valsRaw.length >= operationRef.argsLengthRange[0] &&
         valsRaw.length <= operationRef.argsLengthRange[1]
     ) {
-        vals = this.execArr(valsRaw);
+        vals = <string[]>runner.execArr(valsRaw);
     } else {
         return new Error("invalid args");
     }
@@ -151,7 +136,9 @@ module.exports = function(dataRaw) {
         return new Error("inf");
     } else if (result < MATH_MIN) {
         return new Error("-inf");
-    } else {
-        return result;
     }
+
+    return result;
 };
+
+export default math;

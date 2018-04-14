@@ -2,7 +2,7 @@ import { randNumber } from "lightdash";
 import { isNumber, toNumber } from "../../types/number";
 import { ynaCommand } from "../../types";
 
-const commandRandomNum: ynaCommand = (runner, tree) => {
+const num: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
     }
@@ -33,7 +33,7 @@ const commandRandomNum: ynaCommand = (runner, tree) => {
 
     const seed = randNumber(min, max, !Number.isInteger(step));
 
-    return String(Math.floor(seed / step) * step);
+    return Math.floor(seed / step) * step;
 };
 
-export default commandRandomNum;
+export default num;

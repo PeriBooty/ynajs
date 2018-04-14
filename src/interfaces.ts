@@ -4,7 +4,9 @@ import {
     ynaTree,
     ynaKeyMap,
     ynaCommandTransformer,
-    ynaTreeItems
+    ynaTreeItems,
+    ynaRange,
+    ynaCommandResult
 } from "./types";
 
 declare class IYna {
@@ -84,6 +86,11 @@ interface IYnaTreeBlockResult {
     args: ynaTree;
 }
 
+interface IYnaMathDef {
+    argsLengthRange: ynaRange;
+    fn: (...args: any[]) => number | Error;
+}
+
 export {
     IYna,
     IYnaOptionsBase,
@@ -95,5 +102,6 @@ export {
     IYnaRunner,
     IYnaParserIsControlTree,
     IYnaTree,
-    IYnaTreeBlockResult
+    IYnaTreeBlockResult,
+    IYnaMathDef
 };

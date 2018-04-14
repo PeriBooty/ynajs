@@ -1,8 +1,8 @@
 import { mapFromObject } from "lightdash";
 import { ynaCommand, ynaCommandMap } from "../types";
-import commandRandomNum from "../commands/random/num";
-import commandRandomChoose from "../commands/random/choose";
-import commandRandomWchoose from "../commands/random/wchoose";
+import num from "../commands/random/num";
+import choose from "../commands/random/choose";
+import wchoose from "../commands/random/wchoose";
 
 const initCommands = (): ynaCommandMap => {
     const map = mapFromObject({
@@ -34,9 +34,9 @@ const initCommands = (): ynaCommandMap => {
         /**
          * Random
          */
-        num: commandRandomNum,
-        choose: commandRandomChoose,
-        wchoose: commandRandomWchoose
+        num,
+        choose,
+        wchoose
         /**
          * Wrappers
          */

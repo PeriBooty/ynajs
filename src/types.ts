@@ -2,18 +2,12 @@ import {
     IYnaParserIsControlTree,
     IYnaTree,
     IYnaData,
-    IYnaRunner
+    IYnaRunner,
+    IYnaMathDef
 } from "./interfaces";
 
-type ynaCommand = (runner: IYnaRunner, tree: IYnaTree) => string | Error;
+type ynaCommand = (runner: IYnaRunner, tree: IYnaTree) => ynaCommandResult;
 type ynaCommandTransformer = (str: string) => string;
-
-type ynaCommandMap = Map<string, ynaCommand>;
-type ynaKeyMap = Map<string, any>;
-
-type ynaTreeItems = string | number | IYnaTree;
-type ynaTree = string | IYnaTree;
-
 type ynaParserIterator = (
     letter: string,
     strIndex: number,
@@ -21,12 +15,27 @@ type ynaParserIterator = (
     isControlTree: IYnaParserIsControlTree
 ) => void;
 
+type ynaCommandMap = Map<string, ynaCommand>;
+type ynaKeyMap = Map<string, any>;
+type ynaAliasMap = Map<string, string>;
+type ynaMathMap = Map<string, IYnaMathDef>;
+
+type ynaTreeItems = string | number | IYnaTree;
+type ynaTree = string | IYnaTree;
+type ynaCommandResult = any;
+
+type ynaRange = [number, number];
+
 export {
     ynaCommand,
     ynaCommandMap,
     ynaTree,
     ynaParserIterator,
     ynaKeyMap,
+    ynaAliasMap,
     ynaCommandTransformer,
-    ynaTreeItems
+    ynaTreeItems,
+    ynaRange,
+    ynaCommandResult,
+    ynaMathMap
 };

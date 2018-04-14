@@ -209,7 +209,7 @@ const REGEX_NUMBER = /^-?\d+\.?\d*$/;
 const toNumber = parseFloat;
 const isNumber = (val) => REGEX_NUMBER.test(String(val));
 
-const commandRandomNum = (runner, tree) => {
+const num = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
     }
@@ -234,10 +234,10 @@ const commandRandomNum = (runner, tree) => {
         return new Error("invalid range");
     }
     const seed = lightdash.randNumber(min, max, !Number.isInteger(step));
-    return String(Math.floor(seed / step) * step);
+    return Math.floor(seed / step) * step;
 };
 
-const commandRandomChoose = (runner, tree) => {
+const choose = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no options");
     }
@@ -245,7 +245,7 @@ const commandRandomChoose = (runner, tree) => {
     return lightdash.randItem(options);
 };
 
-const commandRandomWchoose = (runner, tree) => {
+const wchoose = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no options");
     }
@@ -311,9 +311,9 @@ const initCommands = () => {
         /**
          * Random
          */
-        num: commandRandomNum,
-        choose: commandRandomChoose,
-        wchoose: commandRandomWchoose
+        num,
+        choose,
+        wchoose
         /**
          * Wrappers
          */

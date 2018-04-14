@@ -1,3 +1,3 @@
 import { ynaCommand } from "../../types";
-declare const commandRandomNum: ynaCommand;
-export default commandRandomNum;
+declare const num: ynaCommand;
+export default num;

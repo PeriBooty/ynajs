@@ -1,9 +1,13 @@
-import { IYnaParserIsControlTree, IYnaTree, IYnaRunner } from "./interfaces";
-declare type ynaCommand = (runner: IYnaRunner, tree: IYnaTree) => string | Error;
+import { IYnaParserIsControlTree, IYnaTree, IYnaRunner, IYnaMathDef } from "./interfaces";
+declare type ynaCommand = (runner: IYnaRunner, tree: IYnaTree) => ynaCommandResult;
 declare type ynaCommandTransformer = (str: string) => string;
+declare type ynaParserIterator = (letter: string, strIndex: number, strStack: number, isControlTree: IYnaParserIsControlTree) => void;
 declare type ynaCommandMap = Map<string, ynaCommand>;
 declare type ynaKeyMap = Map<string, any>;
+declare type ynaAliasMap = Map<string, string>;
+declare type ynaMathMap = Map<string, IYnaMathDef>;
 declare type ynaTreeItems = string | number | IYnaTree;
 declare type ynaTree = string | IYnaTree;
-declare type ynaParserIterator = (letter: string, strIndex: number, strStack: number, isControlTree: IYnaParserIsControlTree) => void;
-export { ynaCommand, ynaCommandMap, ynaTree, ynaParserIterator, ynaKeyMap, ynaCommandTransformer, ynaTreeItems };
+declare type ynaCommandResult = any;
+declare type ynaRange = [number, number];
+export { ynaCommand, ynaCommandMap, ynaTree, ynaParserIterator, ynaKeyMap, ynaAliasMap, ynaCommandTransformer, ynaTreeItems, ynaRange, ynaCommandResult, ynaMathMap };

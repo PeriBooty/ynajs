@@ -1,3 +1,3 @@
 import { ynaCommand } from "../../types";
-declare const commandRandomChoose: ynaCommand;
-export default commandRandomChoose;
+declare const choose: ynaCommand;
+export default choose;
