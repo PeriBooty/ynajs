@@ -1,5 +1,5 @@
 import { IYnaParserIsControlTree, IYnaTree, IYnaRunner } from "./interfaces";
-declare type ynaCommand = (runner: IYnaRunner, tree: IYnaTree) => string;
+declare type ynaCommand = (runner: IYnaRunner, tree: IYnaTree) => string | Error;
 declare type ynaCommandTransformer = (str: string) => string;
 declare type ynaCommandMap = Map<string, ynaCommand>;
 declare type ynaKeyMap = Map<string, any>;

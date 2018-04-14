@@ -1,19 +1,14 @@
-"use strict";
+import { randItem } from "lightdash";
+import { ynaCommand } from "../../types";
 
-const { randomItem } = require("lightdash");
-
-/**
- * Choose command
- *
- * @param {Array<any>} dataRaw
- * @returns {string}
- */
-module.exports = function(dataRaw) {
-    if (dataRaw.length === 0) {
+const commandRandomChoose: ynaCommand = (runner, tree) => {
+    if (tree.length === 0) {
         return new Error("no options");
     }
 
-    const options = this.execArr(dataRaw);
+    const options = runner.execArr(tree);
 
-    return randomItem(options);
+    return randItem(options);
 };
+
+export default commandRandomChoose;

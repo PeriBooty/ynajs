@@ -1,3 +1,3 @@
-declare const randomItem: any;
-declare const isNumber: any;
-declare const toNumber: any;
+import { ynaCommand } from "../../types";
+declare const commandRandomWchoose: ynaCommand;
+export default commandRandomWchoose;

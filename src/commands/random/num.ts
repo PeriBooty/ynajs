@@ -1,21 +1,13 @@
-"use strict";
+import { randNumber } from "lightdash";
+import { isNumber } from "../../types/number";
+import { ynaCommand } from "../../types";
 
-const { randomNumber } = require("lightdash");
-const isNumber = require("../../types/isNumber");
-const toNumber = require("../../types/toNumber");
-
-/**
- * num command
- *
- * @param {Array<any>} dataRaw
- * @returns {string}
- */
-module.exports = function(dataRaw) {
-    if (dataRaw.length === 0) {
+const commandRandomNum: ynaCommand = (runner, tree) => {
+    if (tree.length === 0) {
         return new Error("no args");
     }
 
-    const data = this.execArr(dataRaw);
+    const data = runner.execArr(tree);
 
     if (!data.every(isNumber)) {
         return new Error("invalid args");
@@ -40,5 +32,7 @@ module.exports = function(dataRaw) {
         return new Error("invalid range");
     }
 
-    return Math.floor(randomNumber(min, max, false) / step) * step;
+    return String(Math.floor(randNumber(min, max, false) / step) * step);
 };
+
+export default commandRandomNum;

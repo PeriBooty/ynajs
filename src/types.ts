@@ -5,7 +5,7 @@ import {
     IYnaRunner
 } from "./interfaces";
 
-type ynaCommand = (runner: IYnaRunner, tree: IYnaTree) => string;
+type ynaCommand = (runner: IYnaRunner, tree: IYnaTree) => string | Error;
 type ynaCommandTransformer = (str: string) => string;
 
 type ynaCommandMap = Map<string, ynaCommand>;

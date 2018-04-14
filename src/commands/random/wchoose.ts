@@ -1,25 +1,17 @@
-"use strict";
+import { randItem } from "lightdash";
+import { isNumber, toNumber } from "../../types/number";
+import { ynaCommand } from "../../types";
 
-const { randomItem } = require("lightdash");
-const isNumber = require("../../types/isNumber");
-const toNumber = require("../../types/toNumber");
-
-/**
- * wchoose command
- *
- * @param {Array<any>} dataRaw
- * @returns {string}
- */
-module.exports = function(dataRaw) {
-    if (dataRaw.length === 0) {
+const commandRandomWchoose: ynaCommand = (runner, tree) => {
+    if (tree.length === 0) {
         return new Error("no options");
-    } else if (dataRaw.length % 2 !== 0) {
+    } else if (tree.length % 2 !== 0) {
         return new Error("mismatched weighting");
     }
 
-    const data = this.execArr(dataRaw);
-    const weights = [];
-    const options = [];
+    const data = runner.execArr(tree);
+    const weights: any[] = [];
+    const options: any[] = [];
     let areWeightsNumbers = true;
 
     data.forEach((item, index) => {
@@ -37,14 +29,16 @@ module.exports = function(dataRaw) {
     if (!areWeightsNumbers) {
         return new Error("invalid weight");
     }
-    const distributedValues = [];
+    const distributedValues: any[] = [];
 
     weights.forEach((weight, i) => {
         const value = options[i];
-        const distributed = new Array(weight).fill(value);
+        const distributed: any[] = new Array(weight).fill(value);
 
         distributedValues.push(...distributed);
     });
 
-    return randomItem(distributedValues);
+    return randItem(distributedValues);
 };
+
+export default commandRandomWchoose;

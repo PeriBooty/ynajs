@@ -1,5 +1,8 @@
 import { mapFromObject } from "lightdash";
 import { ynaCommand, ynaCommandMap } from "../types";
+import commandRandomNum from "../commands/random/num";
+import commandRandomChoose from "../commands/random/choose";
+import commandRandomWchoose from "../commands/random/wchoose";
 
 const initCommands = (): ynaCommandMap => {
     const map = mapFromObject({
@@ -14,12 +17,10 @@ const initCommands = (): ynaCommandMap => {
          * Logic
          */
         /*       when, */
-
         /**
          * Numbers
          */
         /*       math, */
-
         /**
          * Text
          */
@@ -30,21 +31,17 @@ const initCommands = (): ynaCommandMap => {
         rep,
         parse,
         slice, */
-
         /**
          * Random
          */
-        /*         num,
-        choose,
-        wchoose, */
-
+        num: commandRandomNum,
+        choose: commandRandomChoose,
+        wchoose: commandRandomWchoose
         /**
          * Wrappers
          */
         /*   oneline,
         void: _void */
-
-        foo: () => "foo"
     });
 
     // Conditional registers here

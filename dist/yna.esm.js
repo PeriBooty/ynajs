@@ -1,4 +1,4 @@
-import { isString, isNil, isError, mapFromObject, forEachEntry, hasPath, getPath, isFunction, isObjectPlain, isArray, objDefaults, objDefaultsDeep } from 'lightdash';
+import { isString, isNil, isError, randNumber, randItem, mapFromObject, forEachEntry, hasPath, getPath, isFunction, isObjectPlain, isArray, objDefaults, objDefaultsDeep } from 'lightdash';
 import { utc } from 'moment';
 
 const YnaLogger = class {
@@ -203,6 +203,81 @@ const optionsRunnerDefault = {
 };
 const dataDefault = {};
 
+const REGEX_NUMBER = /^-?\d+\.?\d*$/;
+const toNumber$1 = parseFloat;
+const isNumber = (val) => REGEX_NUMBER.test(String(val));
+
+const commandRandomNum = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no args");
+    }
+    const data = runner.execArr(tree);
+    if (!data.every(isNumber)) {
+        return new Error("invalid args");
+    }
+    let min = 0;
+    let max = 100;
+    let step = 1;
+    if (data.length === 1) {
+        max = toNumber(data[0]);
+    }
+    else if (data.length > 1) {
+        min = toNumber(data[0]);
+        max = toNumber(data[1]);
+    }
+    if (data.length === 3) {
+        step = toNumber(data[2]);
+    }
+    if (min === max || step === 0) {
+        return new Error("invalid range");
+    }
+    return String(Math.floor(randNumber(min, max, false) / step) * step);
+};
+
+const commandRandomChoose = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no options");
+    }
+    const options = runner.execArr(tree);
+    return randItem(options);
+};
+
+const commandRandomWchoose = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no options");
+    }
+    else if (tree.length % 2 !== 0) {
+        return new Error("mismatched weighting");
+    }
+    const data = runner.execArr(tree);
+    const weights = [];
+    const options = [];
+    let areWeightsNumbers = true;
+    data.forEach((item, index) => {
+        if (index % 2 === 0) {
+            options.push(item);
+        }
+        else {
+            if (isNumber(item)) {
+                weights.push(toNumber$1(item));
+            }
+            else {
+                areWeightsNumbers = false;
+            }
+        }
+    });
+    if (!areWeightsNumbers) {
+        return new Error("invalid weight");
+    }
+    const distributedValues = [];
+    weights.forEach((weight, i) => {
+        const value = options[i];
+        const distributed = new Array(weight).fill(value);
+        distributedValues.push(...distributed);
+    });
+    return randItem(distributedValues);
+};
+
 const initCommands = () => {
     const map = mapFromObject({
         /**
@@ -233,15 +308,14 @@ const initCommands = () => {
         /**
          * Random
          */
-        /*         num,
-        choose,
-        wchoose, */
+        num: commandRandomNum,
+        choose: commandRandomChoose,
+        wchoose: commandRandomWchoose
         /**
          * Wrappers
          */
         /*   oneline,
         void: _void */
-        foo: () => "foo"
     });
     // Conditional registers here
     return map;
