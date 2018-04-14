@@ -10,8 +10,8 @@ const commandRandomWchoose: ynaCommand = (runner, tree) => {
     }
 
     const data = runner.execArr(tree);
-    const weights: any[] = [];
-    const options: any[] = [];
+    const weights: number[] = [];
+    const options: string[] = [];
     let areWeightsNumbers = true;
 
     data.forEach((item, index) => {
@@ -25,15 +25,15 @@ const commandRandomWchoose: ynaCommand = (runner, tree) => {
             }
         }
     });
-
     if (!areWeightsNumbers) {
         return new Error("invalid weight");
     }
-    const distributedValues: any[] = [];
+
+    const distributedValues: string[] = [];
 
     weights.forEach((weight, i) => {
         const value = options[i];
-        const distributed: any[] = new Array(weight).fill(value);
+        const distributed: string[] = new Array(weight).fill(value);
 
         distributedValues.push(...distributed);
     });

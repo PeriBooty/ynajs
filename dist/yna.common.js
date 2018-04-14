@@ -206,7 +206,7 @@ const optionsRunnerDefault = {
 const dataDefault = {};
 
 const REGEX_NUMBER = /^-?\d+\.?\d*$/;
-const toNumber$1 = parseFloat;
+const toNumber = parseFloat;
 const isNumber = (val) => REGEX_NUMBER.test(String(val));
 
 const commandRandomNum = (runner, tree) => {
@@ -223,7 +223,7 @@ const commandRandomNum = (runner, tree) => {
     if (data.length === 1) {
         max = toNumber(data[0]);
     }
-    else if (data.length > 1) {
+    else {
         min = toNumber(data[0]);
         max = toNumber(data[1]);
     }
@@ -233,7 +233,8 @@ const commandRandomNum = (runner, tree) => {
     if (min === max || step === 0) {
         return new Error("invalid range");
     }
-    return String(Math.floor(lightdash.randNumber(min, max, false) / step) * step);
+    const seed = lightdash.randNumber(min, max, !Number.isInteger(step));
+    return String(Math.floor(seed / step) * step);
 };
 
 const commandRandomChoose = (runner, tree) => {
@@ -261,7 +262,7 @@ const commandRandomWchoose = (runner, tree) => {
         }
         else {
             if (isNumber(item)) {
-                weights.push(toNumber$1(item));
+                weights.push(toNumber(item));
             }
             else {
                 areWeightsNumbers = false;

@@ -1,5 +1,5 @@
 import { randNumber } from "lightdash";
-import { isNumber } from "../../types/number";
+import { isNumber, toNumber } from "../../types/number";
 import { ynaCommand } from "../../types";
 
 const commandRandomNum: ynaCommand = (runner, tree) => {
@@ -19,11 +19,10 @@ const commandRandomNum: ynaCommand = (runner, tree) => {
 
     if (data.length === 1) {
         max = toNumber(data[0]);
-    } else if (data.length > 1) {
+    } else {
         min = toNumber(data[0]);
         max = toNumber(data[1]);
     }
-
     if (data.length === 3) {
         step = toNumber(data[2]);
     }
@@ -32,7 +31,9 @@ const commandRandomNum: ynaCommand = (runner, tree) => {
         return new Error("invalid range");
     }
 
-    return String(Math.floor(randNumber(min, max, false) / step) * step);
+    const seed = randNumber(min, max, !Number.isInteger(step));
+
+    return String(Math.floor(seed / step) * step);
 };
 
 export default commandRandomNum;
