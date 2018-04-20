@@ -9,12 +9,7 @@
             "module": "Yna",
             "file": "yna"
         },
-        "external": [
-            "lightdash",
-            "moment",
-            "pydateformat",
-            "pyslice"
-        ]
+        "external": ["lightdash", "moment", "pydateformat", "pyslice"]
     },
     "scripts": {
         "start": "npm-run-all lint build test docs",
@@ -24,12 +19,12 @@
         "watch": "rollup -c ./tasks/rollup.config.js --watch",
         "dist": "npm-run-all --parallel build build:iife build:iife-min",
         "lint": "npm-run-all --parallel lint:ts lint:es",
-        "lint:ts": "tslint ./src/**/*.ts",
-        "lint:es": "eslint ./spec/**/*.js",
+        "lint:ts": "tslint ./src/*",
+        "lint:es": "eslint ./spec/*",
         "fix": "npm-run-all fix:ts fix:es fix:prettier",
-        "fix:ts": "tslint ./src/**/*.ts --fix",
-        "fix:es": "eslint ./spec/**/*.js --fix",
-        "fix:prettier": "prettier ./src/**/* ./spec/**/* --write",
+        "fix:ts": "tslint ./src/* --fix",
+        "fix:es": "eslint ./spec/* --fix",
+        "fix:prettier": "prettier ./src/* ./spec/* --write",
         "test": "jasmine",
         "docs": "jsdoc -c jsdoc.json"
     },
@@ -37,12 +32,7 @@
         "type": "git",
         "url": "git+https://github.com/FelixRilling/ynajs.git"
     },
-    "keywords": [
-        "yna",
-        "na",
-        "parser",
-        "interpreter"
-    ],
+    "keywords": ["yna", "na", "parser", "interpreter"],
     "author": "Felix Rilling",
     "license": "MIT",
     "bugs": {

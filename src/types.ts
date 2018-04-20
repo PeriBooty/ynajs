@@ -1,9 +1,9 @@
 import {
-    IYnaParserIsControlTree,
-    IYnaTree,
     IYnaData,
+    IYnaMathDef,
+    IYnaParserIsControlTree,
     IYnaRunner,
-    IYnaMathDef
+    IYnaTree
 } from "./interfaces";
 
 type ynaCommand = (runner: IYnaRunner, tree: IYnaTree) => ynaCommandResult;

@@ -1,4 +1,4 @@
-import { ynaTree, ynaCommand } from "./types";
+import { ynaCommand, ynaTree } from "./types";
 declare const Yna: {
     new (yna: ynaTree, options?: object, data?: object): {
         tree: ynaTree;

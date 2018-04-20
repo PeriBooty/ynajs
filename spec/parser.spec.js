@@ -42,22 +42,16 @@ describe("Parser test", () => {
     it("Nested Commands", () => {
         const tag = new Yna("{time:+{num;};}");
 
-        expect(tag.tree).toEqual([
-            1, "time", [
-                ["+", [1, "num", []]]
-            ]
-        ]);
+        expect(tag.tree).toEqual([1, "time", [["+", [1, "num", []]]]]);
     });
 
     it("Deeply Nested Commands", () => {
         const tag = new Yna("{time:+{num:{num:0;10;};};}");
 
         expect(tag.tree).toEqual([
-            1, "time", [
-                ["+", [1, "num", [
-                    [1, "num", ["0", "10"]]
-                ]]]
-            ]
+            1,
+            "time",
+            [["+", [1, "num", [[1, "num", ["0", "10"]]]]]]
         ]);
     });
 });

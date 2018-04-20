@@ -1,4 +1,4 @@
-import { isString, isNil, isError, mapFromObject, randItem, randNumber, forEachEntry, hasPath, getPath, isFunction, isObjectPlain, isArray, objDefaults, objDefaultsDeep } from 'lightdash';
+import { isString, isNil, isError, hasPath, getPath, isFunction, isObjectPlain, isArray, mapFromObject, randItem, randNumber, forEachEntry, objDefaults, objDefaultsDeep } from 'lightdash';
 import pyslice from 'pyslice';
 import { utc } from 'moment';
 
@@ -191,6 +191,106 @@ const YnaParser = class extends YnaLogger {
         }
         this.log(["strData", resultType], result);
         return result;
+    }
+};
+
+const transformerDefault = (str) => str;
+const YnaRunner = class extends YnaLogger {
+    constructor(commands, keys, options, data) {
+        super("RUNNER", options, data);
+        this.commands = commands;
+        this.keys = keys;
+        this.transformer = transformerDefault;
+    }
+    execItem(item, transformerCustom) {
+        const itemId = item[0];
+        const itemContent = item.slice(1);
+        let result;
+        let resultType;
+        /**
+         * Binds custom transformer
+         */
+        if (transformerCustom) {
+            this.transformer = transformerCustom;
+        }
+        if (itemId === 0 /* key */) {
+            // Key
+            const keyName = this.execItem(itemContent[0]);
+            result = this.resolveKey(keyName);
+            resultType = "key";
+        }
+        else if (itemId === 1 /* command */) {
+            // Command
+            const commandName = this.execItem(itemContent[0]);
+            const commandArgs = itemContent[1];
+            result = this.resolveCommand(commandName, commandArgs);
+            resultType = "command";
+        }
+        else if (itemId === 2 /* comment */) {
+            // Comment (ignored)
+            result = "";
+            resultType = "comment";
+        }
+        else if (isArray(item)) {
+            // Array
+            const str = this.execArr(item).join("");
+            result = this.transformer(str);
+            resultType = "array";
+        }
+        else {
+            // String
+            result = item;
+            resultType = "string";
+        }
+        /**
+         * Unbinds custom transformer
+         */
+        if (transformerCustom) {
+            this.transformer = transformerDefault;
+        }
+        this.log(["item", resultType], result);
+        return result;
+    }
+    execArr(itemArr) {
+        const result = itemArr.map(item => this.execItem(item));
+        this.log(["array"], result);
+        return result;
+    }
+    resolveCommand(name, tree) {
+        if (!this.commands.has(name)) {
+            return stringifyError(name, new Error("unknown command"));
+        }
+        const command = this.commands.get(name);
+        const result = command(this, tree);
+        return stringifyVal(result, name);
+    }
+    resolveKey(name) {
+        const path = name.split("." /* prop */);
+        if (!this.keys.has(path[0])) {
+            return stringifyError(name, new Error("unknown key"));
+        }
+        // First level check
+        const entry = this.keys.get(path[0]);
+        let resolved = entry;
+        let result;
+        if (path.length > 1) {
+            // Only enter if more than one prop in path
+            const pathRest = path.slice(1);
+            if (!hasPath(entry, pathRest)) {
+                return stringifyError(name, new Error(`does not have '${pathRest}'`));
+            }
+            resolved = getPath(entry, pathRest);
+        }
+        if (isFunction(resolved)) {
+            result = resolved();
+        }
+        else if (isObjectPlain(resolved)) {
+            result = resolved.__default;
+        }
+        else {
+            result = resolved;
+        }
+        return stringifyVal(result, name);
     }
 };
 
@@ -573,106 +673,6 @@ const initKeys = (args, ctx) => {
         map.set(key, val);
     });
     return map;
-};
-
-const transformerDefault = (str) => str;
-const YnaRunner = class extends YnaLogger {
-    constructor(commands, keys, options, data) {
-        super("RUNNER", options, data);
-        this.commands = commands;
-        this.keys = keys;
-        this.transformer = transformerDefault;
-    }
-    execItem(item, transformerCustom) {
-        const itemId = item[0];
-        const itemContent = item.slice(1);
-        let result;
-        let resultType;
-        /**
-         * Binds custom transformer
-         */
-        if (transformerCustom) {
-            this.transformer = transformerCustom;
-        }
-        if (itemId === 0 /* key */) {
-            // Key
-            const keyName = this.execItem(itemContent[0]);
-            result = this.resolveKey(keyName);
-            resultType = "key";
-        }
-        else if (itemId === 1 /* command */) {
-            // Command
-            const commandName = this.execItem(itemContent[0]);
-            const commandArgs = itemContent[1];
-            result = this.resolveCommand(commandName, commandArgs);
-            resultType = "command";
-        }
-        else if (itemId === 2 /* comment */) {
-            // Comment (ignored)
-            result = "";
-            resultType = "comment";
-        }
-        else if (isArray(item)) {
-            // Array
-            const str = this.execArr(item).join("");
-            result = this.transformer(str);
-            resultType = "array";
-        }
-        else {
-            // String
-            result = item;
-            resultType = "string";
-        }
-        /**
-         * Unbinds custom transformer
-         */
-        if (transformerCustom) {
-            this.transformer = transformerDefault;
-        }
-        this.log(["item", resultType], result);
-        return result;
-    }
-    execArr(itemArr) {
-        const result = itemArr.map(item => this.execItem(item));
-        this.log(["array"], result);
-        return result;
-    }
-    resolveCommand(name, tree) {
-        if (!this.commands.has(name)) {
-            return stringifyError(name, new Error("unknown command"));
-        }
-        const command = this.commands.get(name);
-        const result = command(this, tree);
-        return stringifyVal(result, name);
-    }
-    resolveKey(name) {
-        const path = name.split("." /* prop */);
-        if (!this.keys.has(path[0])) {
-            return stringifyError(name, new Error("unknown key"));
-        }
-        // First level check
-        const entry = this.keys.get(path[0]);
-        let resolved = entry;
-        let result;
-        if (path.length > 1) {
-            // Only enter if more than one prop in path
-            const pathRest = path.slice(1);
-            if (!hasPath(entry, pathRest)) {
-                return stringifyError(name, new Error(`does not have '${pathRest}'`));
-            }
-            resolved = getPath(entry, pathRest);
-        }
-        if (isFunction(resolved)) {
-            result = resolved();
-        }
-        else if (isObjectPlain(resolved)) {
-            result = resolved.__default;
-        }
-        else {
-            result = resolved;
-        }
-        return stringifyVal(result, name);
-    }
 };
 
 const Yna = class {

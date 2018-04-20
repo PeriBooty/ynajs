@@ -1,4 +1,4 @@
-import { IYnaParserIsControlTree, IYnaTree, IYnaRunner, IYnaMathDef } from "./interfaces";
+import { IYnaMathDef, IYnaParserIsControlTree, IYnaRunner, IYnaTree } from "./interfaces";
 declare type ynaCommand = (runner: IYnaRunner, tree: IYnaTree) => ynaCommandResult;
 declare type ynaCommandTransformer = (str: string) => string;
 declare type ynaParserIterator = (letter: string, strIndex: number, strStack: number, isControlTree: IYnaParserIsControlTree) => void;

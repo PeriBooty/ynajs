@@ -1,11 +1,11 @@
 import { objDefaults, objDefaultsDeep } from "lightdash";
 import YnaParser from "./classes/parser";
+import YnaRunner from "./classes/runner";
 import { dataDefault, optionsDefault, optionsRunnerDefault } from "./defaults";
 import initCommands from "./init/initCommands";
-import { IYna, IYnaData, IYnaOptions, IYnaRunnerOptions } from "./interfaces";
-import { ynaCommandMap, ynaTree, ynaCommand, ynaKeyMap } from "./types";
 import initKeys from "./init/initKeys";
-import YnaRunner from "./classes/runner";
+import { IYna, IYnaData, IYnaOptions, IYnaRunnerOptions } from "./interfaces";
+import { ynaCommand, ynaCommandMap, ynaKeyMap, ynaTree } from "./types";
 
 const Yna = class {
     public tree: string | ynaTree;
