@@ -1,4 +1,4 @@
-import { ynaCommand, ynaCommandMap, ynaTree, ynaKeyMap, ynaCommandTransformer, ynaTreeItems, ynaRange } from "./types";
+import { ynaCommand, ynaCommandMap, ynaCommandTransformer, ynaKeyMap, ynaRange, ynaTree, ynaTreeItems } from "./types";
 declare class IYna {
     tree: ynaTree;
     commands: ynaCommandMap;

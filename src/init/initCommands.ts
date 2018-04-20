@@ -1,9 +1,16 @@
 import { mapFromObject } from "lightdash";
-import { ynaCommand, ynaCommandMap } from "../types";
-import num from "../commands/random/num";
-import choose from "../commands/random/choose";
-import wchoose from "../commands/random/wchoose";
 import math from "../commands/numbers/math";
+import choose from "../commands/random/choose";
+import num from "../commands/random/num";
+import wchoose from "../commands/random/wchoose";
+import len from "../commands/text/len";
+import lower from "../commands/text/lower";
+import parse from "../commands/text/parse";
+import rep from "../commands/text/rep";
+import slice from "../commands/text/slice";
+import title from "../commands/text/title";
+import upper from "../commands/text/upper";
+import { ynaCommand, ynaCommandMap } from "../types";
 
 const initCommands = (): ynaCommandMap => {
     const map = mapFromObject({
@@ -25,13 +32,13 @@ const initCommands = (): ynaCommandMap => {
         /**
          * Text
          */
-        /*         len,
+        len,
         upper,
         lower,
         title,
         rep,
         parse,
-        slice, */
+        slice,
         /**
          * Random
          */

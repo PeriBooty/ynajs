@@ -1,17 +1,15 @@
-"use strict";
+import { randItem } from "lightdash";
+import { IYnaTree } from "../../interfaces";
+import { ynaCommand } from "../../types";
 
-/**
- * parse command
- *
- * @param {Array<any>} dataRaw
- * @returns {string}
- */
-module.exports = function(dataRaw) {
-    if (dataRaw.length === 0) {
+const parse: ynaCommand = (runner, tree) => {
+    if (tree.length === 0) {
         return new Error("no content");
     }
 
-    const content = this.execItem(dataRaw[0]);
+    const content = runner.execItem(<IYnaTree>tree[0]);
 
     return encodeURI(content);
 };
+
+export default parse;

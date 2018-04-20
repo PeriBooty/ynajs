@@ -1,5 +1,3 @@
-declare const slice: any;
-declare const isNumber: any;
-declare const isList: any;
-declare const toNumber: any;
-declare const toList: any;
+import { ynaCommand } from "../../types";
+declare const slice: ynaCommand;
+export default slice;

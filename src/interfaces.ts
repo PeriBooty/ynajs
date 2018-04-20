@@ -1,12 +1,12 @@
 import {
     ynaCommand,
     ynaCommandMap,
-    ynaTree,
-    ynaKeyMap,
+    ynaCommandResult,
     ynaCommandTransformer,
-    ynaTreeItems,
+    ynaKeyMap,
     ynaRange,
-    ynaCommandResult
+    ynaTree,
+    ynaTreeItems
 } from "./types";
 
 declare class IYna {

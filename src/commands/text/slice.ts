@@ -1,25 +1,18 @@
-"use strict";
+import { randItem } from "lightdash";
+import pyslice from "pyslice";
+import { IYnaTree } from "../../interfaces";
+import { ynaCommand } from "../../types";
+import { isList, toList } from "../../types/list";
+import { isNumber, toNumber } from "../../types/number";
 
-const slice = require("pyslice");
-const isNumber = require("../../types/isNumber");
-const isList = require("../../types/isList");
-const toNumber = require("../../types/toNumber");
-const toList = require("../../types/toList");
-
-/**
- * slice command
- *
- * @param {Array<any>} dataRaw
- * @returns {string}
- */
-module.exports = function(dataRaw) {
-    if (dataRaw.length === 0) {
+const slice: ynaCommand = (runner, tree) => {
+    if (tree.length === 0) {
         return new Error("no args");
-    } else if (dataRaw.length !== 2) {
+    } else if (tree.length !== 2) {
         return new Error("bad content");
     }
 
-    const data = this.execArr(dataRaw);
+    const data = runner.execArr(tree);
     const content = data[1];
     const sliceInput = isList(data[0]) ? toList(data[0]) : [data[0]];
 
@@ -38,13 +31,15 @@ module.exports = function(dataRaw) {
     }
 
     if (sliceInputParsed[2] === false) {
-        return slice(content, sliceInputParsed[0], sliceInputParsed[1]);
+        return pyslice(content, sliceInputParsed[0], sliceInputParsed[1]);
     } else {
-        return slice(
+        return pyslice(
             content,
-            sliceInputParsed[0],
-            sliceInputParsed[1],
-            sliceInputParsed[2]
+            <number>sliceInputParsed[0],
+            <number>sliceInputParsed[1],
+            <number>sliceInputParsed[2]
         );
     }
 };
+
+export default slice;

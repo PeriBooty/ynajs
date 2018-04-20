@@ -1,4 +1,5 @@
-import { isString, isNil, isError, randNumber, randItem, mapFromObject, forEachEntry, hasPath, getPath, isFunction, isObjectPlain, isArray, objDefaults, objDefaultsDeep } from 'lightdash';
+import { isString, isNil, isError, mapFromObject, randItem, randNumber, forEachEntry, hasPath, getPath, isFunction, isObjectPlain, isArray, objDefaults, objDefaultsDeep } from 'lightdash';
+import pyslice from 'pyslice';
 import { utc } from 'moment';
 
 const YnaLogger = class {
@@ -207,78 +208,6 @@ const REGEX_NUMBER = /^-?\d+\.?\d*$/;
 const toNumber = parseFloat;
 const isNumber = (val) => REGEX_NUMBER.test(String(val));
 
-const num = (runner, tree) => {
-    if (tree.length === 0) {
-        return new Error("no args");
-    }
-    const data = runner.execArr(tree);
-    if (!data.every(isNumber)) {
-        return new Error("invalid args");
-    }
-    let min = 0;
-    let max = 100;
-    let step = 1;
-    if (data.length === 1) {
-        max = toNumber(data[0]);
-    }
-    else {
-        min = toNumber(data[0]);
-        max = toNumber(data[1]);
-    }
-    if (data.length === 3) {
-        step = toNumber(data[2]);
-    }
-    if (min === max || step === 0) {
-        return new Error("invalid range");
-    }
-    const seed = randNumber(min, max, !Number.isInteger(step));
-    return Math.floor(seed / step) * step;
-};
-
-const choose = (runner, tree) => {
-    if (tree.length === 0) {
-        return new Error("no options");
-    }
-    const options = runner.execArr(tree);
-    return randItem(options);
-};
-
-const wchoose = (runner, tree) => {
-    if (tree.length === 0) {
-        return new Error("no options");
-    }
-    else if (tree.length % 2 !== 0) {
-        return new Error("mismatched weighting");
-    }
-    const data = runner.execArr(tree);
-    const weights = [];
-    const options = [];
-    let areWeightsNumbers = true;
-    data.forEach((item, index) => {
-        if (index % 2 === 0) {
-            options.push(item);
-        }
-        else {
-            if (isNumber(item)) {
-                weights.push(toNumber(item));
-            }
-            else {
-                areWeightsNumbers = false;
-            }
-        }
-    });
-    if (!areWeightsNumbers) {
-        return new Error("invalid weight");
-    }
-    const distributedValues = [];
-    weights.forEach((weight, i) => {
-        const value = options[i];
-        const distributed = new Array(weight).fill(value);
-        distributedValues.push(...distributed);
-    });
-    return randItem(distributedValues);
-};
-
 const MATH_MAX = Math.pow(2, 32) - 1;
 const MATH_MIN = -Math.pow(2, 32) + 1;
 
@@ -401,6 +330,182 @@ const math = (runner, tree) => {
     return result;
 };
 
+const choose = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no options");
+    }
+    const options = runner.execArr(tree);
+    return randItem(options);
+};
+
+const num = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no args");
+    }
+    const data = runner.execArr(tree);
+    if (!data.every(isNumber)) {
+        return new Error("invalid args");
+    }
+    let min = 0;
+    let max = 100;
+    let step = 1;
+    if (data.length === 1) {
+        max = toNumber(data[0]);
+    }
+    else {
+        min = toNumber(data[0]);
+        max = toNumber(data[1]);
+    }
+    if (data.length === 3) {
+        step = toNumber(data[2]);
+    }
+    if (min === max || step === 0) {
+        return new Error("invalid range");
+    }
+    const seed = randNumber(min, max, !Number.isInteger(step));
+    return Math.floor(seed / step) * step;
+};
+
+const wchoose = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no options");
+    }
+    else if (tree.length % 2 !== 0) {
+        return new Error("mismatched weighting");
+    }
+    const data = runner.execArr(tree);
+    const weights = [];
+    const options = [];
+    let areWeightsNumbers = true;
+    data.forEach((item, index) => {
+        if (index % 2 === 0) {
+            options.push(item);
+        }
+        else {
+            if (isNumber(item)) {
+                weights.push(toNumber(item));
+            }
+            else {
+                areWeightsNumbers = false;
+            }
+        }
+    });
+    if (!areWeightsNumbers) {
+        return new Error("invalid weight");
+    }
+    const distributedValues = [];
+    weights.forEach((weight, i) => {
+        const value = options[i];
+        const distributed = new Array(weight).fill(value);
+        distributedValues.push(...distributed);
+    });
+    return randItem(distributedValues);
+};
+
+const len = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no content");
+    }
+    const content = runner.execItem(tree[0]);
+    return content.length;
+};
+
+const lower = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no content");
+    }
+    const content = runner.execItem(tree[0]);
+    return content.toLowerCase();
+};
+
+const parse = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no content");
+    }
+    const content = runner.execItem(tree[0]);
+    return encodeURI(content);
+};
+
+const rep = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no content");
+    }
+    else if (tree.length !== 3) {
+        return new Error("invalid args");
+    }
+    const data = runner.execArr(tree);
+    const newrep = runner.keys.get("newrep");
+    const needle = data[0];
+    const haystack = newrep ? data[2] : data[1];
+    const replacement = newrep ? data[1] : data[2];
+    const regex = new RegExp(needle, "g");
+    return haystack.replace(regex, replacement);
+};
+
+const toList = (str) => str.split("," /* list */);
+const isList = (str) => str.includes("," /* list */);
+
+const slice = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no args");
+    }
+    else if (tree.length !== 2) {
+        return new Error("bad content");
+    }
+    const data = runner.execArr(tree);
+    const content = data[1];
+    const sliceInput = isList(data[0]) ? toList(data[0]) : [data[0]];
+    if (sliceInput.length > 3) {
+        return new Error("too many nums");
+    }
+    else if (!sliceInput.every(input => isNumber(input) || input === "")) {
+        return new Error("non int index");
+    }
+    const sliceInputParsed = sliceInput.map(input => (input !== "" ? toNumber(input) : false));
+    if (sliceInputParsed[2] === 0) {
+        return new Error("zero step");
+    }
+    if (sliceInputParsed[2] === false) {
+        return pyslice(content, sliceInputParsed[0], sliceInputParsed[1]);
+    }
+    else {
+        return pyslice(content, sliceInputParsed[0], sliceInputParsed[1], sliceInputParsed[2]);
+    }
+};
+
+const SPACE = /\s/;
+const toTitleCase = (str) => {
+    let inSpace = true;
+    return str
+        .split("")
+        .map(letter => {
+        const isSpace = SPACE.test(letter);
+        let result = letter.toLowerCase();
+        if (inSpace && !isSpace) {
+            inSpace = false;
+            result = letter.toUpperCase();
+        }
+        inSpace = isSpace;
+        return result;
+    })
+        .join("");
+};
+const title = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no content");
+    }
+    const content = runner.execItem(tree[0]);
+    return toTitleCase(content);
+};
+
+const upper = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no content");
+    }
+    const content = runner.execItem(tree[0]);
+    return content.toUpperCase();
+};
+
 const initCommands = () => {
     const map = mapFromObject({
         /**
@@ -421,13 +526,13 @@ const initCommands = () => {
         /**
          * Text
          */
-        /*         len,
+        len,
         upper,
         lower,
         title,
         rep,
         parse,
-        slice, */
+        slice,
         /**
          * Random
          */

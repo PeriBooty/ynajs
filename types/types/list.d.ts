@@ -1,3 +1,3 @@
-declare const toList: (str: string) => (str: any) => any;
+declare const toList: (str: string) => string[];
 declare const isList: (str: string) => boolean;
 export { toList, isList };
