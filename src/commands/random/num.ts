@@ -1,6 +1,6 @@
 import { randNumber } from "lightdash";
-import { isNumber, toNumber } from "../../types/number";
 import { ynaCommand } from "../../types";
+import { isNumber, toNumber } from "../../types/number";
 
 const num: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {

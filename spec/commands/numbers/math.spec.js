@@ -2,7 +2,7 @@
 
 const Yna = require("../../../dist/yna.common");
 
-describe("Command choose test", () => {
+describe("Command math test", () => {
     it("Add", () => {
         const result = Number(new Yna("{math:add;1;2;}").run());
 
