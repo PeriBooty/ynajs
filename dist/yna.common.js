@@ -308,14 +308,121 @@ const optionsRunnerDefault = {
 };
 const dataDefault = {};
 
+const REGEX_FLOAT = /^-?\d+\.\d+$/;
+const isDecimal = (val) => REGEX_FLOAT.test(String(val));
+
+const REGEX_ERROR = /^<[a-z]+:[a-z0-9 ]+>$/;
+const isError = (str) => REGEX_ERROR.test(str);
+
+const isLetter = (str) => str.length === 1;
+
+const toList = (str) => str.split("," /* list */);
+const isList = (str) => str.includes("," /* list */);
+
 const REGEX_NUMBER = /^-?\d+\.?\d*$/;
 const toNumber = parseFloat;
 const isNumber = (val) => REGEX_NUMBER.test(String(val));
 
+const isWord = (str) => !str.includes(" ");
+
+const types = lightdash.mapFromObject({
+    word: isWord,
+    letter: isLetter,
+    number: isNumber,
+    decimal: isDecimal,
+    error: isError
+});
+const operations = lightdash.mapFromObject({
+    eq: {
+        type: "any",
+        fn: (a, b) => a === b
+    },
+    ne: {
+        type: "any",
+        fn: (a, b) => a !== b
+    },
+    gt: {
+        type: "number",
+        fn: (a, b) => a > b
+    },
+    ge: {
+        type: "number",
+        fn: (a, b) => a >= b
+    },
+    lt: {
+        type: "number",
+        fn: (a, b) => a < b
+    },
+    le: {
+        type: "number",
+        fn: (a, b) => a <= b
+    },
+    in: {
+        type: "any",
+        fn: (a, b) => {
+            const bParsed = isList(b) ? toList(b) : b;
+            return bParsed.includes(a);
+        }
+    },
+    is: {
+        type: "any",
+        fn: (a, b) => {
+            const typeFn = types.get(b);
+            return typeFn(a);
+        }
+    }
+});
+const aliases = lightdash.mapFromObject({
+    "=": "eq",
+    "==": "eq",
+    "!=": "ne",
+    "<>": "ne",
+    ">=": "ge",
+    ">": "gt",
+    "<=": "le",
+    "<": "lt"
+});
+const when = (runner, tree) => {
+    if (tree.length < 4 || tree.length > 5) {
+        return new Error("invalid args");
+    }
+    let val1 = runner.execItem(tree[0]);
+    let val2 = runner.execItem(tree[2]);
+    const op = runner.execItem(tree[1]);
+    const onTrue = () => runner.execItem(tree[3]);
+    const onFalse = tree[4]
+        ? () => runner.execItem(tree[4])
+        : () => "";
+    let opRef;
+    if (operations.has(op)) {
+        opRef = operations.get(op);
+    }
+    else if (aliases.has(op)) {
+        opRef = operations.get(aliases.get(op));
+    }
+    else {
+        return new Error("invalid op");
+    }
+    if (opRef.type === "number") {
+        if (!isNumber(val1) || !isNumber(val2)) {
+            return new Error("args must be numbers");
+        }
+        val1 = toNumber(val1);
+        val2 = toNumber(val2);
+    }
+    else if (op === "is") {
+        if (!types.has(val2)) {
+            return new Error("invalid type name");
+        }
+    }
+    return opRef.fn(val1, val2) ? onTrue() : onFalse();
+};
+
 const MATH_MAX = Math.pow(2, 32) - 1;
 const MATH_MIN = -Math.pow(2, 32) + 1;
 
-const operations = lightdash.mapFromObject({
+// tslint:disable:no-bitwise
+const operations$1 = lightdash.mapFromObject({
     add: {
         argsLengthRange: [2, Infinity],
         fn: (...args) => args.reduce((a, b) => a + b)
@@ -381,7 +488,7 @@ const operations = lightdash.mapFromObject({
         fn: Math.min
     }
 });
-const aliases = lightdash.mapFromObject({
+const aliases$1 = lightdash.mapFromObject({
     "+": "add",
     "-": "sub",
     "*": "mul",
@@ -404,11 +511,11 @@ const math = (runner, tree) => {
     let operationRef;
     let vals;
     let result;
-    if (operations.has(operation)) {
-        operationRef = operations.get(operation);
+    if (operations$1.has(operation)) {
+        operationRef = operations$1.get(operation);
     }
-    else if (aliases.has(operation)) {
-        operationRef = operations.get(aliases.get(operation));
+    else if (aliases$1.has(operation)) {
+        operationRef = operations$1.get(aliases$1.get(operation));
     }
     else {
         return new Error("unknown operation");
@@ -546,9 +653,6 @@ const rep = (runner, tree) => {
     return haystack.replace(regex, replacement);
 };
 
-const toList = (str) => str.split("," /* list */);
-const isList = (str) => str.includes("," /* list */);
-
 const slice = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
@@ -622,7 +726,7 @@ const initCommands = () => {
         /**
          * Logic
          */
-        /*       when, */
+        when,
         /**
          * Numbers
          */

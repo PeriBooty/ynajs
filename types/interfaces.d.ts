@@ -56,4 +56,8 @@ interface IYnaMathDef {
     argsLengthRange: ynaRange;
     fn: (...args: any[]) => number | Error;
 }
-export { IYna, IYnaOptionsBase, IYnaOptions, IYnaRunnerOptions, IYnaData, IYnaLogger, IYnaParser, IYnaRunner, IYnaParserIsControlTree, IYnaTree, IYnaTreeBlockResult, IYnaMathDef };
+interface IYnaWhenDef {
+    type: string;
+    fn: (...args: any[]) => number | Error;
+}
+export { IYna, IYnaOptionsBase, IYnaOptions, IYnaRunnerOptions, IYnaData, IYnaLogger, IYnaParser, IYnaRunner, IYnaParserIsControlTree, IYnaTree, IYnaTreeBlockResult, IYnaMathDef, IYnaWhenDef };

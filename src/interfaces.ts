@@ -91,6 +91,11 @@ interface IYnaMathDef {
     fn: (...args: any[]) => number | Error;
 }
 
+interface IYnaWhenDef {
+    type: string;
+    fn: (...args: any[]) => number | Error;
+}
+
 export {
     IYna,
     IYnaOptionsBase,
@@ -103,5 +108,6 @@ export {
     IYnaParserIsControlTree,
     IYnaTree,
     IYnaTreeBlockResult,
-    IYnaMathDef
+    IYnaMathDef,
+    IYnaWhenDef
 };

@@ -1,16 +1,21 @@
-"use strict";
+import { mapFromObject } from "lightdash";
+import { IYnaTree, IYnaWhenDef } from "../../interfaces";
+import {
+    ynaAliasMap,
+    ynaCommand,
+    ynaTree,
+    ynaTypeCheckFn,
+    ynaWhenMap,
+    ynaWhenTypeMap
+} from "../../types";
+import { isDecimal } from "../../types/decimal";
+import { isError } from "../../types/error";
+import { isLetter } from "../../types/letter";
+import { isList, toList } from "../../types/list";
+import { isNumber, toNumber } from "../../types/number";
+import { isWord } from "../../types/word";
 
-const { mapFromObject } = require("lightdash");
-const isNumber = require("../../types/isNumber");
-const isWord = require("../../types/isWord");
-const isLetter = require("../../types/isLetter");
-const isDecimal = require("../../types/isDecimal");
-const isError = require("../../types/isError");
-const isList = require("../../types/isList");
-const toNumber = require("../../types/toNumber");
-const toList = require("../../types/toList");
-
-const types = mapFromObject({
+const types: ynaWhenTypeMap = mapFromObject({
     word: isWord,
     letter: isLetter,
     number: isNumber,
@@ -18,7 +23,7 @@ const types = mapFromObject({
     error: isError
 });
 
-const operations = mapFromObject({
+const operations: ynaWhenMap = mapFromObject({
     eq: {
         type: "any",
         fn: (a, b) => a === b
@@ -54,13 +59,14 @@ const operations = mapFromObject({
     is: {
         type: "any",
         fn: (a, b) => {
-            const typeFn = types.get(b);
+            const typeFn = <ynaTypeCheckFn>types.get(b);
 
             return typeFn(a);
         }
     }
 });
-const aliases = mapFromObject({
+
+const aliases: ynaAliasMap = mapFromObject({
     "=": "eq",
     "==": "eq",
     "!=": "ne",
@@ -71,33 +77,29 @@ const aliases = mapFromObject({
     "<": "lt"
 });
 
-/**
- * when command
- *
- * @param {Array<any>} dataRaw
- * @returns {string}
- */
-module.exports = function(dataRaw) {
-    if (dataRaw.length < 4 || dataRaw.length > 5) {
+const when: ynaCommand = (runner, tree) => {
+    if (tree.length < 4 || tree.length > 5) {
         return new Error("invalid args");
     }
 
-    const op = this.execItem(dataRaw[1]);
-    let val1 = this.execItem(dataRaw[0]);
-    let val2 = this.execItem(dataRaw[2]);
-    const onTrue = () => this.execItem(dataRaw[3]);
-    const onFalse = dataRaw[4] ? () => this.execItem(dataRaw[4]) : () => {};
-    let opRef = null;
+    let val1: string | number = runner.execItem(<ynaTree>tree[0]);
+    let val2: string | number = runner.execItem(<ynaTree>tree[2]);
+    const op = runner.execItem(<ynaTree>tree[1]);
+    const onTrue = () => runner.execItem(<ynaTree>tree[3]);
+    const onFalse = <ynaTree>tree[4]
+        ? () => runner.execItem(<ynaTree>tree[4])
+        : () => "";
+
+    let opRef: IYnaWhenDef;
 
     if (operations.has(op)) {
-        opRef = operations.get(op);
+        opRef = <IYnaWhenDef>operations.get(op);
     } else if (aliases.has(op)) {
-        opRef = operations.get(aliases.get(op));
+        opRef = <IYnaWhenDef>operations.get(<string>aliases.get(op));
     } else {
         return new Error("invalid op");
     }
 
-    //For number-only operations
     if (opRef.type === "number") {
         if (!isNumber(val1) || !isNumber(val2)) {
             return new Error("args must be numbers");
@@ -105,10 +107,7 @@ module.exports = function(dataRaw) {
 
         val1 = toNumber(val1);
         val2 = toNumber(val2);
-    }
-
-    //For type lookup
-    if (op === "is") {
+    } else if (op === "is") {
         if (!types.has(val2)) {
             return new Error("invalid type name");
         }
@@ -116,3 +115,5 @@ module.exports = function(dataRaw) {
 
     return opRef.fn(val1, val2) ? onTrue() : onFalse();
 };
+
+export default when;

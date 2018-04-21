@@ -1,81 +1,82 @@
 import { mapFromObject } from "lightdash";
-import { isNumber, toNumber } from "../../types/number";
 import { MATH_MAX, MATH_MIN } from "../../contants";
+import { IYnaMathDef, IYnaTree } from "../../interfaces";
 import {
     ynaAliasMap,
-    ynaMathMap,
     ynaCommand,
     ynaCommandResult,
+    ynaMathMap,
     ynaTreeItems
 } from "../../types";
-import { IYnaMathDef, IYnaTree } from "../../interfaces";
+import { isNumber, toNumber } from "../../types/number";
 
+// tslint:disable:no-bitwise
 const operations: ynaMathMap = mapFromObject({
-    add: <IYnaMathDef>{
+    add: {
         argsLengthRange: [2, Infinity],
         fn: (...args: number[]) => args.reduce((a, b) => a + b)
     },
-    sub: <IYnaMathDef>{
+    sub: {
         argsLengthRange: [2, 2],
         fn: (...args: number[]) => args.reduce((a, b) => a - b)
     },
-    mul: <IYnaMathDef>{
+    mul: {
         argsLengthRange: [2, Infinity],
         fn: (...args: number[]) => args.reduce((a, b) => a * b)
     },
-    pow: <IYnaMathDef>{
+    pow: {
         argsLengthRange: [2, 2],
         fn: Math.pow
     },
-    div: <IYnaMathDef>{
+    div: {
         argsLengthRange: [2, 2],
         fn: (a, b) => (b !== 0 ? a / b : new Error("divide by zero"))
     },
-    idiv: <IYnaMathDef>{
+    idiv: {
         argsLengthRange: [2, 2],
         fn: (a, b) =>
             b !== 0 ? Math.floor(a / b) : new Error("divide by zero")
     },
-    mod: <IYnaMathDef>{
+    mod: {
         argsLengthRange: [2, 2],
         fn: (a, b) => a % b
     },
 
-    and: <IYnaMathDef>{
+    and: {
         argsLengthRange: [2, Infinity],
         fn: (...args: number[]) => [~0, ...args].reduce((a, b) => a & b)
     },
-    or: <IYnaMathDef>{
+    or: {
         argsLengthRange: [2, Infinity],
         fn: (...args: number[]) => [0, ...args].reduce((a, b) => a | b)
     },
-    xor: <IYnaMathDef>{
+    xor: {
         argsLengthRange: [2, 2],
         fn: (a, b) => a ^ b
     },
-    not: <IYnaMathDef>{
+    not: {
         argsLengthRange: [1, 1],
         fn: a => ~a
     },
 
-    round: <IYnaMathDef>{
+    round: {
         argsLengthRange: [1, 1],
         fn: Math.round
     },
-    floor: <IYnaMathDef>{
+    floor: {
         argsLengthRange: [1, 1],
         fn: Math.floor
     },
-    ceil: <IYnaMathDef>{
+    ceil: {
         argsLengthRange: [1, 1],
         fn: Math.ceil
     },
 
-    max: <IYnaMathDef>{
+    max: {
         argsLengthRange: [2, Infinity],
         fn: Math.max
     },
-    min: <IYnaMathDef>{
+    min: {
         argsLengthRange: [2, Infinity],
         fn: Math.min
     }

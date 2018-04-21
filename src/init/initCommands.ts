@@ -1,4 +1,5 @@
 import { mapFromObject } from "lightdash";
+import when from "../commands/logic/when";
 import math from "../commands/numbers/math";
 import choose from "../commands/random/choose";
 import num from "../commands/random/num";
@@ -24,7 +25,7 @@ const initCommands = (): ynaCommandMap => {
         /**
          * Logic
          */
-        /*       when, */
+        when,
         /**
          * Numbers
          */

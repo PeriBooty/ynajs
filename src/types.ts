@@ -3,7 +3,8 @@ import {
     IYnaMathDef,
     IYnaParserIsControlTree,
     IYnaRunner,
-    IYnaTree
+    IYnaTree,
+    IYnaWhenDef
 } from "./interfaces";
 
 type ynaCommand = (runner: IYnaRunner, tree: IYnaTree) => ynaCommandResult;
@@ -14,11 +15,14 @@ type ynaParserIterator = (
     strStack: number,
     isControlTree: IYnaParserIsControlTree
 ) => void;
+type ynaTypeCheckFn = (val: any) => boolean;
 
 type ynaCommandMap = Map<string, ynaCommand>;
 type ynaKeyMap = Map<string, any>;
 type ynaAliasMap = Map<string, string>;
 type ynaMathMap = Map<string, IYnaMathDef>;
+type ynaWhenMap = Map<string, IYnaWhenDef>;
+type ynaWhenTypeMap = Map<string, ynaTypeCheckFn>;
 
 type ynaTreeItems = string | number | IYnaTree;
 type ynaTree = string | IYnaTree;
@@ -37,5 +41,8 @@ export {
     ynaTreeItems,
     ynaRange,
     ynaCommandResult,
-    ynaMathMap
+    ynaMathMap,
+    ynaWhenTypeMap,
+    ynaWhenMap,
+    ynaTypeCheckFn
 };
