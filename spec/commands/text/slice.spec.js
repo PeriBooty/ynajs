@@ -64,12 +64,12 @@ describe("Command slice test", () => {
 
         expect(result).toBe(arrStep(str.substr(1, 8).split(""), 3).join(""));
     });
-    /*     it("Complex 9", () => {
+    it("Complex 9", () => {
         const str = "Lorem ipsum eT dolor SIT amet";
         const result = new Yna(`{slice:1,8,1;${str};}`).run();
 
-        expect(result).toBe(arrStep(str.substr(1, 8).split(""), 1).join(""));
-    }); */
+        expect(result).toBe(arrStep(str.substr(1, 7).split(""), 1).join(""));
+    });
     it("Complex 10", () => {
         const str = "Lorem ipsum eT dolor SIT amet";
         const result = new Yna(`{slice:1,8,-2;${str};}`).run();
