@@ -11,6 +11,8 @@ import rep from "../commands/text/rep";
 import slice from "../commands/text/slice";
 import title from "../commands/text/title";
 import upper from "../commands/text/upper";
+import oneline from "../commands/wrapper/oneline";
+import _void from "../commands/wrapper/void";
 import { ynaCommand, ynaCommandMap } from "../types";
 
 const initCommands = (): ynaCommandMap => {
@@ -45,12 +47,12 @@ const initCommands = (): ynaCommandMap => {
          */
         num,
         choose,
-        wchoose
+        wchoose,
         /**
          * Wrappers
          */
-        /*   oneline,
-        void: _void */
+        oneline,
+        void: _void
     });
 
     // Conditional registers here

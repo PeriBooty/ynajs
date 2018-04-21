@@ -710,6 +710,38 @@ const upper = (runner, tree) => {
     return content.toUpperCase();
 };
 
+const NEWLINE = "\n";
+const BACKSLASH_ESCAPED = "\\";
+const trimLine = (line) => {
+    let trimmed = line.trimLeft();
+    if (line.endsWith(BACKSLASH_ESCAPED)) {
+        trimmed =
+            trimmed.substr(0, trimmed.length - BACKSLASH_ESCAPED.length) +
+                "\\n";
+    }
+    return trimmed;
+};
+const transformerOneline = (str) => {
+    const result = str
+        .split(NEWLINE)
+        .map(line => trimLine(line))
+        .join("");
+    return result.replace(/\\n/g, NEWLINE);
+};
+const oneline = (runner, tree) => {
+    if (tree.length === 0) {
+        return new Error("no content");
+    }
+    const content = runner.execItem(tree[0], transformerOneline);
+    return transformerOneline(content);
+};
+
+// tslint:disable:variable-name
+const _void = (runner, tree) => {
+    runner.execItem(tree[0]);
+    return "";
+};
+
 const initCommands = () => {
     const map = mapFromObject({
         /**
@@ -742,12 +774,12 @@ const initCommands = () => {
          */
         num,
         choose,
-        wchoose
+        wchoose,
         /**
          * Wrappers
          */
-        /*   oneline,
-        void: _void */
+        oneline,
+        void: _void
     });
     // Conditional registers here
     return map;
