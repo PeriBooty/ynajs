@@ -3,8 +3,9 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var lightdash = require('lightdash');
-var pyslice = _interopDefault(require('pyslice'));
+var pydateformat = _interopDefault(require('pydateformat'));
 var moment = require('moment');
+var pyslice = _interopDefault(require('pyslice'));
 
 const YnaLogger = class {
     constructor(name, options, data) {
@@ -308,6 +309,27 @@ const optionsRunnerDefault = {
 };
 const dataDefault = {};
 
+const REGEX_NUMBER = /^-?\d+\.?\d*$/;
+const toNumber = parseFloat;
+const isNumber = (val) => REGEX_NUMBER.test(String(val));
+
+const REGEX_NUMBER_OFFSET = /^[+-]?[0-9]+$/;
+const isNumberOffset = (val) => REGEX_NUMBER_OFFSET.test(String(val));
+
+const toTime = (time, format = "%H:%M") => pydateformat(time, format);
+
+const time = (runner, tree) => {
+    let currentTime = moment.utc();
+    const offset = tree[0] ? runner.execItem(tree[0]) : "0";
+    if (!isNumberOffset(offset)) {
+        return new Error("invalid offset");
+    }
+    const offsetNumber = toNumber(offset);
+    const format = tree[1] ? runner.execItem(tree[1]) : "%H:%M";
+    currentTime = currentTime.utcOffset(offsetNumber);
+    return toTime(currentTime, format);
+};
+
 const REGEX_FLOAT = /^-?\d+\.\d+$/;
 const isDecimal = (val) => REGEX_FLOAT.test(String(val));
 
@@ -318,10 +340,6 @@ const isLetter = (str) => str.length === 1;
 
 const toList = (str) => str.split("," /* list */);
 const isList = (str) => str.includes("," /* list */);
-
-const REGEX_NUMBER = /^-?\d+\.?\d*$/;
-const toNumber = parseFloat;
-const isNumber = (val) => REGEX_NUMBER.test(String(val));
 
 const isWord = (str) => !str.includes(" ");
 
@@ -752,9 +770,8 @@ const initCommands = () => {
          * Data
          */
         /*         set,
-        func,
+        func, */
         time,
- */
         /**
          * Logic
          */
@@ -789,7 +806,7 @@ const initCommands = () => {
     return map;
 };
 
-const toDatetime = time => moment.utc(time).format("YYYY-MM-DD HH:mm:ss:SSSSSS");
+const toDatetime = (time) => time.format("YYYY-MM-DD HH:mm:ss:SSSSSS");
 
 /**
  * Creates map of default keys

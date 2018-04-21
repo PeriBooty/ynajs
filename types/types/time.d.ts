@@ -1,2 +1,3 @@
-declare const toTime: (time: any, format?: string) => string;
+import { Moment } from "moment";
+declare const toTime: (time: Moment, format?: string) => string;
 export { toTime };

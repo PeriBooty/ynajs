@@ -1,4 +1,3 @@
-declare const moment: any;
-declare const isNumberOffset: any;
-declare const toNumber: any;
-declare const toTime: any;
+import { ynaCommand } from "../../types";
+declare const time: ynaCommand;
+export default time;

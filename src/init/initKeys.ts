@@ -1,7 +1,7 @@
 import { forEachEntry } from "lightdash";
+import { utc } from "moment";
 import { ynaKeyMap } from "../types";
 import { toDatetime } from "../types/datetime";
-import { utc } from "moment";
 
 /**
  * Creates map of default keys

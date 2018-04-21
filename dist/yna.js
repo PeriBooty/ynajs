@@ -1,6 +1,7 @@
-var Yna = (function (lightdash,pyslice,moment) {
+var Yna = (function (lightdash,pydateformat,moment,pyslice) {
     'use strict';
 
+    pydateformat = pydateformat && pydateformat.hasOwnProperty('default') ? pydateformat['default'] : pydateformat;
     pyslice = pyslice && pyslice.hasOwnProperty('default') ? pyslice['default'] : pyslice;
 
     const YnaLogger = class {
@@ -354,6 +355,31 @@ var Yna = (function (lightdash,pyslice,moment) {
     };
     const dataDefault = {};
 
+    const REGEX_NUMBER = /^-?\d+\.?\d*$/;
+    const toNumber = parseFloat;
+
+    const isNumber = val => REGEX_NUMBER.test(String(val));
+
+    const REGEX_NUMBER_OFFSET = /^[+-]?[0-9]+$/;
+
+    const isNumberOffset = val => REGEX_NUMBER_OFFSET.test(String(val));
+
+    const toTime = (time, format = "%H:%M") => pydateformat(time, format);
+
+    const time = (runner, tree) => {
+      let currentTime = moment.utc();
+      const offset = tree[0] ? runner.execItem(tree[0]) : "0";
+
+      if (!isNumberOffset(offset)) {
+        return new Error("invalid offset");
+      }
+
+      const offsetNumber = toNumber(offset);
+      const format = tree[1] ? runner.execItem(tree[1]) : "%H:%M";
+      currentTime = currentTime.utcOffset(offsetNumber);
+      return toTime(currentTime, format);
+    };
+
     const REGEX_FLOAT = /^-?\d+\.\d+$/;
 
     const isDecimal = val => REGEX_FLOAT.test(String(val));
@@ -371,11 +397,6 @@ var Yna = (function (lightdash,pyslice,moment) {
     const isList = str => str.includes(","
     /* list */
     );
-
-    const REGEX_NUMBER = /^-?\d+\.?\d*$/;
-    const toNumber = parseFloat;
-
-    const isNumber = val => REGEX_NUMBER.test(String(val));
 
     const isWord = str => !str.includes(" ");
 
@@ -828,9 +849,8 @@ var Yna = (function (lightdash,pyslice,moment) {
          */
 
         /*         set,
-        func,
+        func, */
         time,
-        */
 
         /**
          * Logic
@@ -870,7 +890,7 @@ var Yna = (function (lightdash,pyslice,moment) {
       return map;
     };
 
-    const toDatetime = time => moment.utc(time).format("YYYY-MM-DD HH:mm:ss:SSSSSS");
+    const toDatetime = time => time.format("YYYY-MM-DD HH:mm:ss:SSSSSS");
 
     /**
      * Creates map of default keys
@@ -925,5 +945,5 @@ var Yna = (function (lightdash,pyslice,moment) {
 
     return Yna;
 
-}(lightdash,pyslice,moment));
+}(lightdash,pydateformat,moment,pyslice));
 //# sourceMappingURL=yna.js.map

@@ -1,26 +1,24 @@
-"use strict";
+import { utc } from "moment";
+import { IYnaTree } from "../../interfaces";
+import { ynaCommand } from "../../types";
+import { toNumber } from "../../types/number";
+import { isNumberOffset } from "../../types/numberOffset";
+import { toTime } from "../../types/time";
 
-const moment = require("moment/moment");
-const isNumberOffset = require("../../types/isNumberOffset");
-const toNumber = require("../../types/toNumber");
-const toTime = require("../../types/toTime");
-
-/**
- * time command
- *
- * @param {Array<any>} dataRaw
- * @returns {string}
- */
-module.exports = function(dataRaw) {
-    const offset = dataRaw[0] ? this.execItem(dataRaw[0]) : "0";
+const time: ynaCommand = (runner, tree) => {
+    let currentTime = utc();
+    const offset = tree[0] ? runner.execItem(<IYnaTree>tree[0]) : "0";
 
     if (!isNumberOffset(offset)) {
         return new Error("invalid offset");
     }
 
     const offsetNumber = toNumber(offset);
-    const format = dataRaw[1] ? this.execItem(dataRaw[1]) : "%H:%M";
-    const time = moment(Date.now()).utcOffset(offsetNumber);
+    const format = tree[1] ? runner.execItem(<IYnaTree>tree[1]) : "%H:%M";
 
-    return toTime(time, format);
+    currentTime = currentTime.utcOffset(offsetNumber);
+
+    return toTime(currentTime, format);
 };
+
+export default time;
