@@ -23,6 +23,7 @@ declare class IYnaRunner extends IYnaLogger {
     transformer: ynaCommandTransformer;
     commands: ynaCommandMap;
     keys: ynaKeyMap;
+    depth: number;
     constructor(commands: ynaCommandMap, keys: ynaKeyMap, options: IYnaRunnerOptions, data: IYnaData);
     execItem(item: ynaTree, transformerCustom?: ynaCommandTransformer): string;
     execArr(itemArr: IYnaTree): string[];
@@ -40,7 +41,6 @@ interface IYnaOptions extends IYnaOptionsBase {
     loadJSON: boolean;
 }
 interface IYnaRunnerOptions extends IYnaOptionsBase {
-    depth: number;
 }
 interface IYnaData {
     [key: string]: any;

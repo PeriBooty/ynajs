@@ -1,4 +1,6 @@
 import { mapFromObject } from "lightdash";
+import func from "../commands/data/func";
+import set from "../commands/data/set";
 import time from "../commands/data/time";
 import when from "../commands/logic/when";
 import math from "../commands/numbers/math";
@@ -21,8 +23,8 @@ const initCommands = (): ynaCommandMap => {
         /**
          * Data
          */
-        /*         set,
-        func, */
+        set,
+        func,
         time,
 
         /**

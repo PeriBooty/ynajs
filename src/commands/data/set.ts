@@ -1,30 +1,26 @@
-"use strict";
+import { IYnaTree } from "../../interfaces";
+import { ynaCommand } from "../../types";
+import { isKey } from "../../types/key";
+import escapeKeyVal from "../../util/escapeKeyVal";
 
-const isKey = require("../../types/isKey");
-const escapeKeyVal = require("../../util/escapeKeyVal");
-
-/**
- * set command
- *
- * @param {Array<any>} dataRaw
- * @returns {string}
- */
-module.exports = function(dataRaw) {
-    if (dataRaw.length === 0) {
+const set: ynaCommand = (runner, tree) => {
+    if (tree.length === 0) {
         return new Error("no args");
-    } else if (dataRaw.length !== 2) {
+    } else if (tree.length !== 2) {
         return new Error("invalid args");
     }
-    const data = this.execArr(dataRaw);
+    const data = runner.execArr(tree);
     const key = data[0];
 
     if (!isKey(key)) {
         return new Error("invalid key");
     }
 
-    const val = escapeKeyVal(this.transformer(data[1]));
+    const val = escapeKeyVal(runner.transformer(data[1]));
 
-    this.keys.set(key, val);
+    runner.keys.set(key, val);
 
     return "";
 };
+
+export default set;

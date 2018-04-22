@@ -6,8 +6,7 @@ const optionsDefault: IYnaOptions = {
 };
 
 const optionsRunnerDefault: IYnaRunnerOptions = {
-    debug: false,
-    depth: 0 // Used for recursion depth checks
+    debug: false
 };
 
 const dataDefault: IYnaData = {};

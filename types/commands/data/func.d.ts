@@ -1,3 +1,3 @@
-declare const MAX_RECURSION_DEPTH = 32;
-declare const isKey: any;
-declare const escapeKeyVal: any;
+import { ynaCommand } from "../../types";
+declare const set: ynaCommand;
+export default set;

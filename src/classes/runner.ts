@@ -1,27 +1,27 @@
+import {
+    getPath,
+    hasPath,
+    isArray,
+    isFunction,
+    isObjectPlain
+} from "lightdash";
 import { ynaControlData, ynaControlTree, ynaIds } from "../enums";
 import {
     IYnaData,
-    IYnaTree,
-    IYnaRunner,
     IYnaOptionsBase,
-    IYnaRunnerOptions
+    IYnaRunner,
+    IYnaRunnerOptions,
+    IYnaTree
 } from "../interfaces";
 import {
-    ynaTree,
+    ynaCommand,
     ynaCommandMap,
-    ynaKeyMap,
     ynaCommandTransformer,
-    ynaCommand
+    ynaKeyMap,
+    ynaTree
 } from "../types";
-import YnaLogger from "./logger";
 import { stringifyError, stringifyVal } from "../types/stringify";
-import {
-    hasPath,
-    getPath,
-    isFunction,
-    isObjectPlain,
-    isArray
-} from "lightdash";
+import YnaLogger from "./logger";
 
 const transformerDefault: ynaCommandTransformer = (str: string): string => str;
 
@@ -29,6 +29,7 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
     public transformer: ynaCommandTransformer;
     public commands: ynaCommandMap;
     public keys: ynaKeyMap;
+    public depth: number;
     constructor(
         commands: ynaCommandMap,
         keys: ynaKeyMap,
@@ -36,6 +37,7 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
         data: IYnaData
     ) {
         super("RUNNER", options, data);
+        this.depth = 0;
         this.commands = commands;
         this.keys = keys;
         this.transformer = transformerDefault;

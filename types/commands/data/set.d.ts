@@ -1,2 +1,3 @@
-declare const isKey: any;
-declare const escapeKeyVal: any;
+import { ynaCommand } from "../../types";
+declare const set: ynaCommand;
+export default set;

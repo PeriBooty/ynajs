@@ -10,7 +10,7 @@ describe("Command time test", () => {
         expect(result).toBe(
             moment()
                 .utcOffset(0)
-                .format("HH:mm")
+                .format("H:mm")
         );
     });
     it("Offset", () => {
@@ -19,7 +19,7 @@ describe("Command time test", () => {
         expect(result).toBe(
             moment()
                 .utcOffset(2)
-                .format("HH:mm")
+                .format("H:m")
         );
     });
     it("Format string", () => {
@@ -28,7 +28,12 @@ describe("Command time test", () => {
         expect(result).toBe(
             moment()
                 .utcOffset(2)
-                .format("HH:mm")
+                .format("H:m")
         );
+    });
+    it("Invalid offset", () => {
+        const result = new Yna("{time:+abc;}").run();
+
+        expect(result).toBe("<time:invalid offset>");
     });
 });

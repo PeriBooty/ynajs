@@ -41,6 +41,7 @@ declare class IYnaRunner extends IYnaLogger {
     public transformer: ynaCommandTransformer;
     public commands: ynaCommandMap;
     public keys: ynaKeyMap;
+    public depth: number;
     constructor(
         commands: ynaCommandMap,
         keys: ynaKeyMap,
@@ -69,9 +70,8 @@ interface IYnaOptions extends IYnaOptionsBase {
     loadJSON: boolean;
 }
 
-interface IYnaRunnerOptions extends IYnaOptionsBase {
-    depth: number;
-}
+// tslint:disable:no-empty-interface
+interface IYnaRunnerOptions extends IYnaOptionsBase {}
 
 interface IYnaData {
     [key: string]: any;

@@ -228,6 +228,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
     const YnaRunner = class extends YnaLogger {
       constructor(commands, keys, options, data) {
         super("RUNNER", options, data);
+        this.depth = 0;
         this.commands = commands;
         this.keys = keys;
         this.transformer = transformerDefault;
@@ -349,11 +350,69 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       loadJSON: false
     };
     const optionsRunnerDefault = {
-      debug: false,
-      depth: 0 // Used for recursion depth checks
-
+      debug: false
     };
     const dataDefault = {};
+
+    const MAX_RECURSION_DEPTH = 15;
+    const MATH_MAX = Math.pow(2, 32) - 1;
+    const MATH_MIN = -Math.pow(2, 32) + 1;
+
+    const REGEX_KEY = /^[a-z_][0-9a-z_]*$/i;
+
+    const isKey = str => REGEX_KEY.test(str);
+
+    const escapeKeyVal = keyVal => keyVal.replace("\n", "\\\\n");
+
+    const set = (runner, tree) => {
+      if (tree.length === 0) {
+        return new Error("no args");
+      } else if (tree.length !== 2) {
+        return new Error("invalid args");
+      }
+
+      const key = runner.execItem(tree[0]);
+
+      if (!isKey(key)) {
+        return new Error("invalid key");
+      } // Evaluate value on fn call
+
+
+      const fn = () => {
+        let result;
+        runner.depth++;
+
+        if (runner.depth > MAX_RECURSION_DEPTH) {
+          return new Error("max recursion depth exceeded");
+        }
+
+        result = escapeKeyVal(runner.transformer(runner.execItem(tree[1])));
+        runner.depth--;
+        return result;
+      };
+
+      runner.keys.set(key, fn);
+      return "";
+    };
+
+    const set$1 = (runner, tree) => {
+      if (tree.length === 0) {
+        return new Error("no args");
+      } else if (tree.length !== 2) {
+        return new Error("invalid args");
+      }
+
+      const data = runner.execArr(tree);
+      const key = data[0];
+
+      if (!isKey(key)) {
+        return new Error("invalid key");
+      }
+
+      const val = escapeKeyVal(runner.transformer(data[1]));
+      runner.keys.set(key, val);
+      return "";
+    };
 
     const REGEX_NUMBER = /^-?\d+\.?\d*$/;
     const toNumber = parseFloat;
@@ -495,9 +554,6 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
 
       return opRef.fn(val1, val2) ? onTrue() : onFalse();
     };
-
-    const MATH_MAX = Math.pow(2, 32) - 1;
-    const MATH_MIN = -Math.pow(2, 32) + 1;
 
     const operations$1 = lightdash.mapFromObject({
       add: {
@@ -847,9 +903,8 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
         /**
          * Data
          */
-
-        /*         set,
-        func, */
+        set: set$1,
+        func: set,
         time,
 
         /**
