@@ -2,19 +2,16 @@
     "name": "ynajs",
     "version": "5.4.10",
     "description": "A YNA parser and interpreter",
-    "main": "index.js",
+    "main": "./dist/yna.common.js",
+    "module": "./dist/yna.esm.js",
+    "types": "./types/main.d.ts",
     "settings": {
         "input": "main.ts",
         "namespace": {
             "module": "Yna",
             "file": "yna"
         },
-        "external": [
-            "lightdash",
-            "moment",
-            "pydateformat",
-            "pyslice"
-        ]
+        "external": ["lightdash", "moment", "pydateformat", "pyslice"]
     },
     "scripts": {
         "start": "npm-run-all lint build test docs",
@@ -37,12 +34,7 @@
         "type": "git",
         "url": "git+https://github.com/FelixRilling/ynajs.git"
     },
-    "keywords": [
-        "yna",
-        "na",
-        "parser",
-        "interpreter"
-    ],
+    "keywords": ["yna", "na", "parser", "interpreter"],
     "author": "Felix Rilling",
     "license": "MIT",
     "bugs": {
