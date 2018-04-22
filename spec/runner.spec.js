@@ -1,6 +1,6 @@
 "use strict";
 
-const Yna = require("../index.js");
+const Yna = require("../dist/yna.common");
 
 describe("Runner test", () => {
     it("Empty", () => {
@@ -57,26 +57,5 @@ describe("Runner test", () => {
         const result = tag.run();
 
         expect(result).toEqual("Bar");
-    });
-
-    it("Variables", () => {
-        const tag = new Yna("{set:a;1;}{a}");
-        const result = tag.run();
-
-        expect(result).toEqual("1");
-    });
-
-    it("Variables recursion", () => {
-        const tag = new Yna("{func:a;1;}{a}");
-        const result = tag.run();
-
-        expect(result).toEqual("1");
-    });
-
-    it("Variables recursion infinite", () => {
-        const tag = new Yna("{func:a;{a};}{a}");
-        const result = tag.run();
-
-        expect(result).toEqual("<a:max recursion depth exceeded>");
     });
 });
