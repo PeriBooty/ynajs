@@ -4,6 +4,13 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
     pydateformat = pydateformat && pydateformat.hasOwnProperty('default') ? pydateformat['default'] : pydateformat;
     pyslice = pyslice && pyslice.hasOwnProperty('default') ? pyslice['default'] : pyslice;
 
+    const stringifyError = (key, err) => `<${key}:${err.message}>`;
+
+    const stringifyVal = (val, key = "unknown") => {
+      if (lightdash.isString(val)) return val;else if (val === true) return "True";else if (val === false) return "False";else if (lightdash.isNil(val)) return "None";else if (lightdash.isError(val)) return stringifyError(key, val);
+      return String(val);
+    };
+
     const YnaLogger = class {
       constructor(name, options, data) {
         this.name = name;
@@ -13,18 +20,12 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
 
       log(arr, contents) {
         if (this.options.debug) {
-          const path = [this.name, ...arr].join("::");
+          const path = [this.name, ...arr].join("::"); // tslint:disable:no-console
+
           console.log(`${path}: ${JSON.stringify(contents)}`);
         }
       }
 
-    };
-
-    const stringifyError = (key, err) => `<${key}:${err.message}>`;
-
-    const stringifyVal = (val, key = "unknown") => {
-      if (lightdash.isString(val)) return val;else if (val === true) return "True";else if (val === false) return "False";else if (lightdash.isNil(val)) return "None";else if (lightdash.isError(val)) return stringifyError(key, val);
-      return String(val);
     };
 
     const iterateString = (str, fn) => {
@@ -346,10 +347,6 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
     };
 
     const optionsDefault = {
-      debug: false,
-      loadJSON: false
-    };
-    const optionsRunnerDefault = {
       debug: false
     };
     const dataDefault = {};
@@ -979,7 +976,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
         const dataMerged = lightdash.objDefaultsDeep(data, dataDefault);
         this.commands = initCommands();
 
-        if (optionsMerged.loadJSON) {
+        if (lightdash.isObject(yna)) {
           this.tree = yna;
         } else {
           this.tree = new YnaParser(optionsMerged, dataMerged).parseString(yna);
@@ -991,7 +988,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       }
 
       run(args = [], ctx = {}, options = {}, data = {}) {
-        const optionsMerged = lightdash.objDefaultsDeep(options, optionsRunnerDefault);
+        const optionsMerged = lightdash.objDefaultsDeep(options, optionsDefault);
         const dataMerged = lightdash.objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
         return new YnaRunner(this.commands, keyMap, optionsMerged, dataMerged).execItem(this.tree);

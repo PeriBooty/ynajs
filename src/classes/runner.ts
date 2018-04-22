@@ -6,13 +6,7 @@ import {
     isObjectPlain
 } from "lightdash";
 import { ynaControlData, ynaControlTree, ynaIds } from "../enums";
-import {
-    IYnaData,
-    IYnaOptionsBase,
-    IYnaRunner,
-    IYnaRunnerOptions,
-    IYnaTree
-} from "../interfaces";
+import { IYnaData, IYnaOptions, IYnaRunner, IYnaTree } from "../interfaces";
 import {
     ynaCommand,
     ynaCommandMap,
@@ -33,7 +27,7 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
     constructor(
         commands: ynaCommandMap,
         keys: ynaKeyMap,
-        options: IYnaRunnerOptions,
+        options: IYnaOptions,
         data: IYnaData
     ) {
         super("RUNNER", options, data);

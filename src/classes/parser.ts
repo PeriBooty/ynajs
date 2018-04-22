@@ -1,7 +1,6 @@
 import { ynaControlData, ynaControlTree, ynaIds } from "../enums";
 import {
     IYnaData,
-    IYnaOptionsBase,
     IYnaOptions,
     IYnaParser,
     IYnaParserIsControlTree,
@@ -9,8 +8,8 @@ import {
     IYnaTreeBlockResult
 } from "../interfaces";
 import { ynaParserIterator, ynaTree } from "../types";
-import YnaLogger from "./logger";
 import { stringifyError } from "../types/stringify";
+import YnaLogger from "./logger";
 
 const iterateString = (str: string, fn: ynaParserIterator): number => {
     let strStack = 0;

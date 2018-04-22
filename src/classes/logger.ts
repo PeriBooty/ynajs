@@ -1,10 +1,10 @@
-import { IYnaData, IYnaLogger, IYnaOptionsBase } from "../interfaces";
+import { IYnaData, IYnaLogger, IYnaOptions } from "../interfaces";
 
 const YnaLogger = class implements IYnaLogger {
     public name: string;
-    public options: IYnaOptionsBase;
+    public options: IYnaOptions;
     public data: IYnaData;
-    constructor(name: string, options: IYnaOptionsBase, data: IYnaData) {
+    constructor(name: string, options: IYnaOptions, data: IYnaData) {
         this.name = name;
         this.options = options;
         this.data = data;
@@ -13,6 +13,7 @@ const YnaLogger = class implements IYnaLogger {
         if (this.options.debug) {
             const path = [this.name, ...arr].join("::");
 
+            // tslint:disable:no-console
             console.log(`${path}: ${JSON.stringify(contents)}`);
         }
     }

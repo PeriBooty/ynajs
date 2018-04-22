@@ -1,10 +1,10 @@
-import { objDefaults, objDefaultsDeep } from "lightdash";
+import { isObject, objDefaults, objDefaultsDeep } from "lightdash";
 import YnaParser from "./classes/parser";
 import YnaRunner from "./classes/runner";
-import { dataDefault, optionsDefault, optionsRunnerDefault } from "./defaults";
+import { dataDefault, optionsDefault } from "./defaults";
 import initCommands from "./init/initCommands";
 import initKeys from "./init/initKeys";
-import { IYna, IYnaData, IYnaOptions, IYnaRunnerOptions } from "./interfaces";
+import { IYna, IYnaData, IYnaOptions } from "./interfaces";
 import { ynaCommand, ynaCommandMap, ynaKeyMap, ynaTree } from "./types";
 
 const Yna = class {
@@ -22,7 +22,7 @@ const Yna = class {
         const dataMerged = <IYnaData>objDefaultsDeep(data, dataDefault);
 
         this.commands = initCommands();
-        if (optionsMerged.loadJSON) {
+        if (isObject(yna)) {
             this.tree = yna;
         } else {
             this.tree = new YnaParser(optionsMerged, dataMerged).parseString(
@@ -39,11 +39,11 @@ const Yna = class {
         options: object = {},
         data: object = {}
     ): string {
-        const optionsMerged = <IYnaRunnerOptions>objDefaultsDeep(
+        const optionsMerged = <IYnaOptions>objDefaultsDeep(
             options,
-            optionsRunnerDefault
+            optionsDefault
         );
-        const dataMerged = <IYnaOptions>objDefaults(data, dataDefault);
+        const dataMerged = <IYnaData>objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
 
         return new YnaRunner(

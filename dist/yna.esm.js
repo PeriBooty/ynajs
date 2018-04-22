@@ -1,21 +1,7 @@
-import { isString, isNil, isError, getPath, hasPath, isArray, isFunction, isObjectPlain, mapFromObject, randItem, randNumber, forEachEntry, objDefaults, objDefaultsDeep } from 'lightdash';
+import { isString, isNil, isError, getPath, hasPath, isArray, isFunction, isObjectPlain, mapFromObject, randItem, randNumber, forEachEntry, isObject, objDefaults, objDefaultsDeep } from 'lightdash';
 import pydateformat from 'pydateformat';
 import { utc } from 'moment';
 import pyslice from 'pyslice';
-
-const YnaLogger = class {
-    constructor(name, options, data) {
-        this.name = name;
-        this.options = options;
-        this.data = data;
-    }
-    log(arr, contents) {
-        if (this.options.debug) {
-            const path = [this.name, ...arr].join("::");
-            console.log(`${path}: ${JSON.stringify(contents)}`);
-        }
-    }
-};
 
 const stringifyError = (key, err) => `<${key}:${err.message}>`;
 const stringifyVal = (val, key = "unknown") => {
@@ -30,6 +16,21 @@ const stringifyVal = (val, key = "unknown") => {
     else if (isError(val))
         return stringifyError(key, val);
     return String(val);
+};
+
+const YnaLogger = class {
+    constructor(name, options, data) {
+        this.name = name;
+        this.options = options;
+        this.data = data;
+    }
+    log(arr, contents) {
+        if (this.options.debug) {
+            const path = [this.name, ...arr].join("::");
+            // tslint:disable:no-console
+            console.log(`${path}: ${JSON.stringify(contents)}`);
+        }
+    }
 };
 
 const iterateString = (str, fn) => {
@@ -297,10 +298,6 @@ const YnaRunner = class extends YnaLogger {
 };
 
 const optionsDefault = {
-    debug: false,
-    loadJSON: false
-};
-const optionsRunnerDefault = {
     debug: false
 };
 const dataDefault = {};
@@ -881,7 +878,7 @@ const Yna = class {
         const optionsMerged = objDefaultsDeep(options, optionsDefault);
         const dataMerged = objDefaultsDeep(data, dataDefault);
         this.commands = initCommands();
-        if (optionsMerged.loadJSON) {
+        if (isObject(yna)) {
             this.tree = yna;
         }
         else {
@@ -892,7 +889,7 @@ const Yna = class {
         this.commands.set(name, fn);
     }
     run(args = [], ctx = {}, options = {}, data = {}) {
-        const optionsMerged = objDefaultsDeep(options, optionsRunnerDefault);
+        const optionsMerged = objDefaultsDeep(options, optionsDefault);
         const dataMerged = objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
         return new YnaRunner(this.commands, keyMap, optionsMerged, dataMerged).execItem(this.tree);

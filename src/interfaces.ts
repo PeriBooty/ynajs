@@ -24,9 +24,9 @@ declare class IYna {
 
 declare class IYnaLogger {
     public name: string;
-    public options: IYnaOptionsBase;
+    public options: IYnaOptions;
     public data: IYnaData;
-    constructor(name: string, options: IYnaOptionsBase, data: IYnaData);
+    constructor(name: string, options: IYnaOptions, data: IYnaData);
     public log(arr: string[], data: IYnaData): void;
 }
 
@@ -45,7 +45,7 @@ declare class IYnaRunner extends IYnaLogger {
     constructor(
         commands: ynaCommandMap,
         keys: ynaKeyMap,
-        options: IYnaRunnerOptions,
+        options: IYnaOptions,
         data: IYnaData
     );
     public execItem(
@@ -62,16 +62,9 @@ interface IYnaParserIsControlTree {
     close: boolean;
 }
 
-interface IYnaOptionsBase {
+interface IYnaOptions {
     debug: boolean;
 }
-
-interface IYnaOptions extends IYnaOptionsBase {
-    loadJSON: boolean;
-}
-
-// tslint:disable:no-empty-interface
-interface IYnaRunnerOptions extends IYnaOptionsBase {}
 
 interface IYnaData {
     [key: string]: any;
@@ -98,9 +91,7 @@ interface IYnaWhenDef {
 
 export {
     IYna,
-    IYnaOptionsBase,
     IYnaOptions,
-    IYnaRunnerOptions,
     IYnaData,
     IYnaLogger,
     IYnaParser,

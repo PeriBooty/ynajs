@@ -8,9 +8,9 @@ declare class IYna {
 }
 declare class IYnaLogger {
     name: string;
-    options: IYnaOptionsBase;
+    options: IYnaOptions;
     data: IYnaData;
-    constructor(name: string, options: IYnaOptionsBase, data: IYnaData);
+    constructor(name: string, options: IYnaOptions, data: IYnaData);
     log(arr: string[], data: IYnaData): void;
 }
 declare class IYnaParser extends IYnaLogger {
@@ -24,7 +24,7 @@ declare class IYnaRunner extends IYnaLogger {
     commands: ynaCommandMap;
     keys: ynaKeyMap;
     depth: number;
-    constructor(commands: ynaCommandMap, keys: ynaKeyMap, options: IYnaRunnerOptions, data: IYnaData);
+    constructor(commands: ynaCommandMap, keys: ynaKeyMap, options: IYnaOptions, data: IYnaData);
     execItem(item: ynaTree, transformerCustom?: ynaCommandTransformer): string;
     execArr(itemArr: IYnaTree): string[];
     resolveCommand(name: string, data: IYnaTree): string;
@@ -34,13 +34,8 @@ interface IYnaParserIsControlTree {
     open: boolean;
     close: boolean;
 }
-interface IYnaOptionsBase {
+interface IYnaOptions {
     debug: boolean;
-}
-interface IYnaOptions extends IYnaOptionsBase {
-    loadJSON: boolean;
-}
-interface IYnaRunnerOptions extends IYnaOptionsBase {
 }
 interface IYnaData {
     [key: string]: any;
@@ -60,4 +55,4 @@ interface IYnaWhenDef {
     type: string;
     fn: (...args: any[]) => number | Error;
 }
-export { IYna, IYnaOptionsBase, IYnaOptions, IYnaRunnerOptions, IYnaData, IYnaLogger, IYnaParser, IYnaRunner, IYnaParserIsControlTree, IYnaTree, IYnaTreeBlockResult, IYnaMathDef, IYnaWhenDef };
+export { IYna, IYnaOptions, IYnaData, IYnaLogger, IYnaParser, IYnaRunner, IYnaParserIsControlTree, IYnaTree, IYnaTreeBlockResult, IYnaMathDef, IYnaWhenDef };
