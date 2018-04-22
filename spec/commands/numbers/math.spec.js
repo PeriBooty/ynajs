@@ -11,6 +11,8 @@ describe("Command math test", () => {
     it("Add Float", () => {
         const result = Number(new Yna("{math:add;1.02;2.6;}").run());
 
+        console.log(new Yna("{math:add;1.02;2.6;}").run());
+
         expect(result).toBe(3.62);
     });
     it("Add Multi", () => {

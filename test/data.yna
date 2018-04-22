@@ -1,1 +1,6 @@
-{num:-10;10;}
+{arg1} is:
+Word: {when:{arg1};is;word;true;false;}
+Letter: {when:{arg1};is;letter;true;false;}
+Number: {when:{arg1};is;number;true;false;}
+Decimal: {when:{arg1};is;decimal;true;false;}
+Error: {when:{arg1};is;error;true;false;}

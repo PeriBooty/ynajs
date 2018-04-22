@@ -59,6 +59,11 @@ describe("Command when test", () => {
         expect(result).toEqual("true");
     });
     it("Simple is number 2", () => {
+        const result = new Yna("{when:1.2;is;number;true;false;}").run();
+
+        expect(result).toEqual("false");
+    });
+    it("Simple is number 3", () => {
         const result = new Yna("{when:a;is;number;true;false;}").run();
 
         expect(result).toEqual("false");
@@ -71,7 +76,7 @@ describe("Command when test", () => {
     it("Simple is decimal 2", () => {
         const result = new Yna("{when:1;is;decimal;true;false;}").run();
 
-        expect(result).toEqual("false");
+        expect(result).toEqual("true");
     });
     it("Simple is error", () => {
         const result = new Yna("{when:<a:abcd>;is;error;true;false;}").run();

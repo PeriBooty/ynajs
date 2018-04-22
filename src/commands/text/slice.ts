@@ -32,14 +32,14 @@ const slice: ynaCommand = (runner, tree) => {
 
     if (sliceInputParsed[2] === false) {
         return pyslice(content, sliceInputParsed[0], sliceInputParsed[1]);
-    } else {
-        return pyslice(
-            content,
-            <number>sliceInputParsed[0],
-            <number>sliceInputParsed[1],
-            <number>sliceInputParsed[2]
-        );
     }
+
+    return pyslice(
+        content,
+        <number>sliceInputParsed[0],
+        <number>sliceInputParsed[1],
+        <number>sliceInputParsed[2]
+    );
 };
 
 export default slice;

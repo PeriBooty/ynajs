@@ -1,6 +1,6 @@
 import { randNumber } from "lightdash";
 import { ynaCommand } from "../../types";
-import { isNumber, toNumber } from "../../types/number";
+import { isDecimal, toDecimal } from "../../types/decimal";
 
 const num: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
@@ -9,7 +9,7 @@ const num: ynaCommand = (runner, tree) => {
 
     const data = runner.execArr(tree);
 
-    if (!data.every(isNumber)) {
+    if (!data.every(isDecimal)) {
         return new Error("invalid args");
     }
 
@@ -18,13 +18,13 @@ const num: ynaCommand = (runner, tree) => {
     let step = 1;
 
     if (data.length === 1) {
-        max = toNumber(data[0]);
+        max = toDecimal(data[0]);
     } else {
-        min = toNumber(data[0]);
-        max = toNumber(data[1]);
+        min = toDecimal(data[0]);
+        max = toDecimal(data[1]);
     }
     if (data.length === 3) {
-        step = toNumber(data[2]);
+        step = toDecimal(data[2]);
     }
 
     if (min === max || step === 0) {

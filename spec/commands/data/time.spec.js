@@ -19,7 +19,7 @@ describe("Command time test", () => {
         expect(result).toBe(
             moment()
                 .utcOffset(2)
-                .format("H:m")
+                .format("H:mm")
         );
     });
     it("Format string", () => {
@@ -28,7 +28,7 @@ describe("Command time test", () => {
         expect(result).toBe(
             moment()
                 .utcOffset(2)
-                .format("H:m")
+                .format("H:mm")
         );
     });
     it("Invalid offset", () => {

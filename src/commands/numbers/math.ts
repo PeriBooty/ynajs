@@ -8,7 +8,7 @@ import {
     ynaMathMap,
     ynaTreeItems
 } from "../../types";
-import { isNumber, toNumber } from "../../types/number";
+import { isDecimal, toDecimal } from "../../types/decimal";
 
 // tslint:disable:no-bitwise
 const operations: ynaMathMap = mapFromObject({
@@ -126,11 +126,11 @@ const math: ynaCommand = (runner, tree) => {
         return new Error("invalid args");
     }
 
-    if (vals.some(val => !isNumber(val))) {
+    if (vals.some(val => !isDecimal(val))) {
         return new Error("non-number args");
     }
 
-    vals = vals.map(toNumber);
+    vals = vals.map(toDecimal);
     result = operationRef.fn(...vals);
 
     if (result > MATH_MAX) {

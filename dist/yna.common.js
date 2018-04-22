@@ -361,8 +361,8 @@ const set$1 = (runner, tree) => {
     return "";
 };
 
-const REGEX_NUMBER = /^-?\d+\.?\d*$/;
-const toNumber = parseFloat;
+const REGEX_NUMBER = /^-?\d+$/;
+const toNumber = parseInt;
 const isNumber = (val) => REGEX_NUMBER.test(String(val));
 
 const REGEX_NUMBER_OFFSET = /^[+-]?[0-9]+$/;
@@ -382,7 +382,8 @@ const time = (runner, tree) => {
     return toTime(currentTime, format);
 };
 
-const REGEX_FLOAT = /^-?\d+\.\d+$/;
+const REGEX_FLOAT = /^-?\d+(?:\.\d+)?$/;
+const toDecimal = parseFloat;
 const isDecimal = (val) => REGEX_FLOAT.test(String(val));
 
 const REGEX_ERROR = /^<[a-z]+:[a-z0-9 ]+>$/;
@@ -594,10 +595,10 @@ const math = (runner, tree) => {
     else {
         return new Error("invalid args");
     }
-    if (vals.some(val => !isNumber(val))) {
+    if (vals.some(val => !isDecimal(val))) {
         return new Error("non-number args");
     }
-    vals = vals.map(toNumber);
+    vals = vals.map(toDecimal);
     result = operationRef.fn(...vals);
     if (result > MATH_MAX) {
         return new Error("inf");
@@ -621,21 +622,21 @@ const num = (runner, tree) => {
         return new Error("no args");
     }
     const data = runner.execArr(tree);
-    if (!data.every(isNumber)) {
+    if (!data.every(isDecimal)) {
         return new Error("invalid args");
     }
     let min = 0;
     let max = 100;
     let step = 1;
     if (data.length === 1) {
-        max = toNumber(data[0]);
+        max = toDecimal(data[0]);
     }
     else {
-        min = toNumber(data[0]);
-        max = toNumber(data[1]);
+        min = toDecimal(data[0]);
+        max = toDecimal(data[1]);
     }
     if (data.length === 3) {
-        step = toNumber(data[2]);
+        step = toDecimal(data[2]);
     }
     if (min === max || step === 0) {
         return new Error("invalid range");
@@ -743,9 +744,7 @@ const slice = (runner, tree) => {
     if (sliceInputParsed[2] === false) {
         return pyslice(content, sliceInputParsed[0], sliceInputParsed[1]);
     }
-    else {
-        return pyslice(content, sliceInputParsed[0], sliceInputParsed[1], sliceInputParsed[2]);
-    }
+    return pyslice(content, sliceInputParsed[0], sliceInputParsed[1], sliceInputParsed[2]);
 };
 
 const SPACE = /\s/;
