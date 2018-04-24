@@ -1,20 +1,25 @@
-import { isString, isNil, isError, getPath, hasPath, isArray, isFunction, isObjectPlain, mapFromObject, randItem, randNumber, forEachEntry, isObject, objDefaults, objDefaultsDeep } from 'lightdash';
+import { isError, isNil, isString, getPath, hasPath, isArray, isFunction, isObjectPlain, mapFromObject, randItem, randNumber, forEachEntry, isObject, objDefaults, objDefaultsDeep } from 'lightdash';
 import pydateformat from 'pydateformat';
 import { utc } from 'moment';
 import pyslice from 'pyslice';
 
 const stringifyError = (key, err) => `<${key}:${err.message}>`;
 const stringifyVal = (val, key = "unknown") => {
-    if (isString(val))
+    if (isString(val)) {
         return val;
-    else if (val === true)
+    }
+    else if (val === true) {
         return "True";
-    else if (val === false)
+    }
+    else if (val === false) {
         return "False";
-    else if (isNil(val))
+    }
+    else if (isNil(val)) {
         return "None";
-    else if (isError(val))
+    }
+    else if (isError(val)) {
         return stringifyError(key, val);
+    }
     return String(val);
 };
 

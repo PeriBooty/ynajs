@@ -9,16 +9,21 @@ var pyslice = _interopDefault(require('pyslice'));
 
 const stringifyError = (key, err) => `<${key}:${err.message}>`;
 const stringifyVal = (val, key = "unknown") => {
-    if (lightdash.isString(val))
+    if (lightdash.isString(val)) {
         return val;
-    else if (val === true)
+    }
+    else if (val === true) {
         return "True";
-    else if (val === false)
+    }
+    else if (val === false) {
         return "False";
-    else if (lightdash.isNil(val))
+    }
+    else if (lightdash.isNil(val)) {
         return "None";
-    else if (lightdash.isError(val))
+    }
+    else if (lightdash.isError(val)) {
         return stringifyError(key, val);
+    }
     return String(val);
 };
 

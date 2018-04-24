@@ -7,7 +7,18 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
     const stringifyError = (key, err) => `<${key}:${err.message}>`;
 
     const stringifyVal = (val, key = "unknown") => {
-      if (lightdash.isString(val)) return val;else if (val === true) return "True";else if (val === false) return "False";else if (lightdash.isNil(val)) return "None";else if (lightdash.isError(val)) return stringifyError(key, val);
+      if (lightdash.isString(val)) {
+        return val;
+      } else if (val === true) {
+        return "True";
+      } else if (val === false) {
+        return "False";
+      } else if (lightdash.isNil(val)) {
+        return "None";
+      } else if (lightdash.isError(val)) {
+        return stringifyError(key, val);
+      }
+
       return String(val);
     };
 
