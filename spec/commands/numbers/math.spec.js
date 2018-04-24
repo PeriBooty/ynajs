@@ -36,26 +36,26 @@ describe("Command math test", () => {
     it("No args", () => {
         const result = new Yna("{math;}").run();
 
-        expect(result).toEqual("<math:no args>");
+        expect(result).toBe("<math:no args>");
     });
     it("Unknown operation", () => {
         const result = new Yna("{math:foobar;1;2;}").run();
 
-        expect(result).toEqual("<math:unknown operation>");
+        expect(result).toBe("<math:unknown operation>");
     });
     it("Invalid args", () => {
         const result = new Yna("{math:add;1;}").run();
 
-        expect(result).toEqual("<math:invalid args>");
+        expect(result).toBe("<math:invalid args>");
     });
     it("Invalid args 2", () => {
         const result = new Yna("{math:sub;1;2;1;}").run();
 
-        expect(result).toEqual("<math:invalid args>");
+        expect(result).toBe("<math:invalid args>");
     });
     it("Non-number args", () => {
         const result = new Yna("{math:add;1;foo;}").run();
 
-        expect(result).toEqual("<math:non-number args>");
+        expect(result).toBe("<math:non-number args>");
     });
 });

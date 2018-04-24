@@ -11,6 +11,6 @@ describe("Command choose test", () => {
     it("No args", () => {
         const result = new Yna("{choose;}").run();
 
-        expect(result).toEqual("<choose:no options>");
+        expect(result).toBe("<choose:no options>");
     });
 });

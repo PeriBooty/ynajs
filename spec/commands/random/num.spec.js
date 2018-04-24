@@ -46,24 +46,24 @@ describe("Command num test", () => {
     it("No args", () => {
         const result = new Yna("{num;}").run();
 
-        expect(result).toEqual("<num:no args>");
+        expect(result).toBe("<num:no args>");
     });
 
     it("Invalid args", () => {
         const result = new Yna("{num:1;foo;}").run();
 
-        expect(result).toEqual("<num:invalid args>");
+        expect(result).toBe("<num:invalid args>");
     });
 
     it("Invalid range", () => {
         const result = new Yna("{num:1;1;}").run();
 
-        expect(result).toEqual("<num:invalid range>");
+        expect(result).toBe("<num:invalid range>");
     });
 
     it("Invalid range 2", () => {
         const result = new Yna("{num:0;100;0;}").run();
 
-        expect(result).toEqual("<num:invalid range>");
+        expect(result).toBe("<num:invalid range>");
     });
 });

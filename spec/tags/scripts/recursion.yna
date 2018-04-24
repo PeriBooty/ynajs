@@ -2,7 +2,7 @@
     {when:{arglen};gt;25;Too many items;
     {set:i;1;}
     {func:run;
-        {i}: {arg{i}}\n
+        {i}: {arg{i}}\\\n
         {when:{i};lt;{arglen};
             {set:i;{math:add;{i};1;};}
             {run}

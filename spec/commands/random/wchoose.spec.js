@@ -11,16 +11,16 @@ describe("Command wchoose test", () => {
     it("No args", () => {
         const result = new Yna("{wchoose;}").run();
 
-        expect(result).toEqual("<wchoose:no options>");
+        expect(result).toBe("<wchoose:no options>");
     });
     it("Mismatched weighting", () => {
         const result = new Yna("{wchoose:a;2;b;}").run();
 
-        expect(result).toEqual("<wchoose:mismatched weighting>");
+        expect(result).toBe("<wchoose:mismatched weighting>");
     });
     it("Invalid weights", () => {
         const result = new Yna("{wchoose:a;foo;b;1;}").run();
 
-        expect(result).toEqual("<wchoose:invalid weight>");
+        expect(result).toBe("<wchoose:invalid weight>");
     });
 });
