@@ -452,7 +452,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
 
     const isDecimal = val => REGEX_FLOAT.test(String(val));
 
-    const REGEX_ERROR = /^<[a-z]+:[a-z0-9 ]+>$/;
+    const REGEX_ERROR = /^<[a-z][a-z0-9_]*:[a-z0-9 ]+>$/;
 
     const isError = str => REGEX_ERROR.test(str);
 
