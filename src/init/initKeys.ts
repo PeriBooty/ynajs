@@ -24,7 +24,7 @@ const initKeys = (args: string[], ctx: object): ynaKeyMap => {
     });
 
     // Context
-    forEachEntry(ctx, (val, key) => {
+    forEachEntry(ctx, (key, val) => {
         map.set(key, val);
     });
 

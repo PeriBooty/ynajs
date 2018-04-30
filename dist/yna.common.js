@@ -876,7 +876,7 @@ const initKeys = (args, ctx) => {
         map.set(`arg${index + 1}`, arg);
     });
     // Context
-    lightdash.forEachEntry(ctx, (val, key) => {
+    lightdash.forEachEntry(ctx, (key, val) => {
         map.set(key, val);
     });
     return map;

@@ -975,7 +975,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
         map.set(`arg${index + 1}`, arg);
       }); // Context
 
-      lightdash.forEachEntry(ctx, (val, key) => {
+      lightdash.forEachEntry(ctx, (key, val) => {
         map.set(key, val);
       });
       return map;

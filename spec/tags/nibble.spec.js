@@ -14,8 +14,10 @@ describe("Tag nibble test", () => {
         expect(result).toBe("_Bar nibbles on Foo_");
     });
     it("Missing d.js", () => {
-        const result = new Yna(script).run(["Foo", ]);
+        const result = new Yna(script).run(["Foo"]);
 
-        expect(result).toBe("_<caller.display_name:unknown key> nibbles on Foo_");
+        expect(result).toBe(
+            "_<caller.display_name:unknown key> nibbles on Foo_"
+        );
     });
 });

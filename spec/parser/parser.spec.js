@@ -1,6 +1,6 @@
 "use strict";
 
-const Yna = require("../dist/yna.common");
+const Yna = require("../../dist/yna.common");
 
 describe("Parser test", () => {
     it("Empty", () => {
@@ -42,7 +42,9 @@ describe("Parser test", () => {
     it("Nested Commands", () => {
         const tag = new Yna("{time:+{num;};}");
 
-        expect(tag.tree).toEqual([1, "time", [["+", [1, "num", []]]]]);
+        expect(tag.tree).toEqual([1, "time", [
+            ["+", [1, "num", []]]
+        ]]);
     });
 
     it("Deeply Nested Commands", () => {
@@ -50,8 +52,11 @@ describe("Parser test", () => {
 
         expect(tag.tree).toEqual([
             1,
-            "time",
-            [["+", [1, "num", [[1, "num", ["0", "10"]]]]]]
+            "time", [
+                ["+", [1, "num", [
+                    [1, "num", ["0", "10"]]
+                ]]]
+            ]
         ]);
     });
 });

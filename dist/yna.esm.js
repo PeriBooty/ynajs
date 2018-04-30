@@ -872,7 +872,7 @@ const initKeys = (args, ctx) => {
         map.set(`arg${index + 1}`, arg);
     });
     // Context
-    forEachEntry(ctx, (val, key) => {
+    forEachEntry(ctx, (key, val) => {
         map.set(key, val);
     });
     return map;

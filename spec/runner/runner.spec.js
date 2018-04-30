@@ -1,6 +1,6 @@
 "use strict";
 
-const Yna = require("../dist/yna.common");
+const Yna = require("../../dist/yna.common");
 
 describe("Runner test", () => {
     it("Empty", () => {

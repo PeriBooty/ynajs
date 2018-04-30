@@ -11,6 +11,8 @@ describe("Tag ship test", () => {
     it("Simple", () => {
         const result = new Yna(script).run(["Foo", "Bar"]);
 
-        expect(result).toMatch(/^=====Shipping Score=====\nFirst: .+\nSecond: .+\n====================\n.+\n$/);
+        expect(result).toMatch(
+            /^=====Shipping Score=====\nFirst: .+\nSecond: .+\n====================\n.+\n$/
+        );
     });
 });
