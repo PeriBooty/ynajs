@@ -1,4 +1,10 @@
 import { ynaCommand, ynaTree } from "./types";
+/**
+ * Yna Class
+ *
+ * @public
+ * @class
+ */
 declare const Yna: {
     new (yna: ynaTree, options?: object, data?: object): {
         tree: ynaTree;

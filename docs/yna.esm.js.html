@@ -1,15 +1,51 @@
-'use strict';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>yna.esm.js - Documentation</title>
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
 
-var lightdash = require('lightdash');
-var pydateformat = _interopDefault(require('pydateformat'));
-var moment = require('moment');
-var pyslice = _interopDefault(require('pyslice'));
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-const stringifyError = (key, err) => `<${key}:${err.message}>`;
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Yna.html">Yna</a><ul class='methods'><li data-type='method'><a href="Yna.html#addCommand">addCommand</a></li><li data-type='method'><a href="Yna.html#run">run</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">yna.esm.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { isError, isNil, isString, getPath, hasPath, isArray, isFunction, isObjectPlain, mapFromObject, randItem, randNumber, forEachEntry, isObject, objDefaults, objDefaultsDeep } from 'lightdash';
+import pydateformat from 'pydateformat';
+import { utc } from 'moment';
+import pyslice from 'pyslice';
+
+const stringifyError = (key, err) => `&lt;${key}:${err.message}>`;
 const stringifyVal = (val, key = "unknown") => {
-    if (lightdash.isString(val)) {
+    if (isString(val)) {
         return val;
     }
     else if (val === true) {
@@ -18,10 +54,10 @@ const stringifyVal = (val, key = "unknown") => {
     else if (val === false) {
         return "False";
     }
-    else if (lightdash.isNil(val)) {
+    else if (isNil(val)) {
         return "None";
     }
-    else if (lightdash.isError(val)) {
+    else if (isError(val)) {
         return stringifyError(key, val);
     }
     return String(val);
@@ -70,14 +106,14 @@ const YnaParser = class extends YnaLogger {
         let resultType;
         const strStackEnd = iterateString(str, (letter, strIndex, strStack, isControlTree) => {
             const currentString = str.substr(strIndexLast, strIndex - strIndexLast);
-            if (isControlTree.open && strStack === 1) {
+            if (isControlTree.open &amp;&amp; strStack === 1) {
                 /**
                  * If a block has been entered, push the previous string to the container
                  */
                 strData.push(currentString);
                 strIndexLast = strIndex;
             }
-            else if (isControlTree.close && strStack === 0) {
+            else if (isControlTree.close &amp;&amp; strStack === 0) {
                 /**
                  * If a block has been exited, evaluate the content and push to the container
                  */
@@ -175,9 +211,9 @@ const YnaParser = class extends YnaLogger {
         let strIndexLast = 0;
         let encounteredStart = false;
         const strStackEnd = iterateString(str, (letter, strIndex, strStack) => {
-            if (strStack === 0 &&
+            if (strStack === 0 &amp;&amp;
                 (letter === ";" /* delimiter */ ||
-                    (letter === ":" /* start */ && !encounteredStart))) {
+                    (letter === ":" /* start */ &amp;&amp; !encounteredStart))) {
                 const currentBlock = this.parseString(str.substr(strIndexLast, strIndex - strIndexLast), true);
                 strData.push(currentBlock);
                 strIndexLast = strIndex + 1;
@@ -243,7 +279,7 @@ const YnaRunner = class extends YnaLogger {
             result = "";
             resultType = "comment";
         }
-        else if (lightdash.isArray(item)) {
+        else if (isArray(item)) {
             // Array
             const str = this.execArr(item).join("");
             result = this.transformer(str);
@@ -288,15 +324,15 @@ const YnaRunner = class extends YnaLogger {
         if (path.length > 1) {
             // Only enter if more than one prop in path
             const pathRest = path.slice(1);
-            if (!lightdash.hasPath(entry, pathRest)) {
+            if (!hasPath(entry, pathRest)) {
                 return stringifyError(name, new Error(`does not have '${pathRest}'`));
             }
-            resolved = lightdash.getPath(entry, pathRest);
+            resolved = getPath(entry, pathRest);
         }
-        if (lightdash.isFunction(resolved)) {
+        if (isFunction(resolved)) {
             result = resolved();
         }
-        else if (lightdash.isObjectPlain(resolved)) {
+        else if (isObjectPlain(resolved)) {
             result = resolved.__default;
         }
         else {
@@ -373,7 +409,7 @@ const isNumberOffset = (val) => REGEX_NUMBER_OFFSET.test(String(val));
 const toTime = (time, format = "%H:%M") => pydateformat(time, format);
 
 const time = (runner, tree) => {
-    let currentTime = moment.utc();
+    let currentTime = utc();
     const offset = tree[0] ? runner.execItem(tree[0]) : "0";
     if (!isNumberOffset(offset)) {
         return new Error("invalid offset");
@@ -388,8 +424,8 @@ const REGEX_FLOAT = /^-?\d+(?:\.\d+)?$/;
 const toDecimal = parseFloat;
 const isDecimal = (val) => REGEX_FLOAT.test(String(val));
 
-const REGEX_ERROR = /^<[a-z][a-z0-9_]*:[a-z0-9 ]+>$/;
-const isError = (str) => REGEX_ERROR.test(str);
+const REGEX_ERROR = /^&lt;[a-z][a-z0-9_]*:[a-z0-9 ]+>$/;
+const isError$1 = (str) => REGEX_ERROR.test(str);
 
 const isLetter = (str) => str.length === 1;
 
@@ -398,14 +434,14 @@ const isList = (str) => str.includes("," /* list */);
 
 const isWord = (str) => !str.includes(" ");
 
-const types = lightdash.mapFromObject({
+const types = mapFromObject({
     word: isWord,
     letter: isLetter,
     number: isNumber,
     decimal: isDecimal,
-    error: isError
+    error: isError$1
 });
-const operations = lightdash.mapFromObject({
+const operations = mapFromObject({
     eq: {
         type: "any",
         fn: (a, b) => a === b
@@ -424,11 +460,11 @@ const operations = lightdash.mapFromObject({
     },
     lt: {
         type: "number",
-        fn: (a, b) => a < b
+        fn: (a, b) => a &lt; b
     },
     le: {
         type: "number",
-        fn: (a, b) => a <= b
+        fn: (a, b) => a &lt;= b
     },
     in: {
         type: "any",
@@ -445,18 +481,18 @@ const operations = lightdash.mapFromObject({
         }
     }
 });
-const aliases = lightdash.mapFromObject({
+const aliases = mapFromObject({
     "=": "eq",
     "==": "eq",
     "!=": "ne",
-    "<>": "ne",
+    "&lt;>": "ne",
     ">=": "ge",
     ">": "gt",
-    "<=": "le",
-    "<": "lt"
+    "&lt;=": "le",
+    "&lt;": "lt"
 });
 const when = (runner, tree) => {
-    if (tree.length < 4 || tree.length > 5) {
+    if (tree.length &lt; 4 || tree.length > 5) {
         return new Error("invalid args");
     }
     let val1 = runner.execItem(tree[0]);
@@ -492,7 +528,7 @@ const when = (runner, tree) => {
 };
 
 // tslint:disable:no-bitwise
-const operations$1 = lightdash.mapFromObject({
+const operations$1 = mapFromObject({
     add: {
         argsLengthRange: [2, Infinity],
         fn: (...args) => args.reduce((a, b) => a + b)
@@ -523,7 +559,7 @@ const operations$1 = lightdash.mapFromObject({
     },
     and: {
         argsLengthRange: [2, Infinity],
-        fn: (...args) => [~0, ...args].reduce((a, b) => a & b)
+        fn: (...args) => [~0, ...args].reduce((a, b) => a &amp; b)
     },
     or: {
         argsLengthRange: [2, Infinity],
@@ -558,7 +594,7 @@ const operations$1 = lightdash.mapFromObject({
         fn: Math.min
     }
 });
-const aliases$1 = lightdash.mapFromObject({
+const aliases$1 = mapFromObject({
     "+": "add",
     "-": "sub",
     "*": "mul",
@@ -567,7 +603,7 @@ const aliases$1 = lightdash.mapFromObject({
     "/f": "div",
     "//": "idiv",
     "%": "mod",
-    "&": "and",
+    "&amp;": "and",
     "|": "or",
     "^": "xor",
     "~": "not"
@@ -590,8 +626,8 @@ const math = (runner, tree) => {
     else {
         return new Error("unknown operation");
     }
-    if (valsRaw.length >= operationRef.argsLengthRange[0] &&
-        valsRaw.length <= operationRef.argsLengthRange[1]) {
+    if (valsRaw.length >= operationRef.argsLengthRange[0] &amp;&amp;
+        valsRaw.length &lt;= operationRef.argsLengthRange[1]) {
         vals = runner.execArr(valsRaw);
     }
     else {
@@ -605,7 +641,7 @@ const math = (runner, tree) => {
     if (result > MATH_MAX) {
         return new Error("inf");
     }
-    else if (result < MATH_MIN) {
+    else if (result &lt; MATH_MIN) {
         return new Error("-inf");
     }
     return result;
@@ -616,7 +652,7 @@ const choose = (runner, tree) => {
         return new Error("no options");
     }
     const options = runner.execArr(tree);
-    return lightdash.randItem(options);
+    return randItem(options);
 };
 
 const num = (runner, tree) => {
@@ -643,7 +679,7 @@ const num = (runner, tree) => {
     if (min === max || step === 0) {
         return new Error("invalid range");
     }
-    const seed = lightdash.randNumber(min, max, !Number.isInteger(step));
+    const seed = randNumber(min, max, !Number.isInteger(step));
     return Math.floor(seed / step) * step;
 };
 
@@ -680,7 +716,7 @@ const wchoose = (runner, tree) => {
         const distributed = new Array(weight).fill(value);
         distributedValues.push(...distributed);
     });
-    return lightdash.randItem(distributedValues);
+    return randItem(distributedValues);
 };
 
 const len = (runner, tree) => {
@@ -757,7 +793,7 @@ const toTitleCase = (str) => {
         .map(letter => {
         const isSpace = SPACE.test(letter);
         let result = letter.toLowerCase();
-        if (inSpace && !isSpace) {
+        if (inSpace &amp;&amp; !isSpace) {
             inSpace = false;
             result = letter.toUpperCase();
         }
@@ -815,7 +851,7 @@ const _void = (runner, tree) => {
 };
 
 const initCommands = () => {
-    const map = lightdash.mapFromObject({
+    const map = mapFromObject({
         set: set$1,
         func: set,
         time,
@@ -842,7 +878,7 @@ const toDatetime = (time) => time.format("YYYY-MM-DD HH:mm:ss:SSSSSS");
 
 const initKeys = (args, ctx) => {
     const map = new Map();
-    map.set("time", toDatetime(moment.utc()));
+    map.set("time", toDatetime(utc()));
     map.set("newrep", false);
     // Args
     map.set("args", args.join(" "));
@@ -851,7 +887,7 @@ const initKeys = (args, ctx) => {
         map.set(`arg${index + 1}`, arg);
     });
     // Context
-    lightdash.forEachEntry(ctx, (key, val) => {
+    forEachEntry(ctx, (key, val) => {
         map.set(key, val);
     });
     return map;
@@ -874,10 +910,10 @@ const Yna = class {
      * @param {object} data
      */
     constructor(yna, options = {}, data = {}) {
-        const optionsMerged = lightdash.objDefaultsDeep(options, optionsDefault);
-        const dataMerged = lightdash.objDefaultsDeep(data, dataDefault);
+        const optionsMerged = objDefaultsDeep(options, optionsDefault);
+        const dataMerged = objDefaultsDeep(data, dataDefault);
         this.commands = initCommands();
-        if (lightdash.isObject(yna)) {
+        if (isObject(yna)) {
             this.tree = yna;
         }
         else {
@@ -905,11 +941,30 @@ const Yna = class {
      * @returns {string}
      */
     run(args = [], ctx = {}, options = {}, data = {}) {
-        const optionsMerged = lightdash.objDefaultsDeep(options, optionsDefault);
-        const dataMerged = lightdash.objDefaults(data, dataDefault);
+        const optionsMerged = objDefaultsDeep(options, optionsDefault);
+        const dataMerged = objDefaults(data, dataDefault);
         const keyMap = initKeys(args, ctx);
         return new YnaRunner(this.commands, keyMap, optionsMerged, dataMerged).execItem(this.tree);
     }
 };
 
-module.exports = Yna;
+export default Yna;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.0-dev</a> on Fri May 04 2018 20:40:15 GMT+0200 (CEST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -20,24 +20,14 @@ import { ynaCommand, ynaCommandMap } from "../types";
 
 const initCommands = (): ynaCommandMap => {
     const map = mapFromObject({
-        /**
-         * Data
-         */
         set,
         func,
         time,
 
-        /**
-         * Logic
-         */
         when,
-        /**
-         * Numbers
-         */
+
         math,
-        /**
-         * Text
-         */
+
         len,
         upper,
         lower,
@@ -45,15 +35,11 @@ const initCommands = (): ynaCommandMap => {
         rep,
         parse,
         slice,
-        /**
-         * Random
-         */
+
         num,
         choose,
         wchoose,
-        /**
-         * Wrappers
-         */
+
         oneline,
         void: _void
     });

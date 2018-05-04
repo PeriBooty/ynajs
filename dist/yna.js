@@ -909,26 +909,11 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
 
     const initCommands = () => {
       const map = lightdash.mapFromObject({
-        /**
-         * Data
-         */
         set: set$1,
         func: set,
         time,
-
-        /**
-         * Logic
-         */
         when,
-
-        /**
-         * Numbers
-         */
         math,
-
-        /**
-         * Text
-         */
         len,
         upper,
         lower,
@@ -936,17 +921,9 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
         rep,
         parse,
         slice,
-
-        /**
-         * Random
-         */
         num,
         choose,
         wchoose,
-
-        /**
-         * Wrappers
-         */
         oneline,
         void: _void
       }); // Conditional registers here
@@ -955,14 +932,6 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
     };
 
     const toDatetime = time => time.format("YYYY-MM-DD HH:mm:ss:SSSSSS");
-
-    /**
-     * Creates map of default keys
-     *
-     * @param {Array<string>} args
-     * @param {Object} ctx
-     * @returns {Map}
-     */
 
     const initKeys = (args, ctx) => {
       const map = new Map();
@@ -981,7 +950,23 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return map;
     };
 
+    /**
+     * Yna Class
+     *
+     * @public
+     * @class
+     */
+
     const Yna = class {
+      /**
+       * Yna Class constructor
+       *
+       * @public
+       * @constructor
+       * @param {string|ynaTree} yna
+       * @param {object} options
+       * @param {object} data
+       */
       constructor(yna, options = {}, data = {}) {
         const optionsMerged = lightdash.objDefaultsDeep(options, optionsDefault);
         const dataMerged = lightdash.objDefaultsDeep(data, dataDefault);
@@ -993,10 +978,29 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
           this.tree = new YnaParser(optionsMerged, dataMerged).parseString(yna);
         }
       }
+      /**
+       * Registers a new command to the command map
+       *
+       * @public
+       * @param {string} name
+       * @param {ynaCommand} fn
+       */
+
 
       addCommand(name, fn) {
         this.commands.set(name, fn);
       }
+      /**
+       * Executes yna command and returns result
+       *
+       * @public
+       * @param {string[]} args
+       * @param {object} ctx
+       * @param {object} options
+       * @param {object} data
+       * @returns {string}
+       */
+
 
       run(args = [], ctx = {}, options = {}, data = {}) {
         const optionsMerged = lightdash.objDefaultsDeep(options, optionsDefault);

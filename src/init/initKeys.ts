@@ -3,13 +3,6 @@ import { utc } from "moment";
 import { ynaKeyMap } from "../types";
 import { toDatetime } from "../types/datetime";
 
-/**
- * Creates map of default keys
- *
- * @param {Array<string>} args
- * @param {Object} ctx
- * @returns {Map}
- */
 const initKeys = (args: string[], ctx: object): ynaKeyMap => {
     const map: ynaKeyMap = new Map();
 
