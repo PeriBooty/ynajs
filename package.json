@@ -11,12 +11,7 @@
             "module": "Yna",
             "file": "yna"
         },
-        "external": [
-            "lightdash",
-            "moment",
-            "pydateformat",
-            "pyslice"
-        ]
+        "external": ["lightdash", "moment", "pydateformat", "pyslice"]
     },
     "scripts": {
         "start": "npm-run-all lint build test docs",
@@ -39,18 +34,14 @@
         "type": "git",
         "url": "git+https://github.com/FelixRilling/ynajs.git"
     },
-    "keywords": [
-        "yna",
-        "na",
-        "parser",
-        "interpreter"
-    ],
+    "keywords": ["yna", "na", "parser", "interpreter"],
     "author": "Felix Rilling",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/FelixRilling/ynajs/issues"
     },
     "homepage": "https://github.com/FelixRilling/ynajs#readme",
+    "browserslist": ["last 2 Chrome versions", "last 2 Firefox versions"],
     "dependencies": {
         "lightdash": "^5.0.5",
         "moment": "^2.22.1",
