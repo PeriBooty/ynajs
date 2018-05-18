@@ -9,4 +9,10 @@ describe("Command rep test", () => {
 
         expect(result).toBe(str.replace(/e/g, "X"));
     });
+    it("Regex", () => {
+        const str = "Lorem ipsum eT dolor SIT amet";
+        const result = new Yna(`{rep:/\\s/;${str};X;}`).run();
+
+        expect(result).toBe(str.replace(/\s/, "X"));
+    });
 });
