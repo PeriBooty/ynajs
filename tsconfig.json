@@ -5,7 +5,10 @@
         "newLine": "LF",
         "removeComments": false,
         "strict": true,
-        "noImplicitAny": false
+        "noImplicitAny": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true
     },
-    "include": ["src/**/*"]
+    "typeRoots": ["node_modules/@types"],
+    "include": ["src/**/*.ts"]
 }

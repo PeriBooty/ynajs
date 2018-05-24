@@ -1,6 +1,6 @@
 import { randItem } from "lightdash";
-import { isNumber, toNumber } from "../../types/number";
 import { ynaCommand } from "../../types";
+import { isNumber, toNumber } from "../../types/number";
 
 const wchoose: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {

@@ -1,4 +1,3 @@
-import { randItem } from "lightdash";
 import { IYnaTree } from "../../interfaces";
 import { ynaCommand } from "../../types";
 

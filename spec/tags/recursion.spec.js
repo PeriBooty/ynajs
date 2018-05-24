@@ -4,7 +4,8 @@ const Yna = require("../../dist/yna.common");
 const fs = require("fs");
 const path = require("path");
 const script = fs.readFileSync(
-    path.join(__dirname, "./scripts/recursion.yna"), {
+    path.join(__dirname, "./scripts/recursion.yna"),
+    {
         encoding: "UTF8"
     }
 );
