@@ -1,5 +1,5 @@
 import { mapFromObject } from "lightdash";
-import { MATH_MAX, MATH_MIN } from "../../contants";
+import { MATH_MAX, MATH_MIN } from "../../constants";
 import { IYnaMathDef, IYnaTree } from "../../interfaces";
 import {
     ynaAliasMap,

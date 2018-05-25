@@ -1,4 +1,4 @@
-import { MAX_RECURSION_DEPTH } from "../../contants";
+import { MAX_RECURSION_DEPTH } from "../../constants";
 import { IYnaTree } from "../../interfaces";
 import { ynaCommand } from "../../types";
 import { isKey } from "../../types/key";
