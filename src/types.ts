@@ -1,5 +1,4 @@
 import {
-    IYnaData,
     IYnaMathDef,
     IYnaParserIsControlTree,
     IYnaRunner,

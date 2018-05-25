@@ -383,8 +383,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
 
       if (!isKey(key)) {
         return new Error("invalid key");
-      } // Evaluate value on fn call
-
+      }
 
       const fn = () => {
         let result;
@@ -905,35 +904,30 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return transformerOneline(content);
     };
 
-    // tslint:disable:variable-name
     const _void = (runner, tree) => {
       runner.execItem(tree[0]);
       return "";
     };
 
-    const initCommands = () => {
-      const map = lightdash.mapFromObject({
-        set: set$1,
-        func: set,
-        time,
-        when,
-        math,
-        len,
-        upper,
-        lower,
-        title,
-        rep,
-        parse,
-        slice,
-        num,
-        choose,
-        wchoose,
-        oneline,
-        void: _void
-      }); // Conditional registers here
-
-      return map;
-    };
+    const initCommands = () => lightdash.mapFromObject({
+      set: set$1,
+      func: set,
+      time,
+      when,
+      math,
+      len,
+      upper,
+      lower,
+      title,
+      rep,
+      parse,
+      slice,
+      num,
+      choose,
+      wchoose,
+      oneline,
+      void: _void
+    });
 
     const toDatetime = time => time.format("YYYY-MM-DD HH:mm:ss:SSSSSS");
 

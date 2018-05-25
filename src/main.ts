@@ -4,8 +4,8 @@ import YnaRunner from "./classes/runner";
 import { dataDefault, optionsDefault } from "./defaults";
 import initCommands from "./init/initCommands";
 import initKeys from "./init/initKeys";
-import { IYna, IYnaData, IYnaOptions } from "./interfaces";
-import { ynaCommand, ynaCommandMap, ynaKeyMap, ynaTree } from "./types";
+import { IYnaData, IYnaOptions } from "./interfaces";
+import { ynaCommand, ynaCommandMap, ynaTree } from "./types";
 
 /**
  * Yna Class

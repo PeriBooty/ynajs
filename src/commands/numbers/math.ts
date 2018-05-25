@@ -5,8 +5,7 @@ import {
     ynaAliasMap,
     ynaCommand,
     ynaCommandResult,
-    ynaMathMap,
-    ynaTreeItems
+    ynaMathMap
 } from "../../types";
 import { isDecimal, toDecimal } from "../../types/decimal";
 

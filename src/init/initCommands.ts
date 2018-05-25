@@ -18,8 +18,8 @@ import oneline from "../commands/wrapper/oneline";
 import _void from "../commands/wrapper/void";
 import { ynaCommand, ynaCommandMap } from "../types";
 
-const initCommands = (): ynaCommandMap => {
-    const map = mapFromObject({
+const initCommands = (): ynaCommandMap =>
+    mapFromObject({
         set,
         func,
         time,
@@ -43,10 +43,5 @@ const initCommands = (): ynaCommandMap => {
         oneline,
         void: _void
     });
-
-    // Conditional registers here
-
-    return map;
-};
 
 export default initCommands;

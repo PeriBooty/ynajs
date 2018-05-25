@@ -1,7 +1,6 @@
 import {
     ynaCommand,
     ynaCommandMap,
-    ynaCommandResult,
     ynaCommandTransformer,
     ynaKeyMap,
     ynaRange,

@@ -16,7 +16,6 @@ const set: ynaCommand = (runner, tree) => {
         return new Error("invalid key");
     }
 
-    // Evaluate value on fn call
     const fn = () => {
         let result;
 
