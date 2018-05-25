@@ -511,7 +511,7 @@ const operations$1 = lightdash.mapFromObject({
     },
     div: {
         argsLengthRange: [2, 2],
-        fn: (a, b) => (b !== 0 ? a / b : new Error("divide by zero"))
+        fn: (a, b) => b !== 0 ? a / b : new Error("divide by zero")
     },
     idiv: {
         argsLengthRange: [2, 2],
@@ -535,7 +535,7 @@ const operations$1 = lightdash.mapFromObject({
     },
     not: {
         argsLengthRange: [1, 1],
-        fn: a => ~a
+        fn: (a) => ~a
     },
     round: {
         argsLengthRange: [1, 1],

@@ -30,16 +30,17 @@ const operations: ynaMathMap = mapFromObject({
     },
     div: {
         argsLengthRange: [2, 2],
-        fn: (a, b) => (b !== 0 ? a / b : new Error("divide by zero"))
+        fn: (a: number, b: number) =>
+            b !== 0 ? a / b : new Error("divide by zero")
     },
     idiv: {
         argsLengthRange: [2, 2],
-        fn: (a, b) =>
+        fn: (a: number, b: number) =>
             b !== 0 ? Math.floor(a / b) : new Error("divide by zero")
     },
     mod: {
         argsLengthRange: [2, 2],
-        fn: (a, b) => a % b
+        fn: (a: number, b: number) => a % b
     },
 
     and: {
@@ -52,11 +53,11 @@ const operations: ynaMathMap = mapFromObject({
     },
     xor: {
         argsLengthRange: [2, 2],
-        fn: (a, b) => a ^ b
+        fn: (a: number, b: number) => a ^ b
     },
     not: {
         argsLengthRange: [1, 1],
-        fn: a => ~a
+        fn: (a: number) => ~a
     },
 
     round: {

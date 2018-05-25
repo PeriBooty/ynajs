@@ -26,31 +26,31 @@ const types: ynaWhenTypeMap = mapFromObject({
 const operations: ynaWhenMap = mapFromObject({
     eq: {
         type: "any",
-        fn: (a, b) => a === b
+        fn: (a: any, b: any) => a === b
     },
     ne: {
         type: "any",
-        fn: (a, b) => a !== b
+        fn: (a: any, b: any) => a !== b
     },
     gt: {
         type: "number",
-        fn: (a, b) => a > b
+        fn: (a: number, b: number) => a > b
     },
     ge: {
         type: "number",
-        fn: (a, b) => a >= b
+        fn: (a: number, b: number) => a >= b
     },
     lt: {
         type: "number",
-        fn: (a, b) => a < b
+        fn: (a: number, b: number) => a < b
     },
     le: {
         type: "number",
-        fn: (a, b) => a <= b
+        fn: (a: number, b: number) => a <= b
     },
     in: {
         type: "any",
-        fn: (a, b) => {
+        fn: (a: any, b: any) => {
             const bParsed = isList(b) ? toList(b) : b;
 
             return bParsed.includes(a);
@@ -58,7 +58,7 @@ const operations: ynaWhenMap = mapFromObject({
     },
     is: {
         type: "any",
-        fn: (a, b) => {
+        fn: (a: any, b: any) => {
             const typeFn = <ynaTypeCheckFn>types.get(b);
 
             return typeFn(a);
