@@ -1,6 +1,6 @@
 {
     "name": "ynajs",
-    "version": "6.1.4",
+    "version": "6.1.5",
     "description": "A YNA parser and interpreter",
     "main": "./dist/yna.common.js",
     "module": "./dist/yna.esm.js",
