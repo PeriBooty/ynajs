@@ -30,7 +30,9 @@ const commandOneline: ynaCommand = (runner, tree) => {
         return new Error("no content");
     }
 
-    const content = runner.execItem(<IYnaTree>tree[0], transformerOneline);
+    const content = runner.execItem(<IYnaTree>tree[0], {
+        transformer: transformerOneline
+    });
 
     return transformerOneline(content);
 };

@@ -214,20 +214,28 @@ const YnaRunner = class extends YnaLogger {
             keys,
             transformer: (str) => str
         };
+        this.transformer = this.defaults.transformer;
         this.commands = commands;
         this.keys = keys;
-        this.transformer = this.defaults.transformer;
     }
-    execItem(item, transformerCustom) {
+    execItem(item, custom) {
         const itemId = item[0];
         const itemContent = item.slice(1);
         let result;
         let resultType;
         /**
-         * Binds custom transformer
+         * Binds custom values
          */
-        if (transformerCustom) {
-            this.transformer = transformerCustom;
+        if (custom) {
+            if (custom.transformer) {
+                this.transformer = custom.transformer;
+            }
+            if (custom.commands) {
+                this.commands = custom.commands;
+            }
+            if (custom.keys) {
+                this.keys = custom.keys;
+            }
         }
         if (itemId === 0 /* key */) {
             // Key
@@ -259,10 +267,18 @@ const YnaRunner = class extends YnaLogger {
             resultType = "string";
         }
         /**
-         * Unbinds custom transformer
+         * Unbinds custom values
          */
-        if (transformerCustom) {
-            this.transformer = this.defaults.transformer;
+        if (custom) {
+            if (this.transformer === custom.transformer) {
+                this.transformer = this.defaults.transformer;
+            }
+            if (this.commands === custom.commands) {
+                this.commands = this.defaults.commands;
+            }
+            if (this.keys === custom.keys) {
+                this.keys = this.defaults.keys;
+            }
         }
         this.log(["item", resultType], result);
         return result;
@@ -810,7 +826,9 @@ const commandOneline = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
-    const content = runner.execItem(tree[0], transformerOneline);
+    const content = runner.execItem(tree[0], {
+        transformer: transformerOneline
+    });
     return transformerOneline(content);
 };
 

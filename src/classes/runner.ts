@@ -6,7 +6,14 @@ import {
     isObjectPlain
 } from "lightdash";
 import { ynaControlData, ynaControlTree, ynaIds } from "../enums";
-import { IYnaData, IYnaOptions, IYnaRunner, IYnaTree } from "../interfaces";
+import {
+    IYnaData,
+    IYnaOptions,
+    IYnaRunner,
+    IYnaRunnerCustomizable,
+    IYnaRunnerCustomizableOptionals,
+    IYnaTree
+} from "../interfaces";
 import {
     ynaCommand,
     ynaCommandMap,
@@ -18,11 +25,7 @@ import { stringifyError, stringifyVal } from "../types/stringify";
 import { YnaLogger } from "./logger";
 
 const YnaRunner = class extends YnaLogger implements IYnaRunner {
-    public defaults: {
-        transformer: ynaCommandTransformer;
-        commands: ynaCommandMap;
-        keys: ynaKeyMap;
-    };
+    public defaults: IYnaRunnerCustomizable;
     public transformer: ynaCommandTransformer;
     public commands: ynaCommandMap;
     public keys: ynaKeyMap;
@@ -41,13 +44,13 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
             transformer: (str: string): string => str
         };
 
+        this.transformer = this.defaults.transformer;
         this.commands = commands;
         this.keys = keys;
-        this.transformer = this.defaults.transformer;
     }
     public execItem(
         item: ynaTree,
-        transformerCustom?: ynaCommandTransformer
+        custom?: IYnaRunnerCustomizableOptionals
     ): string {
         const itemId: any = item[0];
         const itemContent: any = item.slice(1);
@@ -55,10 +58,18 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
         let resultType: string;
 
         /**
-         * Binds custom transformer
+         * Binds custom values
          */
-        if (transformerCustom) {
-            this.transformer = transformerCustom;
+        if (custom) {
+            if (custom.transformer) {
+                this.transformer = custom.transformer;
+            }
+            if (custom.commands) {
+                this.commands = custom.commands;
+            }
+            if (custom.keys) {
+                this.keys = custom.keys;
+            }
         }
 
         if (itemId === ynaIds.key) {
@@ -91,10 +102,18 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
         }
 
         /**
-         * Unbinds custom transformer
+         * Unbinds custom values
          */
-        if (transformerCustom) {
-            this.transformer = this.defaults.transformer;
+        if (custom) {
+            if (this.transformer === custom.transformer) {
+                this.transformer = this.defaults.transformer;
+            }
+            if (this.commands === custom.commands) {
+                this.commands = this.defaults.commands;
+            }
+            if (this.keys === custom.keys) {
+                this.keys = this.defaults.keys;
+            }
         }
 
         this.log(["item", resultType], result);

@@ -37,11 +37,7 @@ declare class IYnaParser extends IYnaLogger {
 }
 
 declare class IYnaRunner extends IYnaLogger {
-    public defaults: {
-        transformer: ynaCommandTransformer;
-        commands: ynaCommandMap;
-        keys: ynaKeyMap;
-    };
+    public defaults: IYnaRunnerCustomizable;
     public transformer: ynaCommandTransformer;
     public commands: ynaCommandMap;
     public keys: ynaKeyMap;
@@ -54,7 +50,7 @@ declare class IYnaRunner extends IYnaLogger {
     );
     public execItem(
         item: ynaTree,
-        transformerCustom?: ynaCommandTransformer
+        custom?: IYnaRunnerCustomizableOptionals
     ): string;
     public execArr(itemArr: IYnaTree): string[];
     public resolveCommand(name: string, data: IYnaTree): string;
@@ -93,6 +89,17 @@ interface IYnaWhenDef {
     fn: (...args: any[]) => number | Error;
 }
 
+interface IYnaRunnerCustomizable {
+    transformer: ynaCommandTransformer;
+    commands: ynaCommandMap;
+    keys: ynaKeyMap;
+}
+interface IYnaRunnerCustomizableOptionals {
+    transformer?: ynaCommandTransformer;
+    commands?: ynaCommandMap;
+    keys?: ynaKeyMap;
+}
+
 export {
     IYna,
     IYnaOptions,
@@ -100,6 +107,8 @@ export {
     IYnaLogger,
     IYnaParser,
     IYnaRunner,
+    IYnaRunnerCustomizable,
+    IYnaRunnerCustomizableOptionals,
     IYnaParserIsControlTree,
     IYnaTree,
     IYnaTreeBlockResult,

@@ -20,17 +20,13 @@ declare class IYnaParser extends IYnaLogger {
     parseBlockData(str: string): IYnaTreeBlockResult;
 }
 declare class IYnaRunner extends IYnaLogger {
-    defaults: {
-        transformer?: ynaCommandTransformer;
-        commands?: ynaCommandMap;
-        keys?: ynaKeyMap;
-    };
+    defaults: IYnaRunnerCustomizable;
     transformer: ynaCommandTransformer;
     commands: ynaCommandMap;
     keys: ynaKeyMap;
     depth: number;
     constructor(commands: ynaCommandMap, keys: ynaKeyMap, options: IYnaOptions, data: IYnaData);
-    execItem(item: ynaTree, transformerCustom?: ynaCommandTransformer): string;
+    execItem(item: ynaTree, custom?: IYnaRunnerCustomizableOptionals): string;
     execArr(itemArr: IYnaTree): string[];
     resolveCommand(name: string, data: IYnaTree): string;
     resolveKey(name: string): string;
@@ -60,4 +56,14 @@ interface IYnaWhenDef {
     type: string;
     fn: (...args: any[]) => number | Error;
 }
-export { IYna, IYnaOptions, IYnaData, IYnaLogger, IYnaParser, IYnaRunner, IYnaParserIsControlTree, IYnaTree, IYnaTreeBlockResult, IYnaMathDef, IYnaWhenDef };
+interface IYnaRunnerCustomizable {
+    transformer: ynaCommandTransformer;
+    commands: ynaCommandMap;
+    keys: ynaKeyMap;
+}
+interface IYnaRunnerCustomizableOptionals {
+    transformer?: ynaCommandTransformer;
+    commands?: ynaCommandMap;
+    keys?: ynaKeyMap;
+}
+export { IYna, IYnaOptions, IYnaData, IYnaLogger, IYnaParser, IYnaRunner, IYnaRunnerCustomizable, IYnaRunnerCustomizableOptionals, IYnaParserIsControlTree, IYnaTree, IYnaTreeBlockResult, IYnaMathDef, IYnaWhenDef };
