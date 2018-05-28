@@ -1,3 +1,3 @@
 import { ynaCommand } from "../../types";
-declare const slice: ynaCommand;
-export default slice;
+declare const commandSlice: ynaCommand;
+export { commandSlice };

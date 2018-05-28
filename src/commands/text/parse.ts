@@ -1,7 +1,7 @@
 import { IYnaTree } from "../../interfaces";
 import { ynaCommand } from "../../types";
 
-const parse: ynaCommand = (runner, tree) => {
+const commandParse: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -11,4 +11,4 @@ const parse: ynaCommand = (runner, tree) => {
     return encodeURI(content);
 };
 
-export default parse;
+export { commandParse };

@@ -372,7 +372,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
 
     const escapeKeyVal = keyVal => keyVal.replace("\n", "\\\\n");
 
-    const set = (runner, tree) => {
+    const commandFunc = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no args");
       } else if (tree.length !== 2) {
@@ -402,7 +402,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return "";
     };
 
-    const set$1 = (runner, tree) => {
+    const commandSet = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no args");
       } else if (tree.length !== 2) {
@@ -432,7 +432,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
 
     const toTime = (time, format = "%H:%M") => pydateformat(time, format);
 
-    const time = (runner, tree) => {
+    const commandTime = (runner, tree) => {
       let currentTime = moment.utc();
       const offset = tree[0] ? runner.execItem(tree[0]) : "0";
 
@@ -525,7 +525,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       "<": "lt"
     });
 
-    const when = (runner, tree) => {
+    const commandWhen = (runner, tree) => {
       if (tree.length < 4 || tree.length > 5) {
         return new Error("invalid args");
       }
@@ -644,7 +644,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       "~": "not"
     });
 
-    const math = (runner, tree) => {
+    const commandMath = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no args");
       }
@@ -685,7 +685,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return result;
     };
 
-    const choose = (runner, tree) => {
+    const commandChoose = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no options");
       }
@@ -694,7 +694,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return lightdash.randItem(options);
     };
 
-    const num = (runner, tree) => {
+    const commandNum = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no args");
       }
@@ -728,7 +728,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return Math.floor(seed / step) * step;
     };
 
-    const wchoose = (runner, tree) => {
+    const commandWchoose = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no options");
       } else if (tree.length % 2 !== 0) {
@@ -764,7 +764,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return lightdash.randItem(distributedValues);
     };
 
-    const len = (runner, tree) => {
+    const commandLen = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no content");
       }
@@ -773,7 +773,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return content.length;
     };
 
-    const lower = (runner, tree) => {
+    const commandLower = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no content");
       }
@@ -782,7 +782,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return content.toLowerCase();
     };
 
-    const parse = (runner, tree) => {
+    const commandParse = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no content");
       }
@@ -795,7 +795,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
 
     const isRegex = str => str.length > 2 && str.startsWith("/") && str.endsWith("/");
 
-    const rep = (runner, tree) => {
+    const commandRep = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no content");
       } else if (tree.length !== 3) {
@@ -811,7 +811,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return haystack.replace(regex, replacement);
     };
 
-    const slice = (runner, tree) => {
+    const commandSlice = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no args");
       } else if (tree.length !== 2) {
@@ -859,7 +859,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       }).join("");
     };
 
-    const title = (runner, tree) => {
+    const commandTitle = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no content");
       }
@@ -868,7 +868,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return toTitleCase(content);
     };
 
-    const upper = (runner, tree) => {
+    const commandUpper = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no content");
       }
@@ -895,7 +895,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return result.replace(/\\n/g, NEWLINE);
     };
 
-    const oneline = (runner, tree) => {
+    const commandOneline = (runner, tree) => {
       if (tree.length === 0) {
         return new Error("no content");
       }
@@ -904,29 +904,29 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return transformerOneline(content);
     };
 
-    const _void = (runner, tree) => {
+    const commandVoid = (runner, tree) => {
       runner.execItem(tree[0]);
       return "";
     };
 
     const initCommands = () => lightdash.mapFromObject({
-      set: set$1,
-      func: set,
-      time,
-      when,
-      math,
-      len,
-      upper,
-      lower,
-      title,
-      rep,
-      parse,
-      slice,
-      num,
-      choose,
-      wchoose,
-      oneline,
-      void: _void
+      set: commandSet,
+      func: commandFunc,
+      time: commandTime,
+      when: commandWhen,
+      math: commandMath,
+      len: commandLen,
+      upper: commandUpper,
+      lower: commandLower,
+      title: commandTitle,
+      rep: commandRep,
+      parse: commandParse,
+      slice: commandSlice,
+      num: commandNum,
+      choose: commandChoose,
+      wchoose: commandWchoose,
+      oneline: commandOneline,
+      void: commandVoid
     });
 
     const toDatetime = time => time.format("YYYY-MM-DD HH:mm:ss:SSSSSS");

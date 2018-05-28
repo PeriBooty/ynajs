@@ -1,7 +1,7 @@
 import { IYnaTree } from "../../interfaces";
 import { ynaCommand } from "../../types";
 
-const lower: ynaCommand = (runner, tree) => {
+const commandLower: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -11,4 +11,4 @@ const lower: ynaCommand = (runner, tree) => {
     return content.toLowerCase();
 };
 
-export default lower;
+export { commandLower };

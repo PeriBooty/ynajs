@@ -4,7 +4,7 @@ import { ynaCommand } from "../../types";
 import { isList, toList } from "../../types/list";
 import { isNumber, toNumber } from "../../types/number";
 
-const slice: ynaCommand = (runner, tree) => {
+const commandSlice: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
     } else if (tree.length !== 2) {
@@ -41,4 +41,4 @@ const slice: ynaCommand = (runner, tree) => {
     );
 };
 
-export default slice;
+export { commandSlice };

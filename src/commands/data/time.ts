@@ -5,7 +5,7 @@ import { toNumber } from "../../types/number";
 import { isNumberOffset } from "../../types/numberOffset";
 import { toTime } from "../../types/time";
 
-const time: ynaCommand = (runner, tree) => {
+const commandTime: ynaCommand = (runner, tree) => {
     let currentTime = utc();
     const offset = tree[0] ? runner.execItem(<IYnaTree>tree[0]) : "0";
 
@@ -21,4 +21,4 @@ const time: ynaCommand = (runner, tree) => {
     return toTime(currentTime, format);
 };
 
-export default time;
+export { commandTime };

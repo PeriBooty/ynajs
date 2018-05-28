@@ -77,7 +77,7 @@ const aliases: ynaAliasMap = mapFromObject({
     "<": "lt"
 });
 
-const when: ynaCommand = (runner, tree) => {
+const commandWhen: ynaCommand = (runner, tree) => {
     if (tree.length < 4 || tree.length > 5) {
         return new Error("invalid args");
     }
@@ -116,4 +116,4 @@ const when: ynaCommand = (runner, tree) => {
     return opRef.fn(val1, val2) ? onTrue() : onFalse();
 };
 
-export default when;
+export { commandWhen };

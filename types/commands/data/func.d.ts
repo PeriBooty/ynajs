@@ -1,3 +1,3 @@
 import { ynaCommand } from "../../types";
-declare const set: ynaCommand;
-export default set;
+declare const commandFunc: ynaCommand;
+export { commandFunc };

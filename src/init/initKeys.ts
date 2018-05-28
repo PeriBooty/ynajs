@@ -24,4 +24,4 @@ const initKeys = (args: string[], ctx: object): ynaKeyMap => {
     return map;
 };
 
-export default initKeys;
+export { initKeys };

@@ -1,3 +1,3 @@
 import { ynaCommand } from "../../types";
-declare const len: ynaCommand;
-export default len;
+declare const commandLen: ynaCommand;
+export { commandLen };

@@ -1,3 +1,3 @@
 import { ynaCommand } from "../../types";
-declare const parse: ynaCommand;
-export default parse;
+declare const commandParse: ynaCommand;
+export { commandParse };

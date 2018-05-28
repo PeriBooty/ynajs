@@ -1,47 +1,47 @@
 import { mapFromObject } from "lightdash";
-import func from "../commands/data/func";
-import set from "../commands/data/set";
-import time from "../commands/data/time";
-import when from "../commands/logic/when";
-import math from "../commands/numbers/math";
-import choose from "../commands/random/choose";
-import num from "../commands/random/num";
-import wchoose from "../commands/random/wchoose";
-import len from "../commands/text/len";
-import lower from "../commands/text/lower";
-import parse from "../commands/text/parse";
-import rep from "../commands/text/rep";
-import slice from "../commands/text/slice";
-import title from "../commands/text/title";
-import upper from "../commands/text/upper";
-import oneline from "../commands/wrapper/oneline";
-import _void from "../commands/wrapper/void";
+import { commandFunc } from "../commands/data/func";
+import { commandSet } from "../commands/data/set";
+import { commandTime } from "../commands/data/time";
+import { commandWhen } from "../commands/logic/when";
+import { commandMath } from "../commands/numbers/math";
+import { commandChoose } from "../commands/random/choose";
+import { commandNum } from "../commands/random/num";
+import { commandWchoose } from "../commands/random/wchoose";
+import { commandLen } from "../commands/text/len";
+import { commandLower } from "../commands/text/lower";
+import { commandParse } from "../commands/text/parse";
+import { commandRep } from "../commands/text/rep";
+import { commandSlice } from "../commands/text/slice";
+import { commandTitle } from "../commands/text/title";
+import { commandUpper } from "../commands/text/upper";
+import { commandOneline } from "../commands/wrapper/oneline";
+import { commandVoid } from "../commands/wrapper/void";
 import { ynaCommand, ynaCommandMap } from "../types";
 
 const initCommands = (): ynaCommandMap =>
     mapFromObject({
-        set,
-        func,
-        time,
+        set: commandSet,
+        func: commandFunc,
+        time: commandTime,
 
-        when,
+        when: commandWhen,
 
-        math,
+        math: commandMath,
 
-        len,
-        upper,
-        lower,
-        title,
-        rep,
-        parse,
-        slice,
+        len: commandLen,
+        upper: commandUpper,
+        lower: commandLower,
+        title: commandTitle,
+        rep: commandRep,
+        parse: commandParse,
+        slice: commandSlice,
 
-        num,
-        choose,
-        wchoose,
+        num: commandNum,
+        choose: commandChoose,
+        wchoose: commandWchoose,
 
-        oneline,
-        void: _void
+        oneline: commandOneline,
+        void: commandVoid
     });
 
-export default initCommands;
+export { initCommands };

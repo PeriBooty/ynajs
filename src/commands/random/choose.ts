@@ -1,7 +1,7 @@
 import { randItem } from "lightdash";
 import { ynaCommand } from "../../types";
 
-const choose: ynaCommand = (runner, tree) => {
+const commandChoose: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no options");
     }
@@ -11,4 +11,4 @@ const choose: ynaCommand = (runner, tree) => {
     return randItem(options);
 };
 
-export default choose;
+export { commandChoose };

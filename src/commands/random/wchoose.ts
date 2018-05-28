@@ -2,7 +2,7 @@ import { randItem } from "lightdash";
 import { ynaCommand } from "../../types";
 import { isNumber, toNumber } from "../../types/number";
 
-const wchoose: ynaCommand = (runner, tree) => {
+const commandWchoose: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no options");
     } else if (tree.length % 2 !== 0) {
@@ -41,4 +41,4 @@ const wchoose: ynaCommand = (runner, tree) => {
     return randItem(distributedValues);
 };
 
-export default wchoose;
+export { commandWchoose };

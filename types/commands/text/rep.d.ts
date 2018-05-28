@@ -1,3 +1,3 @@
 import { ynaCommand } from "../../types";
-declare const rep: ynaCommand;
-export default rep;
+declare const commandRep: ynaCommand;
+export { commandRep };

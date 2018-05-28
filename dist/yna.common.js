@@ -320,7 +320,7 @@ const isKey = (str) => REGEX_KEY.test(str);
 
 const escapeKeyVal = (keyVal) => keyVal.replace("\n", "\\\\n");
 
-const set = (runner, tree) => {
+const commandFunc = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
     }
@@ -345,7 +345,7 @@ const set = (runner, tree) => {
     return "";
 };
 
-const set$1 = (runner, tree) => {
+const commandSet = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
     }
@@ -371,7 +371,7 @@ const isNumberOffset = (val) => REGEX_NUMBER_OFFSET.test(String(val));
 
 const toTime = (time, format = "%H:%M") => pydateformat(time, format);
 
-const time = (runner, tree) => {
+const commandTime = (runner, tree) => {
     let currentTime = moment.utc();
     const offset = tree[0] ? runner.execItem(tree[0]) : "0";
     if (!isNumberOffset(offset)) {
@@ -454,7 +454,7 @@ const aliases = lightdash.mapFromObject({
     "<=": "le",
     "<": "lt"
 });
-const when = (runner, tree) => {
+const commandWhen = (runner, tree) => {
     if (tree.length < 4 || tree.length > 5) {
         return new Error("invalid args");
     }
@@ -571,7 +571,7 @@ const aliases$1 = lightdash.mapFromObject({
     "^": "xor",
     "~": "not"
 });
-const math = (runner, tree) => {
+const commandMath = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
     }
@@ -584,7 +584,7 @@ const math = (runner, tree) => {
         operationRef = operations$1.get(operation);
     }
     else if (aliases$1.has(operation)) {
-        operationRef = operations$1.get(aliases$1.get(operation));
+        operationRef = (operations$1.get(aliases$1.get(operation)));
     }
     else {
         return new Error("unknown operation");
@@ -610,7 +610,7 @@ const math = (runner, tree) => {
     return result;
 };
 
-const choose = (runner, tree) => {
+const commandChoose = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no options");
     }
@@ -618,7 +618,7 @@ const choose = (runner, tree) => {
     return lightdash.randItem(options);
 };
 
-const num = (runner, tree) => {
+const commandNum = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
     }
@@ -646,7 +646,7 @@ const num = (runner, tree) => {
     return Math.floor(seed / step) * step;
 };
 
-const wchoose = (runner, tree) => {
+const commandWchoose = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no options");
     }
@@ -682,7 +682,7 @@ const wchoose = (runner, tree) => {
     return lightdash.randItem(distributedValues);
 };
 
-const len = (runner, tree) => {
+const commandLen = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -690,7 +690,7 @@ const len = (runner, tree) => {
     return content.length;
 };
 
-const lower = (runner, tree) => {
+const commandLower = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -698,7 +698,7 @@ const lower = (runner, tree) => {
     return content.toLowerCase();
 };
 
-const parse = (runner, tree) => {
+const commandParse = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -709,7 +709,7 @@ const parse = (runner, tree) => {
 const toRegex = (str) => new RegExp(str.substr(1, str.length - 2));
 const isRegex = (str) => str.length > 2 && str.startsWith("/") && str.endsWith("/");
 
-const rep = (runner, tree) => {
+const commandRep = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -725,7 +725,7 @@ const rep = (runner, tree) => {
     return haystack.replace(regex, replacement);
 };
 
-const slice = (runner, tree) => {
+const commandSlice = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
     }
@@ -768,7 +768,7 @@ const toTitleCase = (str) => {
     })
         .join("");
 };
-const title = (runner, tree) => {
+const commandTitle = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -776,7 +776,7 @@ const title = (runner, tree) => {
     return toTitleCase(content);
 };
 
-const upper = (runner, tree) => {
+const commandUpper = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -802,7 +802,7 @@ const transformerOneline = (str) => {
         .join("");
     return result.replace(/\\n/g, NEWLINE);
 };
-const oneline = (runner, tree) => {
+const commandOneline = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -810,29 +810,29 @@ const oneline = (runner, tree) => {
     return transformerOneline(content);
 };
 
-const _void = (runner, tree) => {
+const commandVoid = (runner, tree) => {
     runner.execItem(tree[0]);
     return "";
 };
 
 const initCommands = () => lightdash.mapFromObject({
-    set: set$1,
-    func: set,
-    time,
-    when,
-    math,
-    len,
-    upper,
-    lower,
-    title,
-    rep,
-    parse,
-    slice,
-    num,
-    choose,
-    wchoose,
-    oneline,
-    void: _void
+    set: commandSet,
+    func: commandFunc,
+    time: commandTime,
+    when: commandWhen,
+    math: commandMath,
+    len: commandLen,
+    upper: commandUpper,
+    lower: commandLower,
+    title: commandTitle,
+    rep: commandRep,
+    parse: commandParse,
+    slice: commandSlice,
+    num: commandNum,
+    choose: commandChoose,
+    wchoose: commandWchoose,
+    oneline: commandOneline,
+    void: commandVoid
 });
 
 const toDatetime = (time) => time.format("YYYY-MM-DD HH:mm:ss:SSSSSS");

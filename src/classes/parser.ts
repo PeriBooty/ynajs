@@ -9,7 +9,7 @@ import {
 } from "../interfaces";
 import { ynaParserIterator, ynaTree } from "../types";
 import { stringifyError } from "../types/stringify";
-import YnaLogger from "./logger";
+import { YnaLogger } from "./logger";
 
 const iterateString = (str: string, fn: ynaParserIterator): number => {
     let strStack = 0;
@@ -209,4 +209,4 @@ const YnaParser = class extends YnaLogger implements IYnaParser {
     }
 };
 
-export default YnaParser;
+export { YnaParser };

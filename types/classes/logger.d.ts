@@ -7,4 +7,4 @@ declare const YnaLogger: {
         log(arr: string[], contents: any): void;
     };
 };
-export default YnaLogger;
+export { YnaLogger };

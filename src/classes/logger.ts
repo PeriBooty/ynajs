@@ -19,4 +19,4 @@ const YnaLogger = class implements IYnaLogger {
     }
 };
 
-export default YnaLogger;
+export { YnaLogger };

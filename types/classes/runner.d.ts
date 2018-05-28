@@ -16,4 +16,4 @@ declare const YnaRunner: {
         log(arr: string[], contents: any): void;
     };
 };
-export default YnaRunner;
+export { YnaRunner };

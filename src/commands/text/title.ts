@@ -23,7 +23,7 @@ const toTitleCase = (str: string): string => {
         .join("");
 };
 
-const title: ynaCommand = (runner, tree) => {
+const commandTitle: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -33,4 +33,4 @@ const title: ynaCommand = (runner, tree) => {
     return toTitleCase(content);
 };
 
-export default title;
+export { commandTitle };

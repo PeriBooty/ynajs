@@ -1,9 +1,9 @@
 import { isObject, objDefaults, objDefaultsDeep } from "lightdash";
-import YnaParser from "./classes/parser";
-import YnaRunner from "./classes/runner";
+import {YnaParser} from "./classes/parser";
+import {YnaRunner} from "./classes/runner";
 import { dataDefault, optionsDefault } from "./defaults";
-import initCommands from "./init/initCommands";
-import initKeys from "./init/initKeys";
+import {initCommands} from "./init/initCommands";
+import {initKeys} from "./init/initKeys";
 import { IYnaData, IYnaOptions } from "./interfaces";
 import { ynaCommand, ynaCommandMap, ynaTree } from "./types";
 

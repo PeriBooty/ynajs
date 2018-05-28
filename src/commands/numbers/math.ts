@@ -81,6 +81,7 @@ const operations: ynaMathMap = mapFromObject({
         fn: Math.min
     }
 });
+
 const aliases: ynaAliasMap = mapFromObject({
     "+": "add",
     "-": "sub",
@@ -96,7 +97,7 @@ const aliases: ynaAliasMap = mapFromObject({
     "~": "not"
 });
 
-const math: ynaCommand = (runner, tree) => {
+const commandMath: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
     }
@@ -110,9 +111,9 @@ const math: ynaCommand = (runner, tree) => {
     if (operations.has(operation)) {
         operationRef = <IYnaMathDef>operations.get(operation);
     } else if (aliases.has(operation)) {
-        operationRef = <IYnaMathDef>operations.get(<string>aliases.get(
-            operation
-        ));
+        operationRef = <IYnaMathDef>(
+            operations.get(<string>aliases.get(operation))
+        );
     } else {
         return new Error("unknown operation");
     }
@@ -142,4 +143,4 @@ const math: ynaCommand = (runner, tree) => {
     return result;
 };
 
-export default math;
+export { commandMath };

@@ -1,7 +1,7 @@
 import { IYnaTree } from "../../interfaces";
 import { ynaCommand } from "../../types";
 
-const len: ynaCommand = (runner, tree) => {
+const commandLen: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -11,4 +11,4 @@ const len: ynaCommand = (runner, tree) => {
     return content.length;
 };
 
-export default len;
+export { commandLen };

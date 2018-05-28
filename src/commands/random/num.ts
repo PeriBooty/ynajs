@@ -2,7 +2,7 @@ import { randNumber } from "lightdash";
 import { ynaCommand } from "../../types";
 import { isDecimal, toDecimal } from "../../types/decimal";
 
-const num: ynaCommand = (runner, tree) => {
+const commandNum: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
     }
@@ -36,4 +36,4 @@ const num: ynaCommand = (runner, tree) => {
     return Math.floor(seed / step) * step;
 };
 
-export default num;
+export { commandNum };

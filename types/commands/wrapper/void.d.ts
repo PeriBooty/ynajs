@@ -1,3 +1,3 @@
 import { ynaCommand } from "../../types";
-declare const _void: ynaCommand;
-export default _void;
+declare const commandVoid: ynaCommand;
+export { commandVoid };

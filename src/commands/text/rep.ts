@@ -2,7 +2,7 @@ import { IYnaTree } from "../../interfaces";
 import { ynaCommand } from "../../types";
 import { isRegex, toRegex } from "../../types/regex";
 
-const rep: ynaCommand = (runner, tree) => {
+const commandRep: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     } else if (tree.length !== 3) {
@@ -19,4 +19,4 @@ const rep: ynaCommand = (runner, tree) => {
     return haystack.replace(regex, replacement);
 };
 
-export default rep;
+export { commandRep };

@@ -15,7 +15,7 @@ import {
     ynaTree
 } from "../types";
 import { stringifyError, stringifyVal } from "../types/stringify";
-import YnaLogger from "./logger";
+import { YnaLogger } from "./logger";
 
 const transformerDefault: ynaCommandTransformer = (str: string): string => str;
 
@@ -146,4 +146,4 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
     }
 };
 
-export default YnaRunner;
+export { YnaRunner };

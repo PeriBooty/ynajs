@@ -1,3 +1,3 @@
 import { ynaCommand } from "../../types";
-declare const wchoose: ynaCommand;
-export default wchoose;
+declare const commandWchoose: ynaCommand;
+export { commandWchoose };

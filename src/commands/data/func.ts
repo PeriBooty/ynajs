@@ -2,9 +2,9 @@ import { MAX_RECURSION_DEPTH } from "../../constants";
 import { IYnaTree } from "../../interfaces";
 import { ynaCommand } from "../../types";
 import { isKey } from "../../types/key";
-import escapeKeyVal from "../../util/escapeKeyVal";
+import { escapeKeyVal } from "../../util/escapeKeyVal";
 
-const set: ynaCommand = (runner, tree) => {
+const commandFunc: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
     } else if (tree.length !== 2) {
@@ -38,4 +38,4 @@ const set: ynaCommand = (runner, tree) => {
     return "";
 };
 
-export default set;
+export { commandFunc };

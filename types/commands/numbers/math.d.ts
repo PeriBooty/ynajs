@@ -1,3 +1,3 @@
 import { ynaCommand } from "../../types";
-declare const math: ynaCommand;
-export default math;
+declare const commandMath: ynaCommand;
+export { commandMath };

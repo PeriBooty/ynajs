@@ -11,4 +11,4 @@ declare const YnaParser: {
         log(arr: string[], contents: any): void;
     };
 };
-export default YnaParser;
+export { YnaParser };

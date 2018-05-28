@@ -25,7 +25,7 @@ const transformerOneline: ynaCommandTransformer = (str: string): string => {
     return result.replace(/\\n/g, NEWLINE);
 };
 
-const oneline: ynaCommand = (runner, tree) => {
+const commandOneline: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -35,4 +35,4 @@ const oneline: ynaCommand = (runner, tree) => {
     return transformerOneline(content);
 };
 
-export default oneline;
+export { commandOneline };

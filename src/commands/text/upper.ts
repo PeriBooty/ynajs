@@ -1,7 +1,7 @@
 import { IYnaTree } from "../../interfaces";
 import { ynaCommand } from "../../types";
 
-const upper: ynaCommand = (runner, tree) => {
+const commandUpper: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no content");
     }
@@ -11,4 +11,4 @@ const upper: ynaCommand = (runner, tree) => {
     return content.toUpperCase();
 };
 
-export default upper;
+export { commandUpper };
