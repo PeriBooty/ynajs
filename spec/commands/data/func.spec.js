@@ -25,6 +25,22 @@ describe("Command func test", () => {
 
         expect(result).toBe("foobarbaz");
     });
+    it("Simple Params are unset", () => {
+        const result = new Yna(
+            "{func:f_myfunc;{ta1}{ta2}{ta3};}{f_myfunc:foo,bar,baz;}{ta1}{ta2}{ta3}"
+        ).run();
+
+        expect(result).toBe(
+            "foobarbaz<ta1:unknown key><ta2:unknown key><ta3:unknown key>"
+        );
+    });
+    it("Simple Params targs and talen", () => {
+        const result = new Yna(
+            "{func:f_myfunc;{targs} and {talen};}{f_myfunc:foo,bar,baz;}"
+        ).run();
+
+        expect(result).toBe("foo,bar,baz and 3");
+    });
     it("No args", () => {
         const result = new Yna("{func;}").run();
 

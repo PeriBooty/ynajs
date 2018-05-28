@@ -365,7 +365,7 @@ const commandFunc = (runner, tree) => {
         const argsParsed = toList(args);
         const keysNew = new Map(subRunner.keys);
         keysNew.set("targs", args);
-        keysNew.set("targlen", argsParsed.length);
+        keysNew.set("talen", argsParsed.length);
         argsParsed.forEach((arg, index) => {
             keysNew.set(`ta${index + 1}`, arg);
         });
