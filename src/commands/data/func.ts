@@ -7,7 +7,7 @@ import { escapeKeyVal } from "../../util/escapeKeyVal";
 const commandFunc: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
-    } else if (tree.length !== 2) {
+    } else if (tree.length < 2) {
         return new Error("invalid args");
     }
     const key = runner.execItem(<IYnaTree>tree[0]);

@@ -205,14 +205,18 @@ const YnaParser = class extends YnaLogger {
     }
 };
 
-const transformerDefault = (str) => str;
 const YnaRunner = class extends YnaLogger {
     constructor(commands, keys, options, data) {
         super("RUNNER", options, data);
         this.depth = 0;
+        this.defaults = {
+            commands,
+            keys,
+            transformer: (str) => str
+        };
         this.commands = commands;
         this.keys = keys;
-        this.transformer = transformerDefault;
+        this.transformer = this.defaults.transformer;
     }
     execItem(item, transformerCustom) {
         const itemId = item[0];
@@ -258,7 +262,7 @@ const YnaRunner = class extends YnaLogger {
          * Unbinds custom transformer
          */
         if (transformerCustom) {
-            this.transformer = transformerDefault;
+            this.transformer = this.defaults.transformer;
         }
         this.log(["item", resultType], result);
         return result;
@@ -324,7 +328,7 @@ const commandFunc = (runner, tree) => {
     if (tree.length === 0) {
         return new Error("no args");
     }
-    else if (tree.length !== 2) {
+    else if (tree.length < 2) {
         return new Error("invalid args");
     }
     const key = runner.execItem(tree[0]);

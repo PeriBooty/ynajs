@@ -24,7 +24,7 @@ describe("Command func test", () => {
         expect(result).toBe("<func:no args>");
     });
     it("Invalid args", () => {
-        const result = new Yna("{func:1;2;3;}").run();
+        const result = new Yna("{func:foo;}").run();
 
         expect(result).toBe("<func:invalid args>");
     });

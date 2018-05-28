@@ -20,6 +20,11 @@ declare class IYnaParser extends IYnaLogger {
     parseBlockData(str: string): IYnaTreeBlockResult;
 }
 declare class IYnaRunner extends IYnaLogger {
+    defaults: {
+        transformer?: ynaCommandTransformer;
+        commands?: ynaCommandMap;
+        keys?: ynaKeyMap;
+    };
     transformer: ynaCommandTransformer;
     commands: ynaCommandMap;
     keys: ynaKeyMap;

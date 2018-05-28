@@ -37,6 +37,11 @@ declare class IYnaParser extends IYnaLogger {
 }
 
 declare class IYnaRunner extends IYnaLogger {
+    public defaults: {
+        transformer: ynaCommandTransformer;
+        commands: ynaCommandMap;
+        keys: ynaKeyMap;
+    };
     public transformer: ynaCommandTransformer;
     public commands: ynaCommandMap;
     public keys: ynaKeyMap;

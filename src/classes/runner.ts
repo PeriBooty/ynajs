@@ -17,9 +17,12 @@ import {
 import { stringifyError, stringifyVal } from "../types/stringify";
 import { YnaLogger } from "./logger";
 
-const transformerDefault: ynaCommandTransformer = (str: string): string => str;
-
 const YnaRunner = class extends YnaLogger implements IYnaRunner {
+    public defaults: {
+        transformer: ynaCommandTransformer;
+        commands: ynaCommandMap;
+        keys: ynaKeyMap;
+    };
     public transformer: ynaCommandTransformer;
     public commands: ynaCommandMap;
     public keys: ynaKeyMap;
@@ -32,9 +35,15 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
     ) {
         super("RUNNER", options, data);
         this.depth = 0;
+        this.defaults = {
+            commands,
+            keys,
+            transformer: (str: string): string => str
+        };
+
         this.commands = commands;
         this.keys = keys;
-        this.transformer = transformerDefault;
+        this.transformer = this.defaults.transformer;
     }
     public execItem(
         item: ynaTree,
@@ -85,7 +94,7 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
          * Unbinds custom transformer
          */
         if (transformerCustom) {
-            this.transformer = transformerDefault;
+            this.transformer = this.defaults.transformer;
         }
 
         this.log(["item", resultType], result);
