@@ -18,6 +18,13 @@ describe("Command func test", () => {
 
         expect(result).toBe("ab\\\\nc");
     });
+    it("Simple Params", () => {
+        const result = new Yna(
+            "{func:f_myfunc;{ta1}{ta2}{ta3};}{f_myfunc:foo,bar,baz;}"
+        ).run();
+
+        expect(result).toBe("foobarbaz");
+    });
     it("No args", () => {
         const result = new Yna("{func;}").run();
 

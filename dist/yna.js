@@ -393,6 +393,14 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
 
     const isKey = str => REGEX_KEY.test(str);
 
+    const toList = str => str.split(","
+    /* list */
+    );
+
+    const isList = str => str.includes(","
+    /* list */
+    );
+
     const escapeKeyVal = keyVal => keyVal.replace("\n", "\\\\n");
 
     const commandFunc = (runner, tree) => {
@@ -408,7 +416,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
         return new Error("invalid key");
       }
 
-      const fn = () => {
+      const fn = keysNew => {
         let result;
         runner.depth++;
 
@@ -416,12 +424,27 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
           return new Error("max recursion depth exceeded");
         }
 
-        result = escapeKeyVal(runner.transformer(runner.execItem(tree[1])));
+        result = escapeKeyVal(runner.transformer(runner.execItem(tree[1], {
+          keys: keysNew
+        })));
         runner.depth--;
         return result;
       };
 
+      const commandFuncNested = (subRunner, subTree) => {
+        const args = subRunner.execItem(subTree);
+        const argsParsed = toList(args);
+        const keysNew = new Map(subRunner.keys);
+        keysNew.set("targs", args);
+        keysNew.set("targlen", argsParsed.length);
+        argsParsed.forEach((arg, index) => {
+          keysNew.set(`ta${index + 1}`, arg);
+        });
+        return fn(keysNew);
+      };
+
       runner.keys.set(key, fn);
+      runner.commands.set(key, commandFuncNested);
       return "";
     };
 
@@ -479,14 +502,6 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
     const isError = str => REGEX_ERROR.test(str);
 
     const isLetter = str => str.length === 1;
-
-    const toList = str => str.split(","
-    /* list */
-    );
-
-    const isList = str => str.includes(","
-    /* list */
-    );
 
     const isWord = str => !str.includes(" ");
 
