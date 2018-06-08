@@ -1,6 +1,6 @@
 declare const enum ynaControlTree {
     open = "{",
-    close = "}",
+    close = "}"
 }
 declare const enum ynaControlData {
     start = ":",
@@ -8,11 +8,11 @@ declare const enum ynaControlData {
     list = ",",
     prop = ".",
     comment = "!",
-    escape = ">",
+    escape = ">"
 }
 declare const enum ynaIds {
     key = 0,
     command = 1,
-    comment = 2,
+    comment = 2
 }
 export { ynaControlData, ynaControlTree, ynaIds };

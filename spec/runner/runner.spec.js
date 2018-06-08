@@ -58,4 +58,12 @@ describe("Runner test", () => {
 
         expect(result).toBe("Bar");
     });
+
+    it("Whitespace in Types", () => {
+        const tag = new Yna(`{wchoose:4;5
+            ;}`);
+        const result = tag.run();
+
+        expect(result).toBe("4");
+    });
 });

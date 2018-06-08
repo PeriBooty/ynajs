@@ -336,7 +336,7 @@ const MATH_MAX = Math.pow(2, 32) - 1;
 const MATH_MIN = -Math.pow(2, 32) + 1;
 
 const REGEX_KEY = /^[a-z_][0-9a-z_]*$/i;
-const isKey = (str) => REGEX_KEY.test(str);
+const isKey = (str) => REGEX_KEY.test(str.trim());
 
 const toList = (str) => str.split("," /* list */);
 const isList = (str) => str.includes("," /* list */);
@@ -398,13 +398,13 @@ const commandSet = (runner, tree) => {
 };
 
 const REGEX_NUMBER = /^-?\d+$/;
-const toNumber = parseInt;
-const isNumber = (val) => REGEX_NUMBER.test(String(val));
+const toNumber = (val) => parseInt(String(val).trim(), 10);
+const isNumber = (val) => REGEX_NUMBER.test(String(val).trim());
 
 const REGEX_NUMBER_OFFSET = /^[+-]?[0-9]+$/;
-const isNumberOffset = (val) => REGEX_NUMBER_OFFSET.test(String(val));
+const isNumberOffset = (val) => REGEX_NUMBER_OFFSET.test(String(val).trim());
 
-const toTime = (time, format = "%H:%M") => pydateformat(time, format);
+const toTime = (time, format = "%H:%M") => pydateformat(time, format.trim());
 
 const commandTime = (runner, tree) => {
     let currentTime = moment.utc();
@@ -419,11 +419,11 @@ const commandTime = (runner, tree) => {
 };
 
 const REGEX_FLOAT = /^-?\d+(?:\.\d+)?$/;
-const toDecimal = parseFloat;
-const isDecimal = (val) => REGEX_FLOAT.test(String(val));
+const toDecimal = (val) => parseFloat(String(val).trim());
+const isDecimal = (val) => REGEX_FLOAT.test(String(val).trim());
 
 const REGEX_ERROR = /^<[a-z][a-z0-9_]*:[a-z0-9 ]+>$/;
-const isError = (str) => REGEX_ERROR.test(str);
+const isError = (str) => REGEX_ERROR.test(str.trim());
 
 const isLetter = (str) => str.length === 1;
 
