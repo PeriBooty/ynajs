@@ -1,6 +1,6 @@
 import { IYnaTree } from "../../interfaces";
 import { ynaCommand } from "../../types";
-import { isRegex, toRegex } from "../../types/regex";
+import { escapeRegex, isRegex, isRegexValid, toRegex } from "../../types/regex";
 
 const commandRep: ynaCommand = (runner, tree) => {
     if (tree.length === 0) {
@@ -14,7 +14,10 @@ const commandRep: ynaCommand = (runner, tree) => {
     const needle = data[0];
     const haystack = newrep ? data[2] : data[1];
     const replacement = newrep ? data[1] : data[2];
-    const regex = isRegex(needle) ? toRegex(needle) : new RegExp(needle, "g");
+    const regex =
+        isRegex(needle) && isRegexValid(needle)
+            ? toRegex(needle)
+            : new RegExp(escapeRegex(needle), "g");
 
     return haystack.replace(regex, replacement);
 };

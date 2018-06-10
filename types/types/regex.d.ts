@@ -1,3 +1,6 @@
-declare const toRegex: (str: string) => RegExp;
+declare const escapeRegex: (str: string) => string;
+declare const getRegex: (str: string) => string;
 declare const isRegex: (str: string) => boolean;
-export { toRegex, isRegex };
+declare const isRegexValid: (str: string) => boolean;
+declare const toRegex: (str: string) => RegExp;
+export { toRegex, isRegex, isRegexValid, getRegex, escapeRegex };

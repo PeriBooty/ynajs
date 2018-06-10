@@ -738,8 +738,21 @@ const commandParse = (runner, tree) => {
     return encodeURI(content);
 };
 
-const toRegex = (str) => new RegExp(str.substr(1, str.length - 2));
+const escapeRegex = (str) => str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+const getRegex = (str) => str.substr(1, str.length - 2);
 const isRegex = (str) => str.length > 2 && str.startsWith("/") && str.endsWith("/");
+const isRegexValid = (str) => {
+    let result = true;
+    try {
+        // tslint:disable:no-unused-expression
+        new RegExp(getRegex(str));
+    }
+    catch (e) {
+        result = false;
+    }
+    return result;
+};
+const toRegex = (str) => new RegExp(getRegex(str));
 
 const commandRep = (runner, tree) => {
     if (tree.length === 0) {
@@ -753,7 +766,9 @@ const commandRep = (runner, tree) => {
     const needle = data[0];
     const haystack = newrep ? data[2] : data[1];
     const replacement = newrep ? data[1] : data[2];
-    const regex = isRegex(needle) ? toRegex(needle) : new RegExp(needle, "g");
+    const regex = isRegex(needle) && isRegexValid(needle)
+        ? toRegex(needle)
+        : new RegExp(escapeRegex(needle), "g");
     return haystack.replace(regex, replacement);
 };
 

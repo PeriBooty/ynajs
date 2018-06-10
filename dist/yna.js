@@ -831,9 +831,22 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       return encodeURI(content);
     };
 
-    const toRegex = str => new RegExp(str.substr(1, str.length - 2));
-
     const isRegex = str => str.length > 2 && str.startsWith("/") && str.endsWith("/");
+
+    const isRegexValid = str => {
+      let result = true;
+
+      try {
+      } catch (e) {
+        result = false;
+      }
+
+      return result;
+    };
+
+    const escapeRegex = str => str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+
+    const toRegex = str => isRegexValid(str) ? new RegExp(str.substr(1, str.length - 2)) : new RegExp("(?:)");
 
     const commandRep = (runner, tree) => {
       if (tree.length === 0) {
@@ -847,7 +860,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
       const needle = data[0];
       const haystack = newrep ? data[2] : data[1];
       const replacement = newrep ? data[1] : data[2];
-      const regex = isRegex(needle) ? toRegex(needle) : new RegExp(needle, "g");
+      const regex = isRegex(needle) ? toRegex(needle) : new RegExp(escapeRegex(needle), "g");
       return haystack.replace(regex, replacement);
     };
 
