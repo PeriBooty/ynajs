@@ -294,6 +294,17 @@ const YnaRunner = class extends YnaLogger {
         }
         const command = this.commands.get(name);
         const result = command(this, tree);
+        if (typeof result == 'object') {
+            if (result.__default)
+                return result;
+            if (result.toString() == "[object Object]") {
+                result.__default = `<${name}:object>`;
+            }
+            else {
+                result.__default = result.toString();
+            }
+            return result;
+        }
         return stringifyVal(result, name);
     }
     resolveKey(name) {
@@ -341,7 +352,7 @@ const isKey = (str) => REGEX_KEY.test(str.trim());
 const toList = (str) => str.split("," /* list */);
 const isList = (str) => str.includes("," /* list */);
 
-const escapeKeyVal = (keyVal) => keyVal.replace("\n", "\\\\n");
+const escapeKeyVal = (keyVal) => typeof keyVal == "string" ? keyVal.replace("\n", "\\\\n") : keyVal;
 
 const commandFunc = (runner, tree) => {
     if (tree.length === 0) {

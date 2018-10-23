@@ -1,2 +1,2 @@
-declare const escapeKeyVal: (keyVal: string) => string;
+declare const escapeKeyVal: (keyVal: any) => string;
 export { escapeKeyVal };

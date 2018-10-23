@@ -1,3 +1,3 @@
-const escapeKeyVal = (keyVal: string): string => keyVal.replace("\n", "\\\\n");
+const escapeKeyVal = (keyVal: any): string => typeof keyVal == "string" ? keyVal.replace("\n", "\\\\n") : keyVal;
 
 export { escapeKeyVal };

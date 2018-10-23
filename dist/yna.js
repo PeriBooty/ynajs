@@ -339,6 +339,19 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
 
         const command = this.commands.get(name);
         const result = command(this, tree);
+
+        if (typeof result == 'object') {
+          if (result.__default) return result;
+
+          if (result.toString() == "[object Object]") {
+            result.__default = `<${name}:object>`;
+          } else {
+            result.__default = result.toString();
+          }
+
+          return result;
+        }
+
         return stringifyVal(result, name);
       }
 
@@ -401,7 +414,7 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
     /* list */
     );
 
-    const escapeKeyVal = keyVal => keyVal.replace("\n", "\\\\n");
+    const escapeKeyVal = keyVal => typeof keyVal == "string" ? keyVal.replace("\n", "\\\\n") : keyVal;
 
     const commandFunc = (runner, tree) => {
       if (tree.length === 0) {

@@ -135,6 +135,15 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
         const command = <ynaCommand>this.commands.get(name);
         const result = command(this, tree);
 
+        if (typeof result == 'object') {
+            if (result.__default) return result;
+            if (result.toString() == "[object Object]") {
+                result.__default = `<${name}:object>`;
+            } else {
+                result.__default = result.toString();
+            }
+            return result;
+        }
         return stringifyVal(result, name);
     }
     public resolveKey(name: string): string {
