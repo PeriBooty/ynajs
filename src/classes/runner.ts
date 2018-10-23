@@ -136,6 +136,10 @@ const YnaRunner = class extends YnaLogger implements IYnaRunner {
         const result = command(this, tree);
 
         if (typeof result == 'object') {
+            for (var property in result) {
+                if (isFunction(result[property]) && property !== 'toString')
+                    result[property] = `<${property}:FunctionStub>`;
+            }
             if (result.__default) return result;
             if (result.toString() == "[object Object]") {
                 result.__default = `<${name}:object>`;

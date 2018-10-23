@@ -341,6 +341,10 @@ var Yna = (function (lightdash,pydateformat,moment,pyslice) {
         const result = command(this, tree);
 
         if (typeof result == 'object') {
+          for (var property in result) {
+            if (lightdash.isFunction(result[property]) && property !== 'toString') result[property] = `<${property}:FunctionStub>`;
+          }
+
           if (result.__default) return result;
 
           if (result.toString() == "[object Object]") {
